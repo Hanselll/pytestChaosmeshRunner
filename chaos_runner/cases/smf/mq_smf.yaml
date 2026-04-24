@@ -1,0 +1,48 @@
+name: smf_mq_and_smf
+
+workflow:
+  name: wf-smf-mq-and-smf
+  namespace: default
+
+renderer: modular_chaos
+
+targets:
+  - id: mq_proxy
+    finder: by_name_prefix
+    name_prefix: "smf-sf-mq-proxy-"
+
+  - id: smf_pods
+    finder: by_name_prefix
+    name_prefix: "smf-smf-"
+
+stages:
+  - mode: parallel
+    faults:
+      - type: network_delay
+        selectors:
+          from: smf_pods
+          to: mq_proxy
+        direction: both
+        duration: 30s
+        delay:
+          latency: 300ms
+          jitter: 200ms
+
+      - type: pod_kill
+        target: mq_proxy
+        expand:
+          mode: random
+          count: 1
+        delay: 0ms
+        duration: 1s
+
+      - type: pod_kill
+        target: smf_pods
+        expand:
+          mode: random
+          count: 1
+        delay: 200ms
+        duration: 1s
+
+wait_seconds: 40
+cleanup: true

@@ -1,0 +1,88 @@
+name: ddb_shard0_master_slave_upc_talker
+
+workflow:
+  name: wf-ddb-shard0-master-slave-upc-talker
+  namespace: default
+
+renderer: modular_chaos
+network_expand_to_component_pods: false
+
+targets:
+  - id: ddb_shard0_master
+    finder: ddb_shard_master
+    shard: "0"
+
+  - id: ddb_shard0_slaves
+    finder: ddb_shard_slaves
+    shard: "0"
+
+  - id: upc_talker
+    finder: upc_talker
+
+  - id: upc_component
+    finder: by_label
+    label: "app.kubernetes.io/component: dupf-pod-upc"
+
+stages:
+  - mode: parallel
+    faults:
+      - type: network_delay
+        selectors:
+          from: upc_component
+          to: ddb_shard0_master
+        direction: both
+        duration: 30s
+        delay:
+          latency: 300ms
+          jitter: 300ms
+
+      - type: network_loss
+        selectors:
+          from: upc_component
+          to: ddb_shard0_master
+        direction: both
+        duration: 30s
+        loss:
+          loss: "10"
+          correlation: "0"
+
+      - type: network_delay
+        selectors:
+          from: upc_component
+          to: ddb_shard0_slaves
+        direction: both
+        duration: 30s
+        delay:
+          latency: 300ms
+          jitter: 300ms
+
+      - type: network_loss
+        selectors:
+          from: upc_component
+          to: ddb_shard0_slaves
+        direction: both
+        duration: 30s
+        loss:
+          loss: "10"
+          correlation: "0"
+
+      - type: pod_kill
+        target: ddb_shard0_master
+        delay: 0ms
+        duration: 1s
+
+      - type: pod_kill
+        target: ddb_shard0_slaves
+        expand:
+          mode: random
+          count: 1
+        delay: 100ms
+        duration: 1s
+
+      - type: pod_kill
+        target: upc_talker
+        delay: 200ms
+        duration: 1s
+
+wait_seconds: 40
+cleanup: true

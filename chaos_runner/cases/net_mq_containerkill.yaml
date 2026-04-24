@@ -1,0 +1,63 @@
+name: wf-net-multi-pod-containerkill-parallel
+
+workflow:
+  name: wf-net-multi-pod-containerkill-parallel
+  namespace: default
+
+renderer: network_parallel_containerkill
+
+targets:
+  - id: mq
+    finder: by_label
+    label: "app.kubernetes.io/component: dupf-pod-mq-proxy"
+  - id: upc-lb
+    finder: by_label
+    label: "app.kubernetes.io/dupf.service: dupf-pod-upc-lb"
+network:
+  duration: 30
+  actions: [delay, loss]
+  delay:
+    latency: 300ms
+    jitter: 10ms
+  loss:
+    loss: "10"
+    corr: "0"
+  direction: both
+  selectors:
+    from: upc
+    to: rc_etcd
+  labels:
+    to: "app.kubernetes.io/component: dupf-registry-center"
+    from: "app.kubernetes.io/component: dupf-pod-upc"
+
+kill:
+  items:
+    - target: mq
+      expand:
+        mode: random
+        count: 1
+      delay: "200ms"
+      containerNames:
+        - mq-proxy-main
+      #expand:
+      #  mode: indices
+      #  indices: [1]
+      #delay: "200ms"        # 这一条的默认 delay（每个 pod 可覆盖，见下面的 delayMap 可选扩展）
+      #containerMap:
+      #  dupf-sf-mq-proxy-0:
+      #    - mq-proxy-main
+      #  dupf-sf-mq-proxy-1:
+      #    - mq-proxy-main
+      #  dupf-sf-mq-proxy-2:
+      #    - mq-proxy-main
+
+    - target: upc-lb
+      expand:
+        mode: random
+        count: 1
+      delay: "100ms"
+      containerNames:
+        - upc-lb
+
+wait_seconds: 10
+cleanup: true

@@ -1,0 +1,44 @@
+name: example_modular_network_labels
+workflow:
+  name: wf-example-modular-network-labels
+  namespace: default
+
+renderer: modular_chaos
+
+targets:
+  - id: upc_talker
+    finder: upc_talker
+  - id: rc_leader
+    finder: rc_leader
+
+stages:
+  - mode: parallel
+    faults:
+      - type: pod_kill
+        target: upc_talker
+      - type: pod_kill
+        target: rc_leader
+
+  - mode: parallel
+    faults:
+      - type: network_delay
+        labels:
+          from: "app.kubernetes.io/component: dupf-pod-upc"
+          to: "app.kubernetes.io/component: dupf-registry-center"
+        direction: both
+        duration: 60s
+        delay:
+          latency: 100ms
+          jitter: 10ms
+      - type: network_loss
+        labels:
+          from: "app.kubernetes.io/component: dupf-pod-upc"
+          to: "app.kubernetes.io/component: dupf-registry-center"
+        direction: both
+        duration: 60s
+        loss:
+          loss: "1"
+          correlation: "0"
+
+wait_seconds: 80
+cleanup: true

@@ -1,0 +1,16 @@
+name: example_random_upc_pods
+renderer: parallel_podkill
+
+targets:
+  # Returns all UPC pods (talker + non‑talkers)
+  - id: upc
+    finder: upc_pods
+
+# Randomly kill one UPC pod (without specifying names)
+kill:
+  items:
+    - target: upc
+      expand:
+        mode: random
+        count: 1
+      delay: 0

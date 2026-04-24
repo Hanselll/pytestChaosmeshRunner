@@ -1,0 +1,70 @@
+# Copy this file to a local path outside version control and pass it with:
+#   py -3 -m chaos_runner.runner --config-file path/to/config.yaml --case ...
+# Environment variables with prefix CHAOS_RUNNER_ override file values.
+
+NS_TARGET: ns-dupf
+WF_NAMESPACE: default
+EXECUTION_MODE: remote_apply
+REMOTE_APPLY_HOST: "10.230.246.195"
+REMOTE_APPLY_PORT: 50163
+REMOTE_APPLY_USER: "gsta"
+REMOTE_APPLY_BASE_DIR: /tmp/chaos-runner
+REMOTE_APPLY_SSH_EXTRA_OPTS: -T
+REMOTE_APPLY_RETRIES: 2
+REMOTE_APPLY_RETRY_DELAY_SECONDS: 2
+
+RC_SVC_NAME: dupf-registry-center
+RC_API_PORT: 8158
+RC_CLUSTER_API_PATH: /api/paas/v1/maintenance/rc/cluster
+
+OAM_CONTAINER: lmt-cli
+LMT_USER: jtckpt
+LMT_PASSWORD: Ab5zsq*SQFqH%aG!34~
+LMT_IP: 127.0.0.1
+LMT_PORT: 8153
+LMT_TABLE: upfGetTalkerRole
+LMT_TARGET_MODE: oam_container
+LMT_POD_NAME: ""
+LMT_POD_PREFIX: lmt-cli
+LMT_POD_CONTAINER: ""
+# Optional: explicitly control LMT snapshot commands in PRE/POST checks.
+# If set, these override case-level observer.lmt commands.
+# LMT_COMMANDS:
+#   - lmt-cli list upfGetTalkerRole --format table
+# LMT_PRE_COMMANDS:
+#   - lmt-cli list upfGetTalkerRole --format table
+# LMT_POST_COMMANDS:
+#   - lmt-cli list upfGetTalkerRole --format table
+OBSERVER_LOG_MAX_WORKERS: 8
+
+DDB_EXEC_POD: dupf-ddb-shd-0-0
+DDB_POD_PREFIX: dupf-ddb
+REDIS_PORT: 17380
+REDIS_AUTH: px!2eZ{ys[r3d5eR
+EXPECTED_MASTER_COUNT: 3
+
+SDB_POD_PREFIX: dupf-sdb
+SDB_PORT: 17369
+SDB_AUTH: hB#yq72Q6}8D]S2g
+SDB_SENTINEL_POD_PREFIX: dupf-sdb-sentinel
+SDB_SENTINEL_PORT: 26380
+
+NET_VERIFY_ENABLED: true
+NET_VERIFY_REMOTE_SSH_USER: gsta
+NET_VERIFY_LOCAL_EXEC_USER: root
+NET_VERIFY_SSH_PORT: 50163
+NET_VERIFY_SSH_EXTRA_OPTS: -T
+NET_VERIFY_SSH_CONFIG_FILE: /dev/null
+NET_VERIFY_TIMEOUT_SECONDS: 20
+NET_VERIFY_POLL_INTERVAL_SECONDS: 2
+NETWORK_PHASE_EXTRA_BUFFER_SECONDS: 10
+NET_VERIFY_NODE_HOST_MAP:
+  solarserver01: 10.230.246.195
+  solarserver02: 10.230.246.196
+  solarserver03: 10.230.246.197
+  solarserver04: 10.230.246.198
+# Optional: if remote sudo is not NOPASSWD, NET_VERIFY can feed the password to sudo -S.
+NET_VERIFY_REMOTE_SUDO_PASSWORD: "gsta123"
+# Optional: local sudo password when NET_VERIFY_LOCAL_NODE_NAMES routes checks to this machine.
+NET_VERIFY_LOCAL_SUDO_PASSWORD: ""
+NET_VERIFY_LOCAL_NODE_NAMES: []

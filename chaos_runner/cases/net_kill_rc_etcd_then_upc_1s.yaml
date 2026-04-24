@@ -1,0 +1,46 @@
+name: net_kill_rc_etcd_then_upc_1s
+
+workflow:
+  name: wf-net-kill-rc-etcd-then-upc-1s
+  namespace: default
+
+renderer: network_then_parallel_podkill
+
+targets:
+  - id: upc
+    finder: upc_talker
+
+  - id: rc_etcd
+    finder: rc_etcd_leader
+
+network:
+  duration: 180
+  actions: [delay, loss]
+  direction: both
+  selectors:
+    from: upc
+    to: rc_etcd
+  labels:
+    from: "app.kubernetes.io/component: dupf-pod-upc"
+    # ⚠️ 这里你需要填“rc-etcd 对应的 labelSelectors”
+    # 如果 rc-etcd 的 Pod label 不是这个，请改成实际值
+    to: "app.kubernetes.io/component: etcd"
+
+  delay:
+    latency: 300ms
+    jitter: 10ms
+
+  loss:
+    loss: "10"
+    correlation: "0"
+
+kill:
+  items:
+    - target: rc_etcd
+      delay: 0
+    - target: upc
+      delay: 1
+
+wait_seconds: 200
+cleanup: true
+

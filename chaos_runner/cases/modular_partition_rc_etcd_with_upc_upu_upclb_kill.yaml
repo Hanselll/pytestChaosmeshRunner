@@ -1,0 +1,89 @@
+name: modular_partition_rc_etcd_with_upc_upu_upclb_kill
+
+workflow:
+  name: wf-partition-rc-etcd-with-upc-upu-upclb-kill
+  namespace: default
+
+renderer: modular_chaos
+
+targets:
+  - id: rc_etcd_leader
+    finder: rc_etcd_leader
+  - id: etcd_followers
+    finder: etcd_followers
+
+  - id: upc_talker
+    finder: upc_talker
+  - id: upu_pool
+    finder: by_label_prefix
+    label_prefix: "app.kubernetes.io/component: dupf-pod-upu-"
+  - id: upc_lb_pool
+    finder: by_label
+    label: "app.kubernetes.io/dupf.service: dupf-pod-upc-lb"
+
+stages:
+  - mode: parallel
+    faults:
+      - type: network_partition
+        selectors:
+          from: rc_etcd_leader
+          to: etcd_followers
+        direction: both
+        duration: 60s
+
+      - type: container_kill
+        target: upc_talker
+        duration: 1s
+        delay: "0s~1s"
+        containerNames: [upc]
+
+      - type: container_kill
+        target: upu_pool
+        expand:
+          mode: random
+          count: 1
+        duration: 1s
+        delay: "0s~1s"
+        containerNames: [upu]
+
+      - type: container_kill
+        target: upc_lb_pool
+        expand:
+          mode: random
+          count: 1
+        duration: 1s
+        delay: "0s~1s"
+        containerNames: [upc-lb]
+
+  - mode: parallel
+    faults:
+      - type: network_partition
+        selectors:
+          from: rc_etcd_leader
+          to: etcd_followers
+        direction: both
+        duration: 60s
+
+      - type: pod_kill
+        target: upc_talker
+        duration: 1s
+        delay: "0s~1s"
+
+      - type: pod_kill
+        target: upu_pool
+        expand:
+          mode: random
+          count: 1
+        duration: 1s
+        delay: "0s~1s"
+
+      - type: pod_kill
+        target: upc_lb_pool
+        expand:
+          mode: random
+          count: 1
+        duration: 1s
+        delay: "0s~1s"
+
+wait_seconds: 160
+cleanup: true

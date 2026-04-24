@@ -1,0 +1,28 @@
+name: upc_talker_and_rc_etcd_leader
+
+workflow:
+  name: wf-upc-etcd-leader-kill
+  namespace: default
+
+renderer: parallel_podkill
+
+targets:
+  - id: upc
+    finder: upc_talker
+
+  - id: etcd
+    finder: rc_etcd_leader
+
+kill:
+  items:
+    # 立即 kill UPC talker
+    - target: upc
+      delay: 0.1
+
+    # 相隔 3 秒 kill RC-etcd leader
+    - target: etcd
+      delay: 0
+
+wait_seconds: 60
+cleanup: true
+

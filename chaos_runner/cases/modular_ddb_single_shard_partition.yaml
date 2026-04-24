@@ -1,0 +1,33 @@
+name: modular_ddb_single_shard_partition
+
+workflow:
+  name: wf-modular-ddb-single-shard-partition
+  namespace: default
+
+renderer: modular_chaos
+
+# 对分片级 finder 结果做精确注入，不进行组件级自动扩展
+network_expand_to_component_pods: false
+
+targets:
+  # 指定分片：可写 0 或 shd-0
+  - id: ddb_shard0_master
+    finder: ddb_shard_master
+    shard: "0"
+
+  - id: ddb_shard0_slaves
+    finder: ddb_shard_slaves
+    shard: "0"
+
+stages:
+  - mode: parallel
+    faults:
+      - type: network_partition
+        selectors:
+          from: ddb_shard0_master
+          to: ddb_shard0_slaves
+        duration: 60s
+        direction: both
+
+wait_seconds: 80
+cleanup: true

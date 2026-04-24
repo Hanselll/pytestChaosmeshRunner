@@ -1,0 +1,69 @@
+name: example_modular_chaos_combo
+workflow:
+  name: wf-example-modular-chaos-combo
+  namespace: default
+
+renderer: modular_chaos
+
+targets:
+  - id: rc_leader
+    finder: rc_leader
+  - id: upc_lb
+    finder: by_label
+    label: "app.kubernetes.io/dupf.service: dupf-pod-upc-lb"
+  - id: upc_non_talkers
+    finder: upc_non_talkers
+
+stages:
+  - mode: parallel
+    faults:
+      - type: pod_kill
+        target: rc_leader
+        delay: "0s~1s"
+      - type: container_kill
+        target: upc_lb
+        expand:
+          mode: random
+          count: 1
+        delay: "0s~1s"
+        containerNames: [upc-lb]
+      - type: cpu_stress
+        target: rc_leader
+        duration: "20s~40s"
+        cpu:
+          workers: 1
+          load: 70
+
+  - mode: parallel
+    faults:
+      - type: network_delay
+        selectors:
+          from: upc_non_talkers
+          to: rc_leader
+        duration: 30s
+        delay:
+          latency: "100ms~500ms"
+          jitter: "5ms~20ms"
+      - type: network_loss
+        selectors:
+          from: upc_non_talkers
+          to: rc_leader
+        duration: 30s
+        loss:
+          loss: "1~10"
+          correlation: "0"
+      - type: network_partition
+        selectors:
+          from: upc_lb
+          to: rc_leader
+        duration: 15s
+      - type: memory_stress
+        target: upc_lb
+        expand: all
+        duration: 20s
+        memory:
+          workers: 1
+          size: 256MB
+
+wait_seconds: 80
+cleanup: true

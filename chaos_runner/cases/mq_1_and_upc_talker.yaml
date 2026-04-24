@@ -1,0 +1,46 @@
+name: mq_1_and_upc_talker
+
+workflow:
+  name: mq-1-and-upc-talker
+  namespace: default
+
+# 使用“网络 + kill”的 renderer
+renderer: network_then_parallel_podkill
+
+targets:
+  - id: upc
+    finder: upc_talker
+  - id: mq_proxy
+    finder: by_label
+    label: "app.kubernetes.io/component: dupf-pod-mq-proxy"
+
+network:
+  duration: 30
+  actions: [delay, loss]
+  delay:
+    latency: 300ms
+    jitter: 10ms
+  loss:
+    loss: "10"
+    corr: "0"
+  direction: both
+  selectors:
+    from: upc
+    to: rc_etcd
+  labels:
+    to: "app.kubernetes.io/component: dupf-pod-mq-proxy"
+    from: "app.kubernetes.io/component: dupf-pod-upc"
+
+kill:
+  items:
+    - target: upc
+      delay: 0
+
+    - target: mq_proxy
+      expand:
+        mode: random
+        count: 1
+      delay: 0
+
+wait_seconds: 40
+cleanup: true

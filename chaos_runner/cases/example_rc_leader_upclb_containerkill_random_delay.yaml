@@ -1,0 +1,40 @@
+name: example_rc_leader_upclb_containerkill_random_delay
+
+workflow:
+  name: wf-example-rc-leader-upclb-containerkill-random-delay
+  namespace: default
+
+renderer: network_parallel_containerkill
+
+targets:
+  - id: rc_leader
+    finder: rc_leader
+  - id: upc_lb
+    finder: by_label
+    label: "app.kubernetes.io/dupf.service: dupf-pod-upc-lb"
+
+network:
+  duration: 5
+  actions: [partition]
+  direction: both
+  selectors:
+    from: rc_leader
+    to: upc_lb
+
+kill:
+  items:
+    - target: rc_leader
+      delay: "0s~1s"
+      containerNames:
+        - registry-center
+
+    - target: upc_lb
+      expand:
+        mode: random
+        count: 1
+      delay: "0s~1s"
+      containerNames:
+        - upc-lb
+
+wait_seconds: 20
+cleanup: true

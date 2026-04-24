@@ -1,0 +1,66 @@
+NS_TARGET: ns-smf1
+WF_NAMESPACE: default
+EXECUTION_MODE: local
+REMOTE_APPLY_HOST: ""
+REMOTE_APPLY_PORT: 22
+REMOTE_APPLY_USER: ""
+REMOTE_APPLY_BASE_DIR: /tmp/chaos-runner
+REMOTE_APPLY_SSH_EXTRA_OPTS: -T
+REMOTE_APPLY_RETRIES: 2
+REMOTE_APPLY_RETRY_DELAY_SECONDS: 2
+
+# RC/DDB/SDB prefixes can be auto-derived from NS_TARGET=ns-smf1.
+# Keep explicit values here so the runtime profile is obvious.
+RC_SVC_NAME: smf-registry-center
+RC_API_PORT: 8158
+RC_CLUSTER_API_PATH: /api/paas/v1/maintenance/rc/cluster
+
+OAM_CONTAINER: lmt-cli
+LMT_USER: jtckpt
+LMT_PASSWORD: Chinatelecom@123
+# Prefer stable Service DNS over Pod/ClusterIP. Update if your svc name differs.
+LMT_IP: smf-oam
+LMT_PORT: 8153
+# dedicated_pod mode logs in via lmt-cli default target discovery in Pod.
+# LMT_IP/LMT_PORT are used only when mode is oam_container/explicit.
+LMT_TARGET_MODE: dedicated_pod
+LMT_POD_NAME: ""
+LMT_POD_PREFIX: smf-oam-lmt-cli
+LMT_POD_CONTAINER: ""
+
+# SMF can define its own LMT query set here.
+# If set, these override case-level observer.lmt commands.
+LMT_PRE_COMMANDS:
+  - lmt-cli list smfGetSessStatistic --format table
+  - lmt-cli list smfGetNodeStatus --format table
+LMT_POST_COMMANDS:
+  - lmt-cli list smfGetSessStatistic --format table
+  - lmt-cli list smfGetNodeStatus --format table
+  - lmt-cli list smfGetAlarmInfo --format table
+OBSERVER_LOG_MAX_WORKERS: 8
+
+DDB_EXEC_POD: smf-ddb-shd-0-0
+DDB_POD_PREFIX: smf-ddb
+REDIS_PORT: 17380
+REDIS_AUTH: px!2eZ{ys[r3d5eR
+EXPECTED_MASTER_COUNT: 3
+
+SDB_POD_PREFIX: smf-sdb
+SDB_PORT: 17369
+SDB_AUTH: hB#yq72Q6}8D]S2g
+SDB_SENTINEL_POD_PREFIX: smf-sdb-sentinel
+SDB_SENTINEL_PORT: 26380
+
+NET_VERIFY_ENABLED: true
+NET_VERIFY_REMOTE_SSH_USER: gsta
+NET_VERIFY_LOCAL_EXEC_USER: root
+NET_VERIFY_SSH_PORT: 22
+NET_VERIFY_SSH_EXTRA_OPTS: -T
+NET_VERIFY_SSH_CONFIG_FILE: /dev/null
+NET_VERIFY_TIMEOUT_SECONDS: 20
+NET_VERIFY_POLL_INTERVAL_SECONDS: 2
+NETWORK_PHASE_EXTRA_BUFFER_SECONDS: 10
+NET_VERIFY_NODE_HOST_MAP: {}
+NET_VERIFY_REMOTE_SUDO_PASSWORD: ""
+NET_VERIFY_LOCAL_SUDO_PASSWORD: ""
+NET_VERIFY_LOCAL_NODE_NAMES: []

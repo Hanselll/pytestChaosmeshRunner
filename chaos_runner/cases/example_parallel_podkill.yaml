@@ -1,0 +1,23 @@
+name: example_parallel_podkill
+workflow:
+  name: wf-example-parallel-kill
+  namespace: default
+
+renderer: parallel_podkill
+
+targets:
+  - id: upc
+    finder: upc_talker
+  - id: ddb
+    finder: ddb_masters
+
+kill:
+  items:
+    - target: upc
+      delay: 0
+    - target: ddb
+      expand: all
+      delay: 5
+
+wait_seconds: 30
+cleanup: true

@@ -1,0 +1,88 @@
+name: modular_net_loss_delay_podkill_containerkill_rc_leader_upclb
+
+workflow:
+  name: wf-modular-net-loss-delay-podkill-containerkill-rc-leader-upclb
+  namespace: default
+
+renderer: modular_chaos
+
+targets:
+  - id: rc_leader
+    finder: rc_leader
+  - id: upc_lb
+    finder: by_label
+    label: "app.kubernetes.io/dupf.service: dupf-pod-upc-lb"
+
+stages:
+  # 先执行 container_kill，避免先 pod_kill 导致后续 stage 使用到的 pod 名称失效
+  - mode: parallel
+    faults:
+      - type: network_delay
+        selectors:
+          from: upc_lb
+          to: rc_leader
+        duration: 30s
+        delay:
+          latency: 300ms
+          jitter: 10ms
+
+      - type: network_loss
+        selectors:
+          from: upc_lb
+          to: rc_leader
+        duration: 30s
+        loss:
+          loss: "10"
+          correlation: "0"
+
+      - type: container_kill
+        target: rc_leader
+        duration: 1s
+        delay: "0s~1s"
+        containerNames: [registry-center]
+
+      - type: container_kill
+        target: upc_lb
+        duration: 1s
+        expand:
+          mode: random
+          count: 1
+        delay: "0s~1s"
+        containerNames: [upc-lb]
+
+  # 再执行 pod_kill
+  - mode: parallel
+    faults:
+      - type: network_delay
+        selectors:
+          from: upc_lb
+          to: rc_leader
+        duration: 30s
+        delay:
+          latency: 300ms
+          jitter: 10ms
+
+      - type: network_loss
+        selectors:
+          from: upc_lb
+          to: rc_leader
+        duration: 30s
+        loss:
+          loss: "10"
+          correlation: "0"
+
+      - type: pod_kill
+        target: rc_leader
+        duration: 1s
+        delay: "0s~1s"
+
+      - type: pod_kill
+        target: upc_lb
+        duration: 1s
+        expand:
+          mode: random
+          count: 1
+        delay: "0s~1s"
+
+wait_seconds: 120
+cleanup: true

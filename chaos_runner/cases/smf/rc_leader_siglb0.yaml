@@ -1,0 +1,41 @@
+name: smf_rc_leader_and_siglb0
+
+workflow:
+  name: wf-smf-rc-leader-siglb0
+  namespace: default
+
+renderer: modular_chaos
+
+targets:
+  - id: rc_leader
+    finder: rc_leader
+
+  - id: siglb0
+    finder: by_name_prefix
+    name_prefix: "smf-siglb-0-"
+
+stages:
+  - mode: parallel
+    faults:
+      - type: network_loss
+        selectors:
+          from: rc_leader
+          to: siglb0
+        direction: both
+        duration: 30s
+        loss:
+          loss: "15"
+          correlation: "0"
+
+      - type: pod_kill
+        target: rc_leader
+        delay: 0ms
+        duration: 1s
+
+      - type: pod_kill
+        target: siglb0
+        delay: 500ms
+        duration: 1s
+
+wait_seconds: 40
+cleanup: true

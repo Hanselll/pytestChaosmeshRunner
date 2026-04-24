@@ -1,0 +1,100 @@
+name: upu_ctrkill_dbop_sdb_master_upu_main
+
+workflow:
+  name: wf-upu-ctrkill-dbop-sdb-master-upu-main
+  namespace: default
+
+renderer: modular_chaos
+
+targets:
+  - id: db_operator
+    finder: by_label
+    label: "app.kubernetes.io/instance: dupf-db-operator"
+  - id: sdb_master
+    finder: sdb_master
+  - id: sdb_pods
+    finder: sdb_pods
+  - id: upu_main_pool
+    finder: by_label_values
+    label_key: "app.kubernetes.io/component"
+    label_values:
+      - "dupf-pod-upu-1"
+      - "dupf-pod-upu-2"
+      - "dupf-pod-upu-3"
+      - "dupf-pod-upu-5"
+      - "dupf-pod-upu-6"
+      - "dupf-pod-upu-7"
+      - "dupf-pod-upu-9"
+      - "dupf-pod-upu-10"
+      - "dupf-pod-upu-11"
+
+  - id: upu_backup_pool
+    finder: by_label_values
+    label_key: "app.kubernetes.io/component"
+    label_values:
+      - "dupf-pod-upu-4"
+      - "dupf-pod-upu-8"
+      - "dupf-pod-upu-12"
+stages:
+  - mode: parallel
+    faults:
+      - type: network_delay
+        selectors:
+          from: db_operator
+          to: upu_main_pool
+        direction: both
+        duration: 30s
+        delay:
+          latency: 300ms
+          jitter: 1000ms
+      - type: network_loss
+        selectors:
+          from: db_operator
+          to: upu_main_pool
+        direction: both
+        duration: 30s
+        loss:
+          loss: "10"
+          correlation: "0"
+      - type: network_delay
+        selectors:
+          from: sdb_pods
+          to: upu_main_pool
+        direction: both
+        duration: 30s
+        delay:
+          latency: 300ms
+          jitter: 1000ms
+      - type: network_loss
+        selectors:
+          from: sdb_pods
+          to: upu_main_pool
+        direction: both
+        duration: 30s
+        loss:
+          loss: "10"
+          correlation: "0"
+      - type: container_kill
+        target: db_operator
+        delay: 0s~1s
+        duration: 1s
+        containerNames: [manager]
+        expand:
+          mode: random
+          count: 1
+      - type: container_kill
+        target: sdb_master
+        delay: 0s~1s
+        duration: 1s
+        containerNames: [sdb]
+      - type: container_kill
+        target: upu_main_pool
+        delay: 0s~1s
+        duration: 1s
+        containerNames: [upu]
+        expand:
+          mode: random
+          count: 1
+
+wait_seconds: 40
+cleanup: true

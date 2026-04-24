@@ -1,0 +1,101 @@
+name: kill_all_master
+
+workflow:
+  name: kill-all-master
+  namespace: default
+
+# 使用“网络 + kill”的 renderer
+renderer: network_then_parallel_podkill
+
+targets:
+  - id: upc
+    finder: upc_talker
+  - id: upc_lb
+    finder: by_label
+    label: "app.kubernetes.io/dupf.service: dupf-pod-upc-lb"
+  # Identify the RC leader
+  - id: rc_leader
+    finder: rc_leader
+  # Identify all RC followers (non‑leader pods)
+  - id: rc_followers
+    finder: rc_followers
+  - id: etcd_leader
+    finder: rc_etcd_leader
+  - id: etcd_followers
+    finder: etcd_followers
+  - id: ddb
+    finder: ddb_masters
+  - id: upu3
+    finder: by_label
+    label: "app.kubernetes.io/component: dupf-pod-upu-3"
+  - id: mq_proxy
+    finder: by_label
+    label: "app.kubernetes.io/component: dupf-pod-mq-proxy"
+
+network:
+  duration: 180
+  actions: [delay, loss]
+  delay:
+    latency: 300ms
+    jitter: 10ms
+  loss:
+    loss: "10"
+    corr: "0"
+  direction: both
+  selectors:
+    from: upc
+    to: rc
+  labels:
+    to: "app.kubernetes.io/component: dupf-registry-center"
+    from: "app.kubernetes.io/component: dupf-pod-upc"
+
+kill:
+  items:
+    # 1秒后 kill leader etcd
+    - target: etcd_leader
+      delay: 0
+    - target: etcd_followers
+      expand:
+        mode: random
+        count: 1
+      delay: '500ms'
+      
+    # 2秒后 kill leader rc
+    - target: rc_leader
+      delay: 0
+    
+    # 3秒后 kill upc talker
+    - target: rc_followers
+      expand:
+        mode: random
+        count: 1
+      delay: '300ms'
+
+    - target: upc_lb
+      expand:
+        mode: random
+        count: 1
+      delay: 0
+
+    - target: upc
+      delay: 0
+    - target: ddb
+      expand:
+        mode: random
+        count: 1
+      delay: 0  
+
+    - target: upu3
+      expand:
+        mode: random
+        count: 1
+      delay: 0
+      
+    - target: mq_proxy
+      expand: 
+        mode: random
+        count: 2
+      delay: 0
+
+wait_seconds: 200
+cleanup: true

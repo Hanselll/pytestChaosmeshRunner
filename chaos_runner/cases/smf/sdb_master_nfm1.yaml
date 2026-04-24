@@ -1,0 +1,33 @@
+name: smf_sdb_master_and_nfm1
+
+workflow:
+  name: wf-smf-sdb-master-nfm1
+  namespace: default
+
+renderer: modular_chaos
+
+targets:
+  - id: sdb_master
+    finder: sdb_master
+
+  - id: nfm1
+    finder: by_name_prefix
+    name_prefix: "smf-nfm-1-"
+
+stages:
+  - mode: parallel
+    faults:
+      - type: network_partition
+        selectors:
+          from: sdb_master
+          to: nfm1
+        direction: both
+        duration: 30s
+
+      - type: pod_kill
+        target: nfm1
+        delay: 300ms
+        duration: 1s
+
+wait_seconds: 35
+cleanup: true

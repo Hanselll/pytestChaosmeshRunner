@@ -1,0 +1,37 @@
+name: example_memory_stress_role
+workflow:
+  name: wf-example-memory-stress-role
+  namespace: default
+
+renderer: memory_stress_parallel
+
+targets:
+  - id: sdbm
+    finder: sdb_master
+  - id: sdbs
+    finder: sdb_slaves
+
+stress:
+  # 全局默认值（可被每个 target 的 memory 覆盖）
+  duration:
+    min: 20s
+    max: 60s
+  memory:
+    workers: 1
+    size: 256MB
+
+  targets:
+    - target: sdbm
+      memory:
+        workers: 1
+        size: 192MB
+    - target: sdbs
+      expand:
+        mode: random
+        count: 1
+      memory:
+        workers: 2
+        size: 384MB
+
+wait_seconds: 90
+cleanup: true

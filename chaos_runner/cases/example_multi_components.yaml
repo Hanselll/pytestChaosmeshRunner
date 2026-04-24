@@ -1,0 +1,36 @@
+name: example-multi-components
+renderer: parallel_podkill
+
+targets:
+  - id: rc_leader
+    finder: rc_leader
+  - id: rc_followers
+    finder: rc_followers
+  - id: upu3
+    finder: by_label
+    label: "app.kubernetes.io/component: dupf-pod-upu-3"
+  - id: mq_proxy
+    finder: by_label
+    label: "app.kubernetes.io/component: dupf-pod-mq-proxy"
+
+kill:
+  items:
+    - target: rc_leader
+      delay: 0
+    - target: rc_followers
+      expand:
+        mode: random
+        count: 1
+      delay: 0
+    - target: upu3
+      expand:
+        mode: random
+        count: 1
+      delay: 5
+    - target: mq_proxy
+      expand: all
+      delay: 0
+
+wait_seconds: 25
+cleanup: true
+

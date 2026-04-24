@@ -1,0 +1,101 @@
+name: modular_partition_sentinel_with_sdbmaster_upc_upu_upclb_kill
+
+workflow:
+  name: wf-partition-sentinel-sdbmaster-upc-upu-upclb-kill
+  namespace: default
+
+renderer: modular_chaos
+
+targets:
+  - id: sdb_master
+    finder: sdb_master
+  - id: sdb_sentinels
+    finder: by_label
+    label: "app.kubernetes.io/instance: dupf-sdb-sentinel"
+
+  - id: upc_talker
+    finder: upc_talker
+  - id: upu_pool
+    finder: by_label_prefix
+    label_prefix: "app.kubernetes.io/component: dupf-pod-upu-"
+  - id: upc_lb_pool
+    finder: by_label
+    label: "app.kubernetes.io/dupf.service: dupf-pod-upc-lb"
+
+stages:
+  - mode: parallel
+    faults:
+      - type: network_partition
+        selectors:
+          from: sdb_sentinels
+          to: sdb_master
+        direction: both
+        duration: 60s
+
+      - type: container_kill
+        target: sdb_master
+        duration: 1s
+        delay: "0s~1s"
+        containerNames: [sdb]
+
+      - type: container_kill
+        target: upc_talker
+        duration: 1s
+        delay: "0s~1s"
+        containerNames: [upc]
+
+      - type: container_kill
+        target: upu_pool
+        expand:
+          mode: random
+          count: 1
+        duration: 1s
+        delay: "0s~1s"
+        containerNames: [upu]
+
+      - type: container_kill
+        target: upc_lb_pool
+        expand:
+          mode: random
+          count: 1
+        duration: 1s
+        delay: "0s~1s"
+        containerNames: [upc-lb]
+
+  - mode: parallel
+    faults:
+      - type: network_partition
+        selectors:
+          from: sdb_sentinels
+          to: sdb_master
+        direction: both
+        duration: 60s
+
+      - type: pod_kill
+        target: sdb_master
+        duration: 1s
+        delay: "0s~1s"
+
+      - type: pod_kill
+        target: upc_talker
+        duration: 1s
+        delay: "0s~1s"
+
+      - type: pod_kill
+        target: upu_pool
+        expand:
+          mode: random
+          count: 1
+        duration: 1s
+        delay: "0s~1s"
+
+      - type: pod_kill
+        target: upc_lb_pool
+        expand:
+          mode: random
+          count: 1
+        duration: 1s
+        delay: "0s~1s"
+
+wait_seconds: 180
+cleanup: true

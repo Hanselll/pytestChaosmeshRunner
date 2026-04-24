@@ -1,0 +1,30 @@
+name: sdb-partition-sentinel-master
+
+workflow:
+  name: sdb-partition-sentinel-master
+  namespace: default
+
+# Only network partition; kill section can be omitted.
+renderer: network_parallel_containerkill
+
+targets:
+  # sdb_master resolves to the *current* master pod (role=master)
+  - id: sdb_master
+    finder: sdb_master
+
+  # all sentinel pods (3 in your environment)
+  - id: sdb_sentinels
+    finder: by_label
+    label: "app.kubernetes.io/instance: dupf-sdb-sentinel"
+
+network:
+  duration: 180
+  actions: [partition]
+  direction: both
+  selectors:
+    # Partition SDB Sentinel <-> *current SDB master*
+    from: sdb_sentinels
+    to: sdb_master
+
+wait_seconds: 15
+cleanup: true

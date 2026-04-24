@@ -1,0 +1,38 @@
+name: upc_rc_ddb_one_master
+
+workflow:
+  name: wf-upc-rc-ddb-one-master
+  namespace: default
+
+renderer: parallel_podkill
+
+targets:
+  - id: upc
+    finder: upc_talker
+
+  - id: rc
+    finder: rc_leader
+
+  - id: ddb
+    finder: ddb_masters
+
+kill:
+  items:
+    # 1️⃣ 立即 kill UPC talker
+    - target: upc
+      delay: 5
+
+    # 2️⃣ 5 秒后 kill RC leader
+    - target: rc
+      delay: 0
+
+    # 3️⃣ 10 秒后，从 DDB masters 中随机 kill 1 个
+    - target: ddb
+      expand:
+        mode: random
+        count: 1
+      delay: 3
+
+wait_seconds: 60
+cleanup: true
+

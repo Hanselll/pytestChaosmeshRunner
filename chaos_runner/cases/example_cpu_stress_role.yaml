@@ -1,0 +1,35 @@
+name: example_cpu_stress_role
+workflow:
+  name: wf-example-cpu-stress-role
+  namespace: default
+
+renderer: cpu_stress_parallel
+
+targets:
+  - id: rc_leader
+    finder: rc_leader
+  - id: rc_followers
+    finder: rc_followers
+
+stress:
+  # 全局默认值（可被每个 target 的 cpu 覆盖）
+  duration: "20s~40s"
+  cpu:
+    workers: 2
+    load: 75
+
+  targets:
+    - target: rc_leader
+      cpu:
+        workers: 1
+        load: 65
+    - target: rc_followers
+      expand:
+        mode: random
+        count: 1
+      cpu:
+        workers: 2
+        load: 85
+
+wait_seconds: 60
+cleanup: true

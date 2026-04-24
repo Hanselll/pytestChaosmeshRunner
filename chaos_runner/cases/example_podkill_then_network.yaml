@@ -1,0 +1,28 @@
+name: example_podkill_then_network
+workflow:
+  name: upc-rc-concurrency
+  namespace: default
+
+renderer: podkill_then_network
+
+targets:
+  - id: upc_talker
+    finder: upc_talker
+  - id: rc_leader
+    finder: rc_leader
+
+kill:
+  targets: [upc_talker, rc_leader]
+
+network:
+  deadline_sec: 60
+  direction: both
+  upc_label_kv: "app.kubernetes.io/component: dupf-pod-upc"
+  rc_label_kv: "app.kubernetes.io/component: dupf-registry-center"
+  latency: "100ms"
+  jitter: "10ms"
+  loss: "1"
+  corr: "0"
+
+wait_seconds: 80
+cleanup: true

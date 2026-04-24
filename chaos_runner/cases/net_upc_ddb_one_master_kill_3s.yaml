@@ -1,0 +1,44 @@
+name: net_upc_ddb_one_master_kill_3s
+
+workflow:
+  name: wf-net-upc-ddb-one-master-kill-3s
+  namespace: default
+
+renderer: network_then_parallel_podkill
+
+targets:
+  - id: upc
+    finder: upc_talker
+
+  - id: ddb
+    finder: ddb_masters
+
+network:
+  duration: 180
+  action: delay
+  direction: both
+  delay:
+    latency: 100ms
+    jitter: 10ms
+  selectors:
+    from: upc
+    to: ddb
+  labels:
+    to: "app.kubernetes.io/component: dupf-pod-upc"
+    from: "app.kubernetes.io/component: dupf-ddb"
+kill:
+  items:
+    # 网络故障下，先 kill UPC
+    - target: upc
+      delay: 0
+
+    # 3 秒后，随机 kill 1 个 DDB master
+    - target: ddb
+      expand:
+        mode: random
+        count: 1
+      delay: 3
+
+wait_seconds: 200
+cleanup: true
+

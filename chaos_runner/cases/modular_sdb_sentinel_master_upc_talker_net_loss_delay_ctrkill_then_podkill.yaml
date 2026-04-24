@@ -1,0 +1,103 @@
+name: modular_sdb_sdbsentinel_upc_net_kill_seq
+
+workflow:
+  name: wf-sdb-sentinel-upc-net-kill-seq
+  namespace: default
+
+renderer: modular_chaos
+
+targets:
+  - id: sdb_master
+    finder: sdb_master
+
+  - id: sdb_sentinels
+    finder: by_label
+    label: "app.kubernetes.io/instance: dupf-sdb-sentinel"
+
+  - id: upc_talker
+    finder: upc_talker
+
+stages:
+  # Stage-1: 先执行 container kill，同时叠加网络丢包 + 网络延迟
+  - mode: parallel
+    faults:
+      - type: network_delay
+        selectors:
+          from: sdb_sentinels
+          to: sdb_master
+        duration: 45s
+        delay:
+          latency: 300ms
+          jitter: 20ms
+
+      - type: network_loss
+        selectors:
+          from: sdb_sentinels
+          to: sdb_master
+        duration: 45s
+        loss:
+          loss: "15"
+          correlation: "0"
+
+      - type: container_kill
+        target: upc_talker
+        duration: 1s
+        delay: "0s~1s"
+        containerNames: [upc]
+
+      - type: container_kill
+        target: sdb_master
+        duration: 1s
+        delay: "0s~1s"
+        containerNames: [sdb]
+
+      - type: container_kill
+        target: sdb_sentinels
+        expand:
+          mode: random
+          count: 1
+        duration: 1s
+        delay: "0s~1s"
+        containerNames: [sentinel]
+
+  # Stage-2: 再执行 pod kill，并保持相同网络故障背景
+  - mode: parallel
+    faults:
+      - type: network_delay
+        selectors:
+          from: sdb_sentinels
+          to: sdb_master
+        duration: 45s
+        delay:
+          latency: 300ms
+          jitter: 20ms
+
+      - type: network_loss
+        selectors:
+          from: sdb_sentinels
+          to: sdb_master
+        duration: 45s
+        loss:
+          loss: "15"
+          correlation: "0"
+
+      - type: pod_kill
+        target: sdb_master
+        duration: 1s
+        delay: "0s~1s"
+
+      - type: pod_kill
+        target: sdb_sentinels
+        expand:
+          mode: random
+          count: 1
+        duration: 1s
+        delay: "0s~1s"
+
+      - type: pod_kill
+        target: upc_talker
+        duration: 1s
+        delay: "0s~1s"
+
+wait_seconds: 150
+cleanup: true

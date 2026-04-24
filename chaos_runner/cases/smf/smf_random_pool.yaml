@@ -1,0 +1,39 @@
+name: smf_random_pool
+
+workflow:
+  name: wf-smf-random-pool
+  namespace: default
+
+renderer: modular_chaos
+
+targets:
+  - id: smf_pool
+    finder: smf_pods
+
+  - id: mq_proxy
+    finder: by_name_prefix
+    name_prefix: "smf-sf-mq-proxy-"
+
+stages:
+  - mode: parallel
+    faults:
+      - type: pod_kill
+        target: smf_pool
+        expand:
+          mode: random
+          count: 1
+        delay: 0ms
+        duration: 1s
+
+      - type: network_delay
+        selectors:
+          from: smf_pool
+          to: mq_proxy
+        direction: both
+        duration: 30s
+        delay:
+          latency: 200ms
+          jitter: 100ms
+
+wait_seconds: 35
+cleanup: true

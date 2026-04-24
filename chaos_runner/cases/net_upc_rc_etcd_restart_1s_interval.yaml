@@ -1,0 +1,53 @@
+name: net_upc_rc_etcd_restart_1s_interval
+
+workflow:
+  name: wf-net-upc-rc-etcd-restart-1s-interval
+  namespace: default
+
+# 使用“网络 + kill”的 renderer
+renderer: network_then_parallel_podkill
+
+targets:
+  - id: upc
+    finder: upc_talker
+
+  - id: rc
+    finder: rc_leader
+
+  - id: etcd
+    finder: rc_etcd_leader
+
+network:
+  duration: 180
+  actions: [delay, loss]
+  delay:
+    latency: 300ms
+    jitter: 10ms
+  loss:
+    loss: "10"
+    corr: "0" 
+  direction: both
+  selectors:
+    from: rc
+    to: rc_etcd
+  labels:
+    from: "app.kubernetes.io/component: dupf-registry-center"
+    to: "app.kubernetes.io/component: etcd"
+
+kill:
+  items:
+    # 1秒后 kill leader etcd
+    - target: etcd
+      delay: 0
+
+    # 2秒后 kill leader rc
+    - target: rc
+      delay: 0
+
+    # 3秒后 kill upc talker
+    - target: upc
+      delay: 0
+
+wait_seconds: 200
+cleanup: true
+

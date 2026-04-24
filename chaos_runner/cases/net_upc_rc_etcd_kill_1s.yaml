@@ -1,0 +1,42 @@
+name: net_upc_rc_etcd_kill_1s
+
+workflow:
+  name: wf-net-upc-rc-etcd-kill-1s
+  namespace: default
+
+# 使用“网络 + kill”的 renderer
+renderer: network_then_parallel_podkill
+
+targets:
+  - id: upc
+    finder: upc_talker
+
+  - id: rc-etcd
+    finder: rc_etcd_leader
+
+network:
+  duration: 180            # 网络故障持续 3 分钟
+  action: delay
+  direction: both
+  delay:
+    latency: 300ms
+    jitter: 10ms
+  selectors:
+    from: upc
+    to: rc
+  labels:
+    from: "app.kubernetes.io/component: dupf-pod-upc"
+    to: "app.kubernetes.io/component: etcd"  # 这里设置标签
+kill:
+  items:
+    # 网络故障已存在
+    - target: upc
+      delay: 1
+
+    # 相隔 3 秒 kill RC leader
+    - target: rc-etcd
+      delay: 0
+
+wait_seconds: 200
+cleanup: true
+

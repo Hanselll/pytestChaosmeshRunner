@@ -1,0 +1,21 @@
+name: rc-leader-followers-example
+renderer: parallel_podkill
+
+targets:
+  # Identify the RC leader
+  - id: rc_leader
+    finder: rc_leader
+  # Identify all RC followers (non‑leader pods)
+  - id: rc_followers
+    finder: rc_followers
+
+# Kill the leader and two random followers concurrently
+kill:
+  items:
+    - target: rc_leader
+      delay: 0
+    - target: rc_followers
+      expand:
+        mode: random
+        count: 2
+      delay: 0
