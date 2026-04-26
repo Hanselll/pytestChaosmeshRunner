@@ -1,0 +1,228 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.1 Chrome/142.0.7444.265 Electron/39.8.0 Safari/537.36" version="29.6.1">
+  <diagram id="chaos-runner-architecture" name="Chaos Runner Architecture">
+    <mxGraphModel dx="1303" dy="903" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;fontColor=#1f2937;align=center;verticalAlign=middle;" value="ChaosMesh Workflow Runner Architecture" vertex="1">
+          <mxGeometry height="40" width="780" x="360" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-inputs" parent="1" style="swimlane;html=1;startSize=32;rounded=0;fillColor=#f8fafc;strokeColor=#94a3b8;fontStyle=1;fontColor=#0f172a;" value="Inputs" vertex="1">
+          <mxGeometry height="420" width="250" x="30" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-runner" parent="1" style="swimlane;html=1;startSize=32;rounded=0;fillColor=#eff6ff;strokeColor=#60a5fa;fontStyle=1;fontColor=#0f172a;" value="Runner Orchestration" vertex="1">
+          <mxGeometry height="420" width="270" x="320" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-factory" parent="1" style="swimlane;html=1;startSize=32;rounded=0;fillColor=#f0fdf4;strokeColor=#4ade80;fontStyle=1;fontColor=#0f172a;" value="Workflow Factory" vertex="1">
+          <mxGeometry height="420" width="330" x="630" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-exec" parent="1" style="swimlane;html=1;startSize=32;rounded=0;fillColor=#fff7ed;strokeColor=#fb923c;fontStyle=1;fontColor=#0f172a;" value="Execution" vertex="1">
+          <mxGeometry height="420" width="250" x="1000" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-cluster" parent="1" style="swimlane;html=1;startSize=32;rounded=0;fillColor=#fef2f2;strokeColor=#f87171;fontStyle=1;fontColor=#0f172a;" value="Kubernetes / Chaos Mesh" vertex="1">
+          <mxGeometry height="420" width="190" x="1280" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="case-yaml" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#64748b;fontColor=#111827;" value="Case YAML&#xa;chaos_runner/cases/*.yaml" vertex="1">
+          <mxGeometry height="70" width="190" x="60" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="config" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#64748b;fontColor=#111827;" value="Runtime Config&#xa;config yaml + env vars" vertex="1">
+          <mxGeometry height="70" width="190" x="60" y="245" as="geometry" />
+        </mxCell>
+        <mxCell id="pytest-cli" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#64748b;fontColor=#111827;" value="Entry Points&#xa;pytest --case&#xa;python -m chaos_runner.runner" vertex="1">
+          <mxGeometry height="90" width="190" x="60" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="runner" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#2563eb;fontColor=#111827;" value="runner.execute_case_from_args()&#xa;load case, config, logs, dry-run/run" vertex="1">
+          <mxGeometry height="80" width="210" x="350" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="ckmN4UVolir01UjRMKBb-1" edge="1" parent="1" source="phase-split" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="observer" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="phase-split" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#2563eb;fontColor=#111827;" value="Phase Split&#xa;network faults first&#xa;kill/stress workflow second" vertex="1">
+          <mxGeometry height="90" width="210" x="350" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="observer" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#2563eb;fontColor=#111827;" value="Observer Hooks&#xa;PRE/POST pod status, events, logs, LMT" vertex="1">
+          <mxGeometry height="85" width="210" x="350" y="385" as="geometry" />
+        </mxCell>
+        <mxCell id="schema" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#16a34a;fontColor=#111827;" value="case_schema.validate_case()&#xa;renderer, finder, fault type validation" vertex="1">
+          <mxGeometry height="70" width="250" x="660" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="targets" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#16a34a;fontColor=#111827;" value="targets.resolve_targets()&#xa;UPC / SMF / RC / DDB / SDB / label finders" vertex="1">
+          <mxGeometry height="80" width="250" x="660" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="adapter" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#16a34a;fontColor=#111827;" value="legacy_adapter.adapt_case_to_modular()&#xa;normalizes old renderer cases where needed" vertex="1">
+          <mxGeometry height="70" width="250" x="660" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="renderers" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#16a34a;fontColor=#111827;" value="Renderer Registry&#xa;modular_chaos, podkill/network renderers, stress renderers" vertex="1">
+          <mxGeometry height="80" width="250" x="660" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="workflow-yaml" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#ea580c;fontColor=#111827;" value="Rendered Chaos Mesh Workflow YAML&#xa;NetworkChaos / PodChaos / StressChaos templates" vertex="1">
+          <mxGeometry height="85" width="200" x="1025" y="135" as="geometry" />
+        </mxCell>
+        <mxCell id="executor" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#ea580c;fontColor=#111827;" value="executor.run_workflow()&#xa;local kubectl or remote_apply over SSH" vertex="1">
+          <mxGeometry height="80" width="200" x="1025" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="net-verify" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#ea580c;fontColor=#111827;" value="network_verify&#xa;checks tc/netem rules before kill phase" vertex="1">
+          <mxGeometry height="75" width="200" x="1025" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="kube-api" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#dc2626;fontColor=#111827;" value="Kubernetes API&#xa;kubectl apply/delete workflow" vertex="1">
+          <mxGeometry height="75" width="140" x="1305" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="chaos-mesh" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#dc2626;fontColor=#111827;" value="Chaos Mesh Controller&#xa;executes Workflow templates" vertex="1">
+          <mxGeometry height="75" width="140" x="1305" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="target-pods" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#dc2626;fontColor=#111827;" value="Target Pods&#xa;5GC components&#xa;UPC / SMF / RC / DDB / SDB" vertex="1">
+          <mxGeometry height="95" width="140" x="1305" y="375" as="geometry" />
+        </mxCell>
+        <mxCell id="lane-artifacts" parent="1" style="swimlane;html=1;startSize=32;rounded=0;fillColor=#f8fafc;strokeColor=#94a3b8;fontStyle=1;fontColor=#0f172a;" value="Artifacts and Feedback" vertex="1">
+          <mxGeometry height="260" width="1440" x="30" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="logs" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#64748b;fontColor=#111827;" value="Case Logs&#xa;format log + json log + fixed json mirror" vertex="1">
+          <mxGeometry height="85" width="240" x="95" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="generated-files" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#64748b;fontColor=#111827;" value="Generated YAML Files&#xa;single workflow or phase-specific .net/.kill YAML" vertex="1">
+          <mxGeometry height="85" width="250" x="430" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="pre-post" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#64748b;fontColor=#111827;" value="PRE / POST State Snapshots&#xa;pod phase, role state, events, selected logs" vertex="1">
+          <mxGeometry height="85" width="260" x="775" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="result" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#64748b;fontColor=#111827;" value="Execution Result Dict&#xa;paths, resolved targets, apply/delete results" vertex="1">
+          <mxGeometry height="85" width="250" x="1135" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="fault-note" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fffbeb;strokeColor=#f59e0b;fontColor=#111827;" value="Supported modular fault types&#xa;pod_kill, container_kill, network_delay, network_loss, network_partition, cpu_stress, memory_stress" vertex="1">
+          <mxGeometry height="95" width="395" x="1030" y="835" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-inputs" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fefce8;strokeColor=#ca8a04;fontSize=11;fontColor=#111827;" value="Extensibility&#xa;Add new case YAMLs under chaos_runner/cases.&#xa;Add config keys in config.py / config.example.yaml.&#xa;Expose options through pytest hooks or runner CLI args." vertex="1">
+          <mxGeometry height="130" width="210" x="55" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-runner" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#dbeafe;strokeColor=#2563eb;fontSize=11;fontColor=#111827;" value="Extensibility&#xa;Add orchestration phases in runner.py.&#xa;Keep network/kill split behavior isolated in _phase_case and _render_phase_yaml.&#xa;Add pre/post actions via observer config instead of hardcoding case-specific steps." vertex="1">
+          <mxGeometry height="145" width="240" x="335" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-factory" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#dcfce7;strokeColor=#16a34a;fontSize=11;fontColor=#111827;" value="Extensibility&#xa;Add finder names in case_schema.KNOWN_FINDERS and targets.resolve_targets.&#xa;Add renderer modules and register them with @register(...).&#xa;For modular_chaos, add @fault_builder(&quot;new_type&quot;) and include it in MODULAR_FAULT_TYPES." vertex="1">
+          <mxGeometry height="145" width="285" x="650" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-exec" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#ffedd5;strokeColor=#ea580c;fontSize=11;fontColor=#111827;" value="Extensibility&#xa;Add execution backends behind run_workflow().&#xa;remote_apply is selected by config.EXECUTION_MODE.&#xa;Keep apply/delete/upload details inside tools.k8s and tools.remote." vertex="1">
+          <mxGeometry height="130" width="225" x="1010" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-cluster" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fee2e2;strokeColor=#dc2626;fontSize=11;fontColor=#111827;" value="Extensibility&#xa;New Chaos Mesh kinds require a renderer/builder plus schema validation.&#xa;Selectors should stay resolved through target ids or labels.&#xa;Network verification can be extended per Chaos kind/action." vertex="1">
+          <mxGeometry height="145" width="175" x="1278" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-artifacts" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#f1f5f9;strokeColor=#64748b;fontSize=11;fontColor=#111827;" value="Extensibility&#xa;Add new log sections in observer.py.&#xa;Add LMT commands via config or case observer.lmt.&#xa;Keep generated artifacts deterministic: YAML paths, fixed json mirror, and structured result dict." vertex="1">
+          <mxGeometry height="95" width="395" x="120" y="835" as="geometry" />
+        </mxCell>
+        <mxCell id="e-case-runner" edge="1" parent="1" source="case-yaml" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="runner" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-config-runner" edge="1" parent="1" source="config" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="runner" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-cli-runner" edge="1" parent="1" source="pytest-cli" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="runner" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-runner-schema" edge="1" parent="1" source="runner" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;fontSize=11;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="schema" value="build(case, config)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-schema-targets" edge="1" parent="1" source="schema" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="targets" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-targets-adapter" edge="1" parent="1" source="targets" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="adapter" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-adapter-renderers" edge="1" parent="1" source="adapter" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="renderers" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-renderers-yaml" edge="1" parent="1" source="renderers" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;fontSize=11;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="workflow-yaml" value="Workflow YAML">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-runner-phase" edge="1" parent="1" source="runner" style="endArrow=block;html=1;rounded=0;strokeColor=#2563eb;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="phase-split" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-phase-workflow" edge="1" parent="1" source="phase-split" style="endArrow=block;html=1;rounded=0;strokeColor=#2563eb;fontSize=11;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;dashed=1;" target="workflow-yaml" value="optional split workflows">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="585" y="305" />
+              <mxPoint x="585" y="105" />
+              <mxPoint x="1125" y="105" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-yaml-executor" edge="1" parent="1" source="workflow-yaml" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="executor" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-executor-kube" edge="1" parent="1" source="executor" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;fontSize=11;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="kube-api" value="apply/delete">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-kube-chaos" edge="1" parent="1" source="kube-api" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="chaos-mesh" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-chaos-pods" edge="1" parent="1" source="chaos-mesh" style="endArrow=block;html=1;rounded=0;strokeColor=#334155;fontSize=11;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="target-pods" value="inject faults">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-netverify-pods" edge="1" parent="1" source="net-verify" style="endArrow=block;html=1;rounded=0;strokeColor=#ea580c;fontSize=11;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;dashed=1;" target="target-pods" value="inspect tc rules">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1255" y="418" />
+              <mxPoint x="1255" y="498" />
+              <mxPoint x="1375" y="498" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-phase-netverify" edge="1" parent="1" source="phase-split" style="endArrow=block;html=1;rounded=0;strokeColor=#ea580c;fontSize=11;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;dashed=1;" target="net-verify" value="before kill phase">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="585" y="305" />
+              <mxPoint x="585" y="495" />
+              <mxPoint x="1125" y="495" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-observer-pods" edge="1" parent="1" source="observer" style="endArrow=block;html=1;rounded=0;strokeColor=#2563eb;fontSize=11;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;dashed=1;" target="target-pods" value="collect state">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="455" y="498" />
+              <mxPoint x="1258" y="498" />
+              <mxPoint x="1375" y="498" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-runner-observer" edge="1" parent="1" source="runner" style="endArrow=block;html=1;rounded=0;strokeColor=#2563eb;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;" target="observer" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-observer-logs" edge="1" parent="1" source="observer" style="endArrow=block;html=1;rounded=0;strokeColor=#64748b;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;dashed=1;" target="logs" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="300" y="428" />
+              <mxPoint x="300" y="610" />
+              <mxPoint x="215" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-workflow-files" edge="1" parent="1" source="workflow-yaml" style="endArrow=block;html=1;rounded=0;strokeColor=#64748b;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;dashed=1;" target="generated-files" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="990" y="178" />
+              <mxPoint x="990" y="610" />
+              <mxPoint x="555" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-observer-prepost" edge="1" parent="1" source="observer" style="endArrow=block;html=1;rounded=0;strokeColor=#64748b;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;dashed=1;" target="pre-post" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="428" />
+              <mxPoint x="600" y="610" />
+              <mxPoint x="905" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-executor-result" edge="1" parent="1" source="executor" style="endArrow=block;html=1;rounded=0;strokeColor=#64748b;edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;dashed=1;" target="result" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1260" y="300" />
+              <mxPoint x="1260" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
