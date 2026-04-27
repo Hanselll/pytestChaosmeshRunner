@@ -10,7 +10,7 @@ from .alarm_ops import (
     list_alarm_rules,
     write_alarm_rule,
 )
-from .auth import run_manual_login
+from .auth import run_auth_check, run_manual_login
 from .browser import open_page
 from .config_ops import (
     compare_dnn_web_with_db,
@@ -51,6 +51,9 @@ def parse_args() -> argparse.Namespace:
 
     p_auth = sub.add_parser("auth-login", help="Open EMS in a visible browser, let the operator complete login, then save storage state.")
     p_auth.add_argument("--output", default="", help="Optional storage_state.json path.")
+
+    p_auth_check = sub.add_parser("auth-check", help="Verify the current EMS session in headless mode and refresh storage state.")
+    p_auth_check.add_argument("--output", default="", help="Optional storage_state.json path.")
 
     p_read = sub.add_parser("config-read", help="Open a config path and read current form fields.")
     p_read.add_argument("--task", required=True, help="JSON task file.")
@@ -201,6 +204,12 @@ def main() -> None:
     if args.cmd == "auth-login":
         output = resolve_output_path(args.output, "auth") if args.output else None
         result = run_manual_login(output_path=output)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return
+
+    if args.cmd == "auth-check":
+        output = resolve_output_path(args.output, "auth") if args.output else None
+        result = run_auth_check(output_path=output)
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return
 

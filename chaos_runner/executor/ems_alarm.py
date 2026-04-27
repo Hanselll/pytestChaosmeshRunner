@@ -4,6 +4,7 @@ import os
 import re
 import subprocess
 import sys
+from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 
 from chaos_runner import config
@@ -166,6 +167,130 @@ def _counts_from_summary(summary):
     return counts
 
 
+def _resolve_ems_runtime():
+    ems_dir = _resolve_project_path(getattr(config, "EMS_AUTOMATION_DIR", ""))
+    if not os.path.isdir(ems_dir):
+        raise RuntimeError("EMS_AUTOMATION_DIR not found: {}".format(ems_dir))
+
+    python_exe = str(getattr(config, "EMS_ALARM_PYTHON", "") or "").strip() or sys.executable
+    env = os.environ.copy()
+    old_pythonpath = env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = ems_dir if not old_pythonpath else ems_dir + os.pathsep + old_pythonpath
+    return ems_dir, python_exe, env
+
+
+def run_ems_login_check():
+    if not bool(getattr(config, "EMS_LOGIN_ENABLED", True)):
+        return {"enabled": False, "skipped": True, "reason": "EMS_LOGIN_ENABLED is false"}
+    if not bool(getattr(config, "EMS_ALARM_ENABLED", False)):
+        return {"enabled": False, "skipped": True, "reason": "EMS_ALARM_ENABLED is false"}
+
+    ems_dir, python_exe, env = _resolve_ems_runtime()
+    cmd = [
+        python_exe,
+        "-m",
+        "ems_automation.cli",
+        "auth-check",
+    ]
+    timeout = int(getattr(config, "EMS_LOGIN_TIMEOUT_SECONDS", 120) or 120)
+    proc = subprocess.run(
+        cmd,
+        cwd=ems_dir,
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=timeout,
+    )
+    stdout = (proc.stdout or "").strip()
+    stderr = (proc.stderr or "").strip()
+    details = {}
+    if stdout:
+        try:
+            details = json.loads(stdout)
+        except Exception:
+            details = {}
+    result = {
+        "enabled": True,
+        "skipped": False,
+        "rc": proc.returncode,
+        "stdout": stdout,
+        "stderr": stderr,
+        "command": cmd,
+        "status": details.get("status", ""),
+        "storage_state": details.get("storage_state", ""),
+        "url": details.get("url", ""),
+    }
+    if proc.returncode != 0:
+        raise RuntimeError("EMS login check failed rc={}: {}".format(proc.returncode, stderr or stdout))
+    return result
+
+
+@contextmanager
+def _interactive_subprocess_stdio():
+    handles = []
+    try:
+        stdin_path = "CONIN$" if os.name == "nt" else "/dev/tty"
+        stdout_path = "CONOUT$" if os.name == "nt" else "/dev/tty"
+        stdin = open(stdin_path, "r", encoding=sys.stdin.encoding or "utf-8", errors="replace")
+        stdout = open(stdout_path, "w", encoding=sys.stdout.encoding or "utf-8", errors="replace")
+        stderr = open(stdout_path, "w", encoding=sys.stderr.encoding or "utf-8", errors="replace")
+        handles.extend([stdin, stdout, stderr])
+        yield {"stdin": stdin, "stdout": stdout, "stderr": stderr}
+    except OSError as exc:
+        for handle in reversed(handles):
+            try:
+                handle.close()
+            except Exception:
+                pass
+        raise RuntimeError(
+            "EMS manual login requires an interactive console. "
+            "Run `python -m ems_automation.cli auth-login` first, or disable "
+            "EMS_LOGIN_INTERACTIVE_ON_FAILURE when running without a console."
+        ) from exc
+    finally:
+        for handle in reversed(handles):
+            try:
+                handle.close()
+            except Exception:
+                pass
+
+
+def run_ems_manual_login():
+    if not bool(getattr(config, "EMS_LOGIN_ENABLED", True)):
+        return {"enabled": False, "skipped": True, "reason": "EMS_LOGIN_ENABLED is false"}
+    if not bool(getattr(config, "EMS_ALARM_ENABLED", False)):
+        return {"enabled": False, "skipped": True, "reason": "EMS_ALARM_ENABLED is false"}
+
+    ems_dir, python_exe, env = _resolve_ems_runtime()
+    cmd = [
+        python_exe,
+        "-m",
+        "ems_automation.cli",
+        "auth-login",
+    ]
+    timeout_seconds = int(getattr(config, "EMS_LOGIN_MANUAL_TIMEOUT_SECONDS", 0) or 0)
+    with _interactive_subprocess_stdio() as stdio:
+        proc = subprocess.run(
+            cmd,
+            cwd=ems_dir,
+            env=env,
+            timeout=timeout_seconds if timeout_seconds > 0 else None,
+            **stdio,
+        )
+    result = {
+        "enabled": True,
+        "skipped": False,
+        "rc": proc.returncode,
+        "command": cmd,
+    }
+    if proc.returncode != 0:
+        raise RuntimeError("EMS manual login failed rc={}".format(proc.returncode))
+    return result
+
+
 def run_ems_alarm_query(wf_name, case_ts, log_dir="", since_time=None):
     if not bool(getattr(config, "EMS_ALARM_ENABLED", False)):
         return {"enabled": False, "skipped": True, "reason": "EMS_ALARM_ENABLED is false"}
@@ -174,17 +299,13 @@ def run_ems_alarm_query(wf_name, case_ts, log_dir="", since_time=None):
     if target not in ("overview", "activity", "history", "all"):
         raise RuntimeError("EMS_ALARM_TARGET must be one of overview/activity/history/all")
 
-    ems_dir = _resolve_project_path(getattr(config, "EMS_AUTOMATION_DIR", ""))
-    if not os.path.isdir(ems_dir):
-        raise RuntimeError("EMS_AUTOMATION_DIR not found: {}".format(ems_dir))
-
     output_dir = str(getattr(config, "EMS_ALARM_OUTPUT_DIR", "") or "").strip()
     if not output_dir:
         output_dir = _default_output_dir(log_dir, wf_name, case_ts)
     output_dir = os.path.abspath(output_dir)
     os.makedirs(output_dir, exist_ok=True)
 
-    python_exe = str(getattr(config, "EMS_ALARM_PYTHON", "") or "").strip() or sys.executable
+    ems_dir, python_exe, env = _resolve_ems_runtime()
     cmd = [
         python_exe,
         "-m",
@@ -196,10 +317,6 @@ def run_ems_alarm_query(wf_name, case_ts, log_dir="", since_time=None):
         output_dir,
     ]
     timeout = int(getattr(config, "EMS_ALARM_TIMEOUT_SECONDS", 180) or 180)
-
-    env = os.environ.copy()
-    old_pythonpath = env.get("PYTHONPATH", "")
-    env["PYTHONPATH"] = ems_dir if not old_pythonpath else ems_dir + os.pathsep + old_pythonpath
 
     proc = subprocess.run(
         cmd,

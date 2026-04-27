@@ -20,7 +20,7 @@ from chaos_runner.tools.remote import is_remote_apply_enabled
 
 _ANSI_ESCAPE_RE = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]")
 _CONTROL_CHAR_RE = re.compile(r"[\x00-\x08\x0b-\x1f\x7f-\x9f]")
-_ERROR_LOG_RE = re.compile(r"(?i)\b(error|exception|fatal|panic)\b")
+_ERROR_LOG_RE = re.compile(r"(?i)\b(error|exception|fatal|panic|warn|warning)\b")
 _LOG_TS_RE = re.compile(
     r"(?P<ts>\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}(?:[.,]\d{1,6})?(?:Z|[+-]\d{2}:?\d{2})?)"
 )
@@ -29,12 +29,32 @@ _POST_LOG_MAX_LINES_PER_POD = 80
 _SMF_INTERNAL_LOG_DIR = "/var/log/service-logs"
 _SMF_INTERNAL_LOG_FILES = 3
 _SMF_INTERNAL_LOG_TAIL_LINES = 40
-_DUPF_INTERNAL_LOG_DIR = "/var/log/service-logs"
-_DUPF_INTERNAL_LOG_FILES = 4
-_DUPF_INTERNAL_LOG_TAIL_LINES = 60
+_DUPF_SERVICE_LOG_ROOT = "/var/ctin/ctc-upf/var/log/service-logs"
+_DUPF_DB_LOG_ROOT = "/var/ctin/ctc-upf"
+_DUPF_DDB_HOST_LOG_DIR = "/var/ctin/ctc-upf/ddb"
+_DUPF_INTERNAL_LOG_FILES = 12
+_DUPF_INTERNAL_LOG_TAIL_LINES = 400
 _DUPF_MQ_HOST_LOG_DIR = "/var/ctin/ctc-upf/mq-proxy"
 _DUPF_MQ_HOST_LOG_FILES = 4
 _DUPF_MQ_HOST_LOG_TAIL_LINES = 60
+_DUPF_UPU_RELATED_SERVICE_DIRS = [
+    "es",
+    "etcd",
+    "init",
+    "log-monitor",
+    "mq-proxy",
+    "prometheus",
+    "registry-center",
+    "sts-exporter",
+    "upc",
+    "upc-lb",
+    "upu",
+    "watchfrr",
+    "zebra",
+    "bgpd",
+    "staticd",
+]
+_DUPF_DB_COMPONENT_DIRS = ["crash", "db-operator", "ddb", "sdb", "sdb-sentinel"]
 
 
 def _ts_ms():
@@ -782,6 +802,60 @@ def _log_role_state(case_log, title, role_state):
         case_log.log("  ETCD followers: {}".format(", ".join(["{}({})".format(x.get("pod"), x.get("ip")) for x in etcd.get("followers", [])]) or "<none>"))
 
 
+def _parse_kubectl_top_pod(text):
+    rows = []
+    for line in (text or "").splitlines():
+        s = (line or "").strip()
+        if not s:
+            continue
+        if s.lower().startswith(("error:", "warning:", "unable ")):
+            return []
+        if s.upper().startswith("NAME "):
+            continue
+        parts = s.split()
+        if len(parts) < 3:
+            continue
+        rows.append(
+            {
+                "pod": parts[0],
+                "cpu": parts[1],
+                "memory": parts[2],
+            }
+        )
+    rows.sort(key=lambda item: item.get("pod", ""))
+    return rows
+
+
+def _collect_pod_resource_usage(namespace):
+    if not bool(getattr(config, "OBSERVER_RESOURCE_USAGE_ENABLED", True)):
+        return {"enabled": False, "rows": [], "error": "disabled"}
+    cmd = "kubectl -n {} top pod --containers=false 2>&1".format(shlex.quote(namespace))
+    text = sh(cmd, check=False)
+    rows = _parse_kubectl_top_pod(text)
+    if rows:
+        return {"enabled": True, "rows": rows, "error": ""}
+    return {"enabled": True, "rows": [], "error": (text or "").strip() or "no metrics returned"}
+
+
+def _log_resource_usage(case_log, title, resource_usage):
+    usage = resource_usage or {}
+    case_log.log(title)
+    if not usage.get("enabled", True):
+        case_log.log("  <disabled>")
+        return
+    if usage.get("error"):
+        case_log.log("  <unavailable: {}>".format(usage.get("error")))
+        return
+    rows = usage.get("rows") or []
+    if not rows:
+        case_log.log("  <empty>")
+        return
+    case_log.log("  {:<48} {:<12} {}".format("POD", "CPU", "MEMORY"))
+    case_log.log("  {}".format("-" * 80))
+    for row in rows:
+        case_log.log("  {:<48} {:<12} {}".format(row.get("pod", ""), row.get("cpu", ""), row.get("memory", "")))
+
+
 def _sanitize_log_text(text, max_lines):
     lines = []
     for line in (text or "").splitlines():
@@ -793,7 +867,65 @@ def _sanitize_log_text(text, max_lines):
     return lines
 
 
-def _parse_log_timestamp(line):
+def _runtime_log_timestamp_timezone():
+    offset = int(getattr(config, "OBSERVER_LOG_TIMEZONE_OFFSET_HOURS", 0) or 0)
+    return timezone(timedelta(hours=offset))
+
+
+def _ddb_log_timestamp_timezone():
+    offset = int(getattr(config, "OBSERVER_DDB_LOG_TIMEZONE_OFFSET_HOURS", 8) or 0)
+    return timezone(timedelta(hours=offset))
+
+
+def _format_tz_offset(tz):
+    offset = tz.utcoffset(None) if tz is not None else None
+    if offset is None:
+        return "local"
+    total_seconds = int(offset.total_seconds())
+    sign = "+" if total_seconds >= 0 else "-"
+    total_seconds = abs(total_seconds)
+    hours = total_seconds // 3600
+    minutes = (total_seconds % 3600) // 60
+    if minutes:
+        return "UTC{}{:02d}:{:02d}".format(sign, hours, minutes)
+    return "UTC{}{}".format(sign, hours)
+
+
+def _runtime_log_window(since_time):
+    if since_time is None:
+        return {}
+    since_utc = since_time.astimezone(timezone.utc)
+    log_tz = _runtime_log_timestamp_timezone()
+    return {
+        "case_start_local": since_time.astimezone().strftime("%Y-%m-%d %H:%M:%S"),
+        "since_utc": since_utc.strftime("%Y-%m-%d %H:%M:%S"),
+        "log_since": since_utc.astimezone(log_tz).strftime("%Y-%m-%d %H:%M:%S"),
+        "log_tz": _format_tz_offset(log_tz),
+    }
+
+
+def _ddb_log_time_bounds(since_time=None, now=None):
+    end_utc = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    if since_time is not None:
+        start_utc = since_time.astimezone(timezone.utc)
+    else:
+        lookback_hours = int(getattr(config, "OBSERVER_DDB_LOG_LOOKBACK_HOURS", 3) or 3)
+        start_utc = end_utc - timedelta(hours=max(1, lookback_hours))
+    return start_utc, end_utc
+
+
+def _runtime_log_window_from_bounds(start_utc, end_utc, log_tz):
+    return {
+        "case_start_local": start_utc.astimezone().strftime("%Y-%m-%d %H:%M:%S"),
+        "since_utc": start_utc.strftime("%Y-%m-%d %H:%M:%S"),
+        "log_since": start_utc.astimezone(log_tz).strftime("%Y-%m-%d %H:%M:%S"),
+        "log_tz": _format_tz_offset(log_tz),
+        "until_utc": end_utc.strftime("%Y-%m-%d %H:%M:%S"),
+        "log_until": end_utc.astimezone(log_tz).strftime("%Y-%m-%d %H:%M:%S"),
+    }
+
+
+def _parse_log_timestamp(line, default_tz=None):
     text = str(line or "").strip()
     if not text:
         return None
@@ -811,7 +943,7 @@ def _parse_log_timestamp(line):
     except ValueError:
         return None
     if dt.tzinfo is None:
-        return dt.replace(tzinfo=timezone.utc)
+        return dt.replace(tzinfo=default_tz or _runtime_log_timestamp_timezone()).astimezone(timezone.utc)
     return dt.astimezone(timezone.utc)
 
 
@@ -857,7 +989,15 @@ def _clean_ssh_noise(text):
 
 
 def _run_cmd(cmd):
-    p = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    p = subprocess.run(
+        cmd,
+        shell=isinstance(cmd, str),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
     out = _clean_ssh_noise((p.stdout or "").strip())
     err = _clean_ssh_noise((p.stderr or "").strip())
     return p.returncode, out, err
@@ -897,8 +1037,25 @@ def _build_ssh_cmd(host, remote_cmd):
         parts.extend(["-F", shlex.quote(ssh_cfg)])
     for tok in _sanitize_ssh_extra_opts(extra):
         parts.append(shlex.quote(tok))
-    parts.extend(["-p", str(port), shlex.quote(user_host), shlex.quote(remote_cmd)])
+    parts.extend(["-p", str(port), shlex.quote(user_host), "sh", "-lc", shlex.quote(remote_cmd)])
     return " ".join(parts)
+
+
+def _build_ssh_argv(host, remote_cmd):
+    user = (
+        getattr(config, "NET_VERIFY_REMOTE_SSH_USER", getattr(config, "NET_VERIFY_SSH_USER", "")) or ""
+    ).strip()
+    port = int(getattr(config, "NET_VERIFY_SSH_PORT", 22) or 22)
+    extra = (getattr(config, "NET_VERIFY_SSH_EXTRA_OPTS", "") or "").strip()
+    ssh_cfg = (getattr(config, "NET_VERIFY_SSH_CONFIG_FILE", "") or "").strip()
+    user_host = ("{}@{}".format(user, host) if user else host)
+
+    parts = ["ssh"]
+    if ssh_cfg:
+        parts.extend(["-F", ssh_cfg])
+    parts.extend(_sanitize_ssh_extra_opts(extra))
+    parts.extend(["-p", str(port), user_host, "sh", "-lc", shlex.quote(remote_cmd)])
+    return parts
 
 
 def _run_on_node(node_name, remote_cmd):
@@ -921,7 +1078,7 @@ def _run_on_node(node_name, remote_cmd):
         return _run_cmd(remote_cmd)
 
     host = _ssh_host_for_node(node_name)
-    return _run_cmd(_build_ssh_cmd(host, remote_cmd))
+    return _run_cmd(_build_ssh_argv(host, remote_cmd))
 
 
 def _uses_internal_smf_logs(namespace, pod):
@@ -938,8 +1095,7 @@ def _uses_dupf_internal_logs(namespace, pod):
     ns = str(namespace or "").strip().lower()
     if not ns.startswith("ns-dupf"):
         return False
-    component = _component_of_pod(pod)
-    return component in ("upc", "rc", "sdb", "etcd")
+    return bool(_dupf_host_log_dirs_for_pod(pod))
 
 
 def _get_target_log_pods(pre_state, common_state):
@@ -985,20 +1141,129 @@ def _collect_internal_smf_logs(namespace, pod):
         return "<internal-log-read-failed: {}>".format(e)
 
 
-def _collect_internal_dupf_logs(namespace, pod):
-    pod_text = shlex.quote(str(pod or "").strip())
+def _dupf_host_log_dirs_for_pod(pod):
+    low = str(pod or "").strip().lower()
+    service_names = []
+    db_names = []
+
+    if "upu" in low:
+        service_names.extend(_DUPF_UPU_RELATED_SERVICE_DIRS)
+    elif "upc-lb" in low:
+        service_names.extend(["upc-lb", "upc"])
+    elif "upc" in low:
+        service_names.extend(["upc", "upc-lb"])
+    elif "mq" in low:
+        service_names.append("mq-proxy")
+    elif "registry" in low or "-rc-" in low or "dupf-rc" in low:
+        service_names.extend(["registry-center", "etcd"])
+    elif "etcd" in low:
+        service_names.append("etcd")
+
+    if "db-operator" in low:
+        db_names.extend(["db-operator", "ddb", "sdb", "sdb-sentinel", "crash"])
+    elif "ddb" in low:
+        db_names.extend(["ddb", "db-operator", "crash"])
+    if "sdb-sentinel" in low:
+        db_names.extend(["sdb-sentinel", "sdb", "db-operator", "crash"])
+    elif "sdb" in low:
+        db_names.extend(["sdb", "sdb-sentinel", "db-operator", "crash"])
+
+    dirs = []
+    for name in service_names:
+        dirs.append("{}/{}".format(_DUPF_SERVICE_LOG_ROOT, name))
+    for name in db_names:
+        dirs.append("{}/{}".format(_DUPF_DB_LOG_ROOT, name))
+    if "mq" in low:
+        dirs.append(_DUPF_MQ_HOST_LOG_DIR)
+
+    seen = set()
+    out = []
+    for d in dirs:
+        if d not in seen:
+            out.append(d)
+            seen.add(d)
+    return out
+
+
+def _build_tail_files_command(dirs, file_count, tail_lines):
+    quoted_dirs = " ".join(shlex.quote(d) for d in (dirs or []) if d)
+    if not quoted_dirs:
+        return "exit 0"
     cmd = (
-        "if [ ! -d {d} ]; then exit 0; fi; "
-        "for f in $(find {d} -type f 2>/dev/null | grep -F {pod} | xargs -r ls -1t 2>/dev/null | head -n {file_count}); do "
+        "for d in {dirs}; do "
+        "[ -d \"$d\" ] && find \"$d\" -type f 2>/dev/null; "
+        "done | xargs -r ls -1t 2>/dev/null | head -n {file_count} | "
+        "while IFS= read -r f; do "
         "echo '>>>FILE:'$f; "
         "tail -n {tail_lines} \"$f\" 2>/dev/null; "
         "done"
     ).format(
-        d=_DUPF_INTERNAL_LOG_DIR,
-        pod=pod_text,
-        file_count=_DUPF_INTERNAL_LOG_FILES,
-        tail_lines=_DUPF_INTERNAL_LOG_TAIL_LINES,
+        dirs=quoted_dirs,
+        file_count=int(file_count),
+        tail_lines=int(tail_lines),
     )
+    return cmd
+
+
+def _build_ddb_host_log_filter_command(since_time=None, now=None):
+    start_utc, end_utc = _ddb_log_time_bounds(since_time=since_time, now=now)
+    log_tz = _ddb_log_timestamp_timezone()
+    local_start = start_utc.astimezone(log_tz).strftime("%Y%m%d%H%M%S")
+    local_end = end_utc.astimezone(log_tz).strftime("%Y%m%d%H%M%S")
+    utc_start = start_utc.strftime("%Y%m%d%H%M%S")
+    utc_end = end_utc.strftime("%Y%m%d%H%M%S")
+    file_count = int(getattr(config, "OBSERVER_DDB_LOG_FILE_COUNT", 50) or 50)
+    awk = r'''awk -v ls="$local_start" -v le="$local_end" -v us="$utc_start" -v ue="$utc_end" '
+      function emit(t, start, end) {
+        if (("x" t) >= ("x" start) && ("x" t) <= ("x" end)) print FILENAME " " $0
+      }
+      function level_ok(line) {
+        return line ~ /(^|[^[:alpha:]])(WARN|WARNING|ERROR|EXCEPTION|FATAL|PANIC)([^[:alpha:]]|$)/
+      }
+      {
+        if (!level_ok(toupper($0))) next
+      }
+      match($0,/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}([.][0-9]+)?Z/) {
+        t=substr($0,RSTART,4) substr($0,RSTART+5,2) substr($0,RSTART+8,2) substr($0,RSTART+11,2) substr($0,RSTART+14,2) substr($0,RSTART+17,2)
+        emit(t, us, ue); next
+      }
+      match($0,/[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}([.][0-9]+)?[+][0-9]{2}:[0-9]{2}/) {
+        t=substr($0,RSTART,4) substr($0,RSTART+5,2) substr($0,RSTART+8,2) substr($0,RSTART+11,2) substr($0,RSTART+14,2) substr($0,RSTART+17,2)
+        emit(t, ls, le); next
+      }
+      match($0,/[0-9]{4}\/[0-9]{2}\/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}/) {
+        t=substr($0,RSTART,4) substr($0,RSTART+5,2) substr($0,RSTART+8,2) substr($0,RSTART+11,2) substr($0,RSTART+14,2) substr($0,RSTART+17,2)
+        emit(t, ls, le); next
+      }
+    ' "$f"'''
+    return (
+        "local_start={local_start}; local_end={local_end}; "
+        "utc_start={utc_start}; utc_end={utc_end}; "
+        "if [ ! -d {log_dir} ]; then echo '__NO_DIR__'; exit 0; fi; "
+        "find {log_dir} -type f 2>/dev/null | "
+        "xargs -r ls -1t 2>/dev/null | "
+        "head -n {file_count} | "
+        "while IFS= read -r f; do {awk}; done"
+    ).format(
+        local_start=shlex.quote(local_start),
+        local_end=shlex.quote(local_end),
+        utc_start=shlex.quote(utc_start),
+        utc_end=shlex.quote(utc_end),
+        log_dir=shlex.quote(_DUPF_DDB_HOST_LOG_DIR),
+        file_count=file_count,
+        awk=awk,
+    )
+
+
+def _collect_internal_dupf_logs(namespace, pod, node=""):
+    dirs = _dupf_host_log_dirs_for_pod(pod)
+    cmd = _build_tail_files_command(dirs, _DUPF_INTERNAL_LOG_FILES, _DUPF_INTERNAL_LOG_TAIL_LINES)
+    if node:
+        rc, stdout, stderr = _run_on_node(node, cmd)
+        if rc != 0 and not stdout:
+            return "<host-log-read-failed node={} rc={} stderr={}>".format(node, rc, stderr)
+        return "{}\n{}".format(stdout, stderr).strip() if stderr else stdout
+
     try:
         return exec_in_pod(namespace, pod, cmd)
     except Exception as e:
@@ -1049,34 +1314,25 @@ def _collect_single_pod_runtime_log(namespace, pod, since_time=None, pod_status_
             if prev_lines:
                 text = prev_text
                 source = "kubectl_logs_previous"
-        if (
-            not _filter_runtime_log_lines(
-                text,
-                _POST_LOG_MAX_LINES_PER_POD,
-                since_time=since_time,
-                error_only=True,
-                enforce_line_timestamp=False,
-            )
-            and not strict_since_filter
-            and _uses_dupf_internal_logs(namespace, pod)
-        ):
-            internal_text = _collect_internal_dupf_logs(namespace, pod)
+        if _uses_dupf_internal_logs(namespace, pod):
+            internal_text = _collect_internal_dupf_logs(namespace, pod, node=node)
             internal_lines = _filter_runtime_log_lines(
                 internal_text,
                 _POST_LOG_MAX_LINES_PER_POD * 2,
                 since_time=since_time,
-                error_only=True,
+                error_only=False,
                 enforce_line_timestamp=True,
             )
             if internal_lines:
                 text = internal_text
-                source = "pod_internal:/var/log/service-logs"
+                source = "node_fs:{}".format(",".join(_dupf_host_log_dirs_for_pod(pod)))
+    enforce_final_ts = source.startswith("node_fs:") or source.startswith("pod_internal:")
     lines = _filter_runtime_log_lines(
         text,
         _POST_LOG_MAX_LINES_PER_POD,
         since_time=since_time,
-        error_only=True,
-        enforce_line_timestamp=False,
+        error_only=not source.startswith("node_fs:"),
+        enforce_line_timestamp=enforce_final_ts,
     )
     return {
         "pod": pod,
@@ -1085,6 +1341,7 @@ def _collect_single_pod_runtime_log(namespace, pod, since_time=None, pod_status_
         "source": source,
         "lines": lines,
         "empty": not bool(lines),
+        "time_window": _runtime_log_window(since_time),
     }
 
 
@@ -1200,6 +1457,65 @@ def _collect_dupf_mq_host_logs(namespace, pod_names, since_time=None, pod_items=
     return out
 
 
+def _should_collect_dupf_ddb_logs(pre_state, common_state):
+    components = set(pre_state.get("involved_components") or [])
+    if "ddb" in components:
+        return True
+    for pod in _get_target_log_pods(pre_state, common_state):
+        if _component_of_pod(pod) == "ddb":
+            return True
+    return False
+
+
+def _collect_dupf_ddb_host_logs(namespace, since_time=None):
+    if not bool(getattr(config, "OBSERVER_DDB_HOST_LOGS_ENABLED", True)):
+        return []
+    if not _uses_dupf_cross_node_host_logs(namespace):
+        return []
+
+    node = str(getattr(config, "OBSERVER_DDB_LOG_NODE", "solarserver02") or "").strip()
+    if not node:
+        return []
+
+    start_utc, end_utc = _ddb_log_time_bounds(since_time=since_time)
+    cmd = _build_ddb_host_log_filter_command(since_time=since_time, now=end_utc)
+    rc, stdout, stderr = _run_on_node(node, cmd)
+    text = stdout
+    if stderr:
+        text = "{}\n{}".format(stdout, stderr).strip()
+
+    max_lines = int(getattr(config, "OBSERVER_DDB_LOG_MAX_LINES", 160) or 160)
+    lines = _filter_runtime_log_lines(
+        text,
+        max_lines,
+        since_time=None,
+        error_only=True,
+        enforce_line_timestamp=False,
+    )
+    if rc != 0 and not lines:
+        reason = (stderr or stdout or "").strip()
+        if reason:
+            lines = ["<host-log-read-failed rc={} stderr={}>".format(rc, reason)]
+        else:
+            lines = ["<host-log-read-failed rc={}>".format(rc)]
+
+    log_tz = _ddb_log_timestamp_timezone()
+    return [
+        {
+            "pod": "",
+            "node": node,
+            "component": "ddb",
+            "source": "node_fs:{}(warn+,recent-{}h)".format(
+                _DUPF_DDB_HOST_LOG_DIR,
+                int(getattr(config, "OBSERVER_DDB_LOG_LOOKBACK_HOURS", 3) or 3),
+            ),
+            "lines": lines,
+            "empty": not bool(lines),
+            "time_window": _runtime_log_window_from_bounds(start_utc, end_utc, log_tz),
+        }
+    ]
+
+
 def _should_collect_dupf_mq_logs(pre_state, common_state):
     components = set(pre_state.get("involved_components") or [])
     if "mq" in components:
@@ -1211,10 +1527,20 @@ def _should_collect_dupf_mq_logs(pre_state, common_state):
 
 
 def _log_runtime_target_logs(case_log, runtime_logs):
-    case_log.log("[POST] Runtime Target ERROR Logs")
+    case_log.log("[POST] Runtime Target Logs")
     if not runtime_logs:
         case_log.log("  <none>")
         return
+
+    for item in runtime_logs:
+        window = item.get("time_window") or {}
+        if window:
+            case_log.log(
+                "  time_window case_start_local={case_start_local} since_utc={since_utc} log_since={log_since} log_tz={log_tz}".format(
+                    **window
+                )
+            )
+            break
 
     for item in runtime_logs:
         node_part = ""
@@ -1230,7 +1556,7 @@ def _log_runtime_target_logs(case_log, runtime_logs):
         )
         lines = item.get("lines") or []
         if not lines:
-            case_log.log("    <empty; no ERROR logs in time window>")
+            case_log.log("    <empty; no logs in time window>")
             continue
         for line in lines:
             case_log.log("    {}".format(line))
@@ -1263,6 +1589,7 @@ def _collect_pre_common_state(namespace, podchaos_target_pods, role_source_pods)
 
     pod_status = _get_pod_status_map(namespace, podchaos_target_pods, pod_items=pod_items)
     role_state = _collect_role_state(involved_components)
+    resource_usage = _collect_pod_resource_usage(namespace)
     return {
         "target_pods": podchaos_target_pods,
         "role_source_pods": role_source_pods,
@@ -1270,6 +1597,7 @@ def _collect_pre_common_state(namespace, podchaos_target_pods, role_source_pods)
         "involved_components": involved_components,
         "run_start": run_start,
         "role_state": role_state,
+        "resource_usage": resource_usage,
         "workflow_name": "",
         "pod_items": pod_items,
     }
@@ -1282,6 +1610,7 @@ def _collect_post_common_state(namespace, pre_state):
 
     pod_status = _get_pod_status_map(namespace, target_pods, pod_items=pod_items)
     role_state = _collect_role_state(involved_components)
+    resource_usage = _collect_pod_resource_usage(namespace)
 
     post_all_map = _build_pod_status_map(pod_items)
     replacements = _build_replacement_map(pre_state.get("pre_pod_status") or {}, pod_status, post_all_map)
@@ -1309,6 +1638,13 @@ def _collect_post_common_state(namespace, pre_state):
         since_time=pre_state.get("run_start"),
         pod_items=pod_items,
     )
+    if _uses_dupf_cross_node_host_logs(namespace) and _should_collect_dupf_ddb_logs(pre_state, {"replacements": replacements}):
+        runtime_logs.extend(
+            _collect_dupf_ddb_host_logs(
+                namespace,
+                since_time=pre_state.get("run_start"),
+            )
+        )
     if _uses_dupf_cross_node_host_logs(namespace) and _should_collect_dupf_mq_logs(pre_state, {"replacements": replacements}):
         runtime_logs.extend(
             _collect_dupf_mq_host_logs(
@@ -1323,6 +1659,7 @@ def _collect_post_common_state(namespace, pre_state):
         "target_pods": target_pods,
         "pod_status": pod_status,
         "role_state": role_state,
+        "resource_usage": resource_usage,
         "post_display_map": post_display_map,
         "replacements": replacements,
         "runtime_events": runtime_events,
@@ -1337,6 +1674,7 @@ def collect_pre_case_state(namespace, podchaos_target_pods, role_source_pods, ca
         case_log.log("[PRE] podchaos selected pods is empty")
     case_log.log("[PRE] podchaos selected pods count={} components={}".format(len(common.get("target_pods") or []), common.get("involved_components") or []))
     _log_pod_table(case_log, "[PRE] Pod Status", common.get("pre_pod_status") or {})
+    _log_resource_usage(case_log, "[PRE] Pod Resource Usage", common.get("resource_usage") or {})
     _log_role_state(case_log, "[PRE] Component Overall Role State", common.get("role_state") or {})
     _log_lmt_snapshot(case_log, lmt_state, "PRE")
 
@@ -1350,6 +1688,7 @@ def collect_post_case_state(namespace, pre_state, case_log, lmt_mode="table", co
     lmt_state = _collect_lmt(namespace, lmt_mode=lmt_mode, commands=lmt_commands, pod_items=common.get("pod_items"))
 
     _log_pod_table(case_log, "[POST] Pod Status", common.get("post_display_map") or {})
+    _log_resource_usage(case_log, "[POST] Pod Resource Usage", common.get("resource_usage") or {})
     _log_replacements(case_log, common.get("replacements") or {})
 
     case_log.log("[COMPARE] Pod PRE -> POST")

@@ -21,7 +21,12 @@ if PARENT_DIR not in sys.path:
 from chaos_runner import config
 from chaos_runner.workflow_factory.factory import build, build_with_resolved
 from chaos_runner.executor.executor import run_workflow
-from chaos_runner.executor.ems_alarm import format_recent_alarm_log_lines, run_ems_alarm_query
+from chaos_runner.executor.ems_alarm import (
+    format_recent_alarm_log_lines,
+    run_ems_alarm_query,
+    run_ems_login_check,
+    run_ems_manual_login,
+)
 from chaos_runner.executor.network_verify import verify_network_chaos_before_kill
 from chaos_runner.workflow_factory.postprocess import expand_network_chaos_to_component_pods
 from chaos_runner.tools.k8s import kubectl_apply, kubectl_delete_workflow
@@ -317,18 +322,22 @@ def _write_phase_yaml(path, wf_name, suffix, yaml_text):
 def _apply_workflow_once(yaml_path, yaml_text, wf_namespace, wf_name):
     if is_remote_apply_enabled():
         remote_path = build_remote_workflow_path(wf_name)
+        pre_delete_result = kubectl_delete_workflow_remote(wf_namespace, wf_name)
         upload_result = upload_text(remote_path, yaml_text)
         apply_result = kubectl_apply_remote(remote_path)
         return {
             "execution_mode": "remote_apply",
             "yaml_path": yaml_path,
             "remote_yaml_path": remote_path,
+            "pre_delete_result": pre_delete_result,
             "upload_result": upload_result,
             "apply_result": apply_result,
         }
+    pre_delete_result = kubectl_delete_workflow(wf_namespace, wf_name)
     return {
         "execution_mode": "local",
         "yaml_path": yaml_path,
+        "pre_delete_result": pre_delete_result,
         "apply_result": kubectl_apply(yaml_path),
     }
 
@@ -348,6 +357,16 @@ def _log_execution_result(case_log, result):
         case_log.log("[RUN] local_yaml={}".format(result.get("yaml_path")))
     if result.get("remote_yaml_path"):
         case_log.log("[RUN] remote_yaml={}".format(result.get("remote_yaml_path")))
+
+    pre_delete_result = result.get("pre_delete_result")
+    if isinstance(pre_delete_result, dict):
+        case_log.log("[RUN] pre-delete rc={}".format(pre_delete_result.get("rc")))
+        if pre_delete_result.get("stdout"):
+            case_log.log("[RUN] pre-delete stdout={}".format(pre_delete_result.get("stdout")))
+        if pre_delete_result.get("stderr"):
+            case_log.log("[RUN] pre-delete stderr={}".format(pre_delete_result.get("stderr")))
+    elif pre_delete_result:
+        case_log.log("[RUN] pre-delete stdout={}".format(pre_delete_result))
 
     upload_result = result.get("upload_result") or {}
     if upload_result:
@@ -464,8 +483,7 @@ def execute_case_from_args(args, echo_stdout=True):
     if bool(case.get("network_expand_to_component_pods", False)):
         wf_yaml = expand_network_chaos_to_component_pods(wf_yaml, config.NS_TARGET)
 
-    case_start_time = datetime.now()
-    case_ts = case_start_time.strftime("%Y%m%d_%H%M%S_%f")[:-3]
+    case_ts = datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]
     case_log_format_path = _log_path("chaos_case_{}_{}_format.log".format(wf_name, case_ts), getattr(args, "log_dir", ""))
     case_log_json_path = _log_path("chaos_case_{}_{}_json.log".format(wf_name, case_ts), getattr(args, "log_dir", ""))
     case_log_json_fixed_path = _log_path("chaos_case_json.log", getattr(args, "log_dir", ""))
@@ -528,6 +546,41 @@ def execute_case_from_args(args, echo_stdout=True):
     case_log_json.log(_format_pod_list("podchaos selected pods", podchaos_target_pods))
     case_log_json.log(_format_pod_list("role-source target pods", role_source_pods))
 
+    ems_login_result = None
+    if not args.dry_run:
+        try:
+            ems_login_result = run_ems_login_check()
+            if ems_login_result and not ems_login_result.get("skipped"):
+                msg = "[EMS] login check status={} storage_state={} url={}".format(
+                    ems_login_result.get("status", ""),
+                    ems_login_result.get("storage_state", ""),
+                    ems_login_result.get("url", ""),
+                )
+                case_log_format.log(msg)
+                case_log_json.log(msg)
+            elif ems_login_result:
+                case_log_format.log("[EMS] login check skipped: {}".format(ems_login_result.get("reason", "")))
+                case_log_json.log("[EMS] login check skipped: {}".format(ems_login_result.get("reason", "")))
+        except Exception as exc:
+            ems_login_result = {"enabled": True, "skipped": False, "error": str(exc)}
+            case_log_format.log("[EMS] login check failed: {}".format(exc))
+            case_log_json.log("[EMS] login check failed: {}".format(exc))
+            if bool(getattr(config, "EMS_LOGIN_INTERACTIVE_ON_FAILURE", True)):
+                case_log_format.log("[EMS] opening interactive login, complete EMS login then press Enter in the terminal")
+                case_log_json.log("[EMS] opening interactive login, complete EMS login then press Enter in the terminal")
+                run_ems_manual_login()
+                ems_login_result = run_ems_login_check()
+                msg = "[EMS] login check status={} storage_state={} url={}".format(
+                    ems_login_result.get("status", ""),
+                    ems_login_result.get("storage_state", ""),
+                    ems_login_result.get("url", ""),
+                )
+                case_log_format.log(msg)
+                case_log_json.log(msg)
+            elif bool(getattr(config, "EMS_LOGIN_REQUIRED", False)):
+                raise
+
+    case_start_time = datetime.now()
     pre_common = _collect_pre_common_state(config.NS_TARGET, podchaos_target_pods, role_source_pods)
     pre_common["workflow_name"] = wf_name
     pre_state_format = collect_pre_case_state(
@@ -562,6 +615,7 @@ def execute_case_from_args(args, echo_stdout=True):
             "case_log_format_path": case_log_format_path,
             "case_log_json_path": case_log_json_path,
             "case_log_json_fixed_path": case_log_json_fixed_path,
+            "ems_login_result": ems_login_result,
             "dry_run": True,
         }
 
@@ -670,7 +724,14 @@ def execute_case_from_args(args, echo_stdout=True):
         )
         prior_exception_active = sys.exc_info()[0] is not None
         try:
-            ems_alarm_result = run_ems_alarm_query(wf_name, case_ts, getattr(args, "log_dir", ""), since_time=case_start_time)
+            if ems_login_result and ems_login_result.get("error"):
+                ems_alarm_result = {
+                    "enabled": True,
+                    "skipped": True,
+                    "reason": "EMS login check failed: {}".format(ems_login_result.get("error", "")),
+                }
+            else:
+                ems_alarm_result = run_ems_alarm_query(wf_name, case_ts, getattr(args, "log_dir", ""), since_time=case_start_time)
             if ems_alarm_result and not ems_alarm_result.get("skipped"):
                 msg = "[EMS] alarm query target={} output_dir={} counts={}".format(
                     ems_alarm_result.get("target", ""),
@@ -708,6 +769,7 @@ def execute_case_from_args(args, echo_stdout=True):
         "network_execution_result": network_execution_result,
         "kill_execution_result": kill_execution_result,
         "network_cleanup_result": net_cleanup_result,
+        "ems_login_result": ems_login_result,
         "ems_alarm_result": ems_alarm_result,
     }
 

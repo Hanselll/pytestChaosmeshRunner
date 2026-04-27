@@ -44,6 +44,14 @@ _SPECS = {
     "LMT_REMOTE_TIMEOUT_SECONDS": {"default": 900},
     "OBSERVER_LOG_MAX_WORKERS": {"default": 4},
     "OBSERVER_RUNTIME_LOGS_ENABLED": {"default": True},
+    "OBSERVER_LOG_TIMEZONE_OFFSET_HOURS": {"default": 0},
+    "OBSERVER_DDB_HOST_LOGS_ENABLED": {"default": True},
+    "OBSERVER_DDB_LOG_NODE": {"default": "solarserver02"},
+    "OBSERVER_DDB_LOG_LOOKBACK_HOURS": {"default": 3},
+    "OBSERVER_DDB_LOG_FILE_COUNT": {"default": 50},
+    "OBSERVER_DDB_LOG_MAX_LINES": {"default": 160},
+    "OBSERVER_DDB_LOG_TIMEZONE_OFFSET_HOURS": {"default": 8},
+    "OBSERVER_RESOURCE_USAGE_ENABLED": {"default": True},
     "UPC_PODNAME_HINT": {"default": "upc"},
     "DDB_EXEC_POD": {"default": "dupf-ddb-shd-0-0"},
     "DDB_POD_PREFIX": {"default": "dupf-ddb"},
@@ -85,6 +93,11 @@ _SPECS = {
     "EMS_ALARM_TIMEZONE_OFFSET_HOURS": {"default": 0},
     "EMS_ALARM_PYTHON": {"default": ""},
     "EMS_AUTOMATION_DIR": {"default": os.path.join(_PROJECT_ROOT, "ems", "ems_automation")},
+    "EMS_LOGIN_ENABLED": {"default": True},
+    "EMS_LOGIN_INTERACTIVE_ON_FAILURE": {"default": True},
+    "EMS_LOGIN_MANUAL_TIMEOUT_SECONDS": {"default": 0},
+    "EMS_LOGIN_REQUIRED": {"default": False},
+    "EMS_LOGIN_TIMEOUT_SECONDS": {"default": 120},
 }
 
 

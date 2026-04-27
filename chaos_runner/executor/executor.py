@@ -12,6 +12,7 @@ from chaos_runner.tools.remote import (
 
 
 def run_workflow_local(yaml_path, wf_namespace, wf_name, wait_seconds, cleanup=True, during_wait=None):
+    pre_delete_result = kubectl_delete_workflow(wf_namespace, wf_name)
     apply_result = kubectl_apply(yaml_path)
     if callable(during_wait):
         during_wait(int(wait_seconds))
@@ -25,6 +26,7 @@ def run_workflow_local(yaml_path, wf_namespace, wf_name, wait_seconds, cleanup=T
     return {
         "execution_mode": "local",
         "yaml_path": yaml_path,
+        "pre_delete_result": pre_delete_result,
         "apply_result": apply_result,
         "delete_result": delete_result,
     }
@@ -40,6 +42,7 @@ def run_workflow_remote_apply(
     during_wait=None,
 ):
     remote_path = build_remote_workflow_path(wf_name)
+    pre_delete_result = kubectl_delete_workflow_remote(wf_namespace, wf_name)
     upload_result = upload_text(remote_path, yaml_text)
     apply_result = kubectl_apply_remote(remote_path)
 
@@ -56,6 +59,7 @@ def run_workflow_remote_apply(
         "execution_mode": "remote_apply",
         "yaml_path": yaml_path,
         "remote_yaml_path": remote_path,
+        "pre_delete_result": pre_delete_result,
         "upload_result": upload_result,
         "apply_result": apply_result,
         "delete_result": delete_result,

@@ -85,7 +85,13 @@ def run_manual_login(output_path: Path | None = None, start_url: str = HOME_URL)
         page.goto(start_url, wait_until="load", timeout=120000)
         print("Browser opened for EMS login.")
         print("Complete username/password and puzzle verification in the browser window.")
-        input("After the EMS home page is fully loaded, press Enter here to save the login state...")
+        try:
+            input("After the EMS home page is fully loaded, press Enter here to save the login state...")
+        except EOFError as exc:
+            raise RuntimeError(
+                "EMS manual login requires an interactive terminal. "
+                "Run auth-login from a real console before starting the case."
+            ) from exc
         open_home(page)
         current_url = page.url
         body_text = page.locator("body").inner_text(timeout=5000)
@@ -94,6 +100,28 @@ def run_manual_login(output_path: Path | None = None, start_url: str = HOME_URL)
         return {
             "mode": "manual_login",
             "status": "saved",
+            "storage_state": str(saved_path),
+            "url": current_url,
+            "body_tail": body_text[-500:],
+        }
+    finally:
+        browser.close()
+        playwright.stop()
+
+
+def run_auth_check(output_path: Path | None = None, start_url: str = HOME_URL) -> dict:
+    target = output_path or get_auth_state_path()
+    playwright, browser, context = create_browser_context(headless=True, storage_state_path=target)
+    page = context.new_page()
+    try:
+        page.goto(start_url, wait_until="load", timeout=120000)
+        open_home(page)
+        current_url = page.url
+        body_text = page.locator("body").inner_text(timeout=5000)
+        saved_path = save_storage_state(context, target)
+        return {
+            "mode": "auth_check",
+            "status": "ok",
             "storage_state": str(saved_path),
             "url": current_url,
             "body_tail": body_text[-500:],

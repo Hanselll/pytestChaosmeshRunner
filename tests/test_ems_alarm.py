@@ -153,3 +153,87 @@ def test_run_ems_alarm_query_skips_when_disabled(monkeypatch):
 
     assert result["skipped"] is True
     assert result["reason"] == "EMS_ALARM_ENABLED is false"
+
+
+def test_run_ems_login_check_invokes_auth_check(tmp_path, monkeypatch):
+    ems_dir = tmp_path / "ems_automation"
+    ems_dir.mkdir()
+
+    monkeypatch.setattr(config, "EMS_LOGIN_ENABLED", True)
+    monkeypatch.setattr(config, "EMS_LOGIN_TIMEOUT_SECONDS", 44)
+    monkeypatch.setattr(config, "EMS_ALARM_ENABLED", True)
+    monkeypatch.setattr(config, "EMS_ALARM_PYTHON", "python-test")
+    monkeypatch.setattr(config, "EMS_AUTOMATION_DIR", str(ems_dir))
+
+    calls = []
+
+    def fake_run(cmd, cwd=None, env=None, stdout=None, stderr=None, text=None, encoding=None, errors=None, timeout=None):
+        calls.append(
+            {
+                "cmd": cmd,
+                "cwd": cwd,
+                "timeout": timeout,
+                "env": env,
+            }
+        )
+        return subprocess.CompletedProcess(
+            cmd,
+            0,
+            stdout=json.dumps({"status": "ok", "storage_state": "state.json", "url": "https://ems/"}),
+            stderr="",
+        )
+
+    monkeypatch.setattr(ems_alarm.subprocess, "run", fake_run)
+
+    result = ems_alarm.run_ems_login_check()
+
+    assert calls[0]["cmd"] == ["python-test", "-m", "ems_automation.cli", "auth-check"]
+    assert calls[0]["cwd"] == str(ems_dir)
+    assert calls[0]["timeout"] == 44
+    assert result["status"] == "ok"
+    assert result["storage_state"] == "state.json"
+
+
+def test_run_ems_login_check_skips_when_alarm_disabled(monkeypatch):
+    monkeypatch.setattr(config, "EMS_LOGIN_ENABLED", True)
+    monkeypatch.setattr(config, "EMS_ALARM_ENABLED", False)
+
+    result = ems_alarm.run_ems_login_check()
+
+    assert result["skipped"] is True
+    assert result["reason"] == "EMS_ALARM_ENABLED is false"
+
+
+def test_run_ems_manual_login_invokes_auth_login(tmp_path, monkeypatch):
+    ems_dir = tmp_path / "ems_automation"
+    ems_dir.mkdir()
+
+    monkeypatch.setattr(config, "EMS_LOGIN_ENABLED", True)
+    monkeypatch.setattr(config, "EMS_LOGIN_MANUAL_TIMEOUT_SECONDS", 0)
+    monkeypatch.setattr(config, "EMS_ALARM_ENABLED", True)
+    monkeypatch.setattr(config, "EMS_ALARM_PYTHON", "python-test")
+    monkeypatch.setattr(config, "EMS_AUTOMATION_DIR", str(ems_dir))
+
+    calls = []
+
+    class FakeStdio:
+        def __enter__(self):
+            return {"stdin": "stdin", "stdout": "stdout", "stderr": "stderr"}
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+    def fake_run(cmd, cwd=None, env=None, timeout=None, **kwargs):
+        calls.append({"cmd": cmd, "cwd": cwd, "timeout": timeout, "kwargs": kwargs})
+        return subprocess.CompletedProcess(cmd, 0)
+
+    monkeypatch.setattr(ems_alarm, "_interactive_subprocess_stdio", lambda: FakeStdio())
+    monkeypatch.setattr(ems_alarm.subprocess, "run", fake_run)
+
+    result = ems_alarm.run_ems_manual_login()
+
+    assert calls[0]["cmd"] == ["python-test", "-m", "ems_automation.cli", "auth-login"]
+    assert calls[0]["cwd"] == str(ems_dir)
+    assert calls[0]["timeout"] is None
+    assert calls[0]["kwargs"] == {"stdin": "stdin", "stdout": "stdout", "stderr": "stderr"}
+    assert result["rc"] == 0
