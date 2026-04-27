@@ -1,0 +1,12 @@
+{
+  "network_element": "10.230.4.248",
+  "path_by_name": [
+    "网络基础配置",
+    "接口配置",
+    "子接口配置",
+    "查询子接口配置"
+  ],
+  "params": {},
+  "command_text": "SHOW UPFSUBINTERFACECONF;",
+  "result_wait_ms": 12000
+}

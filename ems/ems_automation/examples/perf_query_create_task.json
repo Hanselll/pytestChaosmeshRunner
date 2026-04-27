@@ -1,0 +1,8 @@
+{
+  "fields": {
+    "网元类型": "VIM",
+    "测量对象类型": "pod",
+    "指标": "cpu"
+  },
+  "next_step": false
+}

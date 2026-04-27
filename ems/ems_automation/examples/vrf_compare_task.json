@@ -1,0 +1,14 @@
+{
+  "network_element": "10.230.4.248",
+  "vrf_id": "777",
+  "db": {
+    "host": "127.0.0.1",
+    "port": 55432,
+    "user": "postgres",
+    "password": "Mecdev_2023",
+    "database": "db_upf",
+    "schema": "ems_upf",
+    "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe",
+    "source": "mml_exec_log_show"
+  }
+}

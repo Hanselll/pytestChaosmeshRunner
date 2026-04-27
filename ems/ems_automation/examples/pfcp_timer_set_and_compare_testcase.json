@@ -1,0 +1,86 @@
+{
+  "name": "pfcp_timer_set_and_compare",
+  "description": "Set PFCP timer config from web UI, compare queried web row with database snapshot row, then revert the original values.",
+  "defaults": {
+    "network_element": "10.230.4.248",
+    "db": {
+      "host": "127.0.0.1",
+      "port": 55432,
+      "user": "postgres",
+      "password": "Mecdev_2023",
+      "database": "db_upf",
+      "schema": "ems_upf",
+      "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe",
+      "source": "config_snapshot",
+      "array_key": "upfPfcpTimerConf"
+    }
+  },
+  "variables": {
+    "hb_interval_ms": "21000",
+    "hb_retry_count": "4",
+    "pfcp_timeout_ms": "6000",
+    "pfcp_retry_count": "4",
+    "orig_hb_interval_ms": "20000",
+    "orig_hb_retry_count": "3",
+    "orig_pfcp_timeout_ms": "5000",
+    "orig_pfcp_retry_count": "3"
+  },
+  "setup": [],
+  "steps": [
+    {
+      "id": "set_pfcp_timer",
+      "action": "config-write",
+      "task": {
+        "path_by_name": ["网络基础配置", "节点管理", "PFCP定时器配置", "修改PFCP定时器配置(SET UPFPFCPTIMERCONF)"],
+        "params": {
+          "心跳请求发送间隔(ms)": "${variables.hb_interval_ms}",
+          "心跳发送间隔超时次数": "${variables.hb_retry_count}",
+          "PFCP请求信令超时时间(ms)": "${variables.pfcp_timeout_ms}",
+          "PFCP请求信令最大重传次数": "${variables.pfcp_retry_count}"
+        },
+        "submit": true
+      },
+      "assertions": [{ "path": "submitted", "equals": true }]
+    },
+    {
+      "id": "compare_pfcp_timer",
+      "action": "config-generic-compare",
+      "retry": { "attempts": 4, "interval_seconds": 5 },
+      "task": {
+        "path_by_name": ["网络基础配置", "节点管理", "PFCP定时器配置", "查询PFCP定时器配置(SHOW UPFPFCPTIMERCONF)"],
+        "compare": {
+          "key_fields": ["心跳请求发送间隔(ms)"],
+          "compare_fields": ["心跳请求发送间隔(ms)", "心跳发送间隔超时次数", "PFCP请求信令超时时间(ms)", "PFCP请求信令最大重传次数"],
+          "web_to_db_field_map": {
+            "心跳请求发送间隔(ms)": "hbTmr",
+            "心跳发送间隔超时次数": "hbtmrNum",
+            "PFCP请求信令超时时间(ms)": "t1",
+            "PFCP请求信令最大重传次数": "n1"
+          }
+        }
+      },
+      "assertions": [
+        { "path": "summary.compared_row_count", "equals": 1 },
+        { "path": "summary.mismatch_row_count", "equals": 0 },
+        { "path": "summary.all_match", "equals": true }
+      ]
+    }
+  ],
+  "teardown": [
+    {
+      "id": "restore_pfcp_timer",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["网络基础配置", "节点管理", "PFCP定时器配置", "修改PFCP定时器配置(SET UPFPFCPTIMERCONF)"],
+        "params": {
+          "心跳请求发送间隔(ms)": "${variables.orig_hb_interval_ms}",
+          "心跳发送间隔超时次数": "${variables.orig_hb_retry_count}",
+          "PFCP请求信令超时时间(ms)": "${variables.orig_pfcp_timeout_ms}",
+          "PFCP请求信令最大重传次数": "${variables.orig_pfcp_retry_count}"
+        },
+        "submit": true
+      }
+    }
+  ]
+}

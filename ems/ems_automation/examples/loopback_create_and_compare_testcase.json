@@ -1,0 +1,86 @@
+{
+  "name": "loopback_create_and_compare",
+  "description": "Create a loopback config from web UI, compare queried web row with database snapshot row, then clean up.",
+  "defaults": {
+    "network_element": "10.230.4.248",
+    "db": {
+      "host": "127.0.0.1",
+      "port": 55432,
+      "user": "postgres",
+      "password": "Mecdev_2023",
+      "database": "db_upf",
+      "schema": "ems_upf",
+      "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe",
+      "source": "config_snapshot",
+      "array_key": "upfLoopbackConf"
+    }
+  },
+  "variables": {
+    "ifname": "loop901",
+    "instance_id": "901",
+    "vrf_id": "777"
+  },
+  "setup": [
+    {
+      "id": "delete_before",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["网络基础配置", "接口配置", "逻辑接口配置", "删除逻辑接口配置(DEL UPFLOOPBACKCONF)"],
+        "params": { "Loopback接口名称": "${variables.ifname}" },
+        "submit": true
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "create_loopback",
+      "action": "config-write",
+      "task": {
+        "path_by_name": ["网络基础配置", "接口配置", "逻辑接口配置", "增加逻辑接口配置(ADD UPFLOOPBACKCONF)"],
+        "params": {
+          "Loopback接口名称": "${variables.ifname}",
+          "Loopback口实例id": "${variables.instance_id}",
+          "VRF ID": "${variables.vrf_id}"
+        },
+        "submit": true
+      },
+      "assertions": [{ "path": "submitted", "equals": true }]
+    },
+    {
+      "id": "compare_loopback",
+      "action": "config-generic-compare",
+      "retry": { "attempts": 4, "interval_seconds": 5 },
+      "task": {
+        "path_by_name": ["网络基础配置", "接口配置", "逻辑接口配置", "查询逻辑接口配置(SHOW UPFLOOPBACKCONF)"],
+        "params": { "Loopback接口名称": "${variables.ifname}" },
+        "compare": {
+          "key_fields": ["Loopback接口名称"],
+          "compare_fields": ["Loopback接口名称", "Loopback口实例id", "VRF ID"],
+          "web_to_db_field_map": {
+            "Loopback接口名称": "ifname",
+            "Loopback口实例id": "instanceId",
+            "VRF ID": "vrfId"
+          }
+        }
+      },
+      "assertions": [
+        { "path": "summary.compared_row_count", "equals": 1 },
+        { "path": "summary.mismatch_row_count", "equals": 0 },
+        { "path": "summary.all_match", "equals": true }
+      ]
+    }
+  ],
+  "teardown": [
+    {
+      "id": "delete_after",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["网络基础配置", "接口配置", "逻辑接口配置", "删除逻辑接口配置(DEL UPFLOOPBACKCONF)"],
+        "params": { "Loopback接口名称": "${variables.ifname}" },
+        "submit": true
+      }
+    }
+  ]
+}

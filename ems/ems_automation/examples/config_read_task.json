@@ -1,0 +1,10 @@
+{
+  "network_element": "10.230.4.248",
+  "path_by_name": [
+    "业务开通配置",
+    "DNN配置",
+    "DNN VRF映射配置",
+    "增加DNN VRF映射配置"
+  ],
+  "submit": false
+}

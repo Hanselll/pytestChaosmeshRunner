@@ -1,0 +1,83 @@
+{
+  "name": "dscp_vlan_create_and_compare",
+  "description": "Create a DSCP vlan mapping from web UI, compare queried web row with database snapshot row, then clean up.",
+  "defaults": {
+    "network_element": "10.230.4.248",
+    "db": {
+      "host": "127.0.0.1",
+      "port": 55432,
+      "user": "postgres",
+      "password": "Mecdev_2023",
+      "database": "db_upf",
+      "schema": "ems_upf",
+      "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe",
+      "source": "config_snapshot",
+      "array_key": "upfDscpVlanpriConf"
+    }
+  },
+  "variables": {
+    "dscp": "61",
+    "vlanpri": "7"
+  },
+  "setup": [
+    {
+      "id": "delete_before",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["增强功能配置", "DSCP与VLAN映射配置", "删除DSCP与VLAN映射配置(DEL UPFDSCPVLANPRICONF)"],
+        "params": { "dscp标识": "${variables.dscp}" },
+        "submit": true
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "create_dscp_vlan",
+      "action": "config-write",
+      "task": {
+        "path_by_name": ["增强功能配置", "DSCP与VLAN映射配置", "增加DSCP与VLAN映射配置(ADD UPFDSCPVLANPRICONF)"],
+        "params": {
+          "dscp标识": "${variables.dscp}",
+          "vlan优先级": "${variables.vlanpri}"
+        },
+        "submit": true
+      },
+      "assertions": [{ "path": "submitted", "equals": true }]
+    },
+    {
+      "id": "compare_dscp_vlan",
+      "action": "config-generic-compare",
+      "retry": { "attempts": 4, "interval_seconds": 5 },
+      "task": {
+        "path_by_name": ["增强功能配置", "DSCP与VLAN映射配置", "查询DSCP与VLAN映射配置(SHOW UPFDSCPVLANPRICONF)"],
+        "params": { "dscp标识": "${variables.dscp}" },
+        "compare": {
+          "key_fields": ["dscp标识"],
+          "compare_fields": ["dscp标识", "vlan优先级"],
+          "web_to_db_field_map": {
+            "dscp标识": "dscp",
+            "vlan优先级": "vlanpri"
+          }
+        }
+      },
+      "assertions": [
+        { "path": "summary.compared_row_count", "equals": 1 },
+        { "path": "summary.mismatch_row_count", "equals": 0 },
+        { "path": "summary.all_match", "equals": true }
+      ]
+    }
+  ],
+  "teardown": [
+    {
+      "id": "delete_after",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["增强功能配置", "DSCP与VLAN映射配置", "删除DSCP与VLAN映射配置(DEL UPFDSCPVLANPRICONF)"],
+        "params": { "dscp标识": "${variables.dscp}" },
+        "submit": true
+      }
+    }
+  ]
+}

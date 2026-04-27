@@ -1,0 +1,102 @@
+{
+  "name": "forward_route_create_and_compare",
+  "description": "Create a forward route config from web UI, compare queried web row with database snapshot row, then clean up.",
+  "defaults": {
+    "network_element": "10.230.4.248",
+    "db": {
+      "host": "127.0.0.1",
+      "port": 55432,
+      "user": "postgres",
+      "password": "Mecdev_2023",
+      "database": "db_upf",
+      "schema": "ems_upf",
+      "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe",
+      "source": "config_snapshot",
+      "array_key": "upfForwardRouteConf"
+    }
+  },
+  "variables": {
+    "network": "198.51.100.0/24",
+    "vrf_id": "777",
+    "nexthop": "10.236.3.254",
+    "priority": "10",
+    "cost": "10"
+  },
+  "setup": [
+    {
+      "id": "delete_before",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["网络基础配置", "路由配置", "转发路由配置", "删除转发路由配置(DEL UPFFORWARDROUTECONF)"],
+        "params": {
+          "目的网段": "${variables.network}",
+          "VRF ID": "${variables.vrf_id}",
+          "下一跳": "${variables.nexthop}"
+        },
+        "submit": true
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "create_forward_route",
+      "action": "config-write",
+      "task": {
+        "path_by_name": ["网络基础配置", "路由配置", "转发路由配置", "增加转发路由配置(ADD UPFFORWARDROUTECONF)"],
+        "params": {
+          "目的网段": "${variables.network}",
+          "VRF ID": "${variables.vrf_id}",
+          "下一跳": "${variables.nexthop}",
+          "优先级": "${variables.priority}",
+          "开销": "${variables.cost}"
+        },
+        "submit": true
+      },
+      "assertions": [{ "path": "submitted", "equals": true }]
+    },
+    {
+      "id": "compare_forward_route",
+      "action": "config-generic-compare",
+      "retry": { "attempts": 4, "interval_seconds": 5 },
+      "task": {
+        "path_by_name": ["网络基础配置", "路由配置", "转发路由配置", "查询转发路由配置(SHOW UPFFORWARDROUTECONF)"],
+        "params": {
+          "目的网段": "${variables.network}",
+          "VRF ID": "${variables.vrf_id}",
+          "下一跳": "${variables.nexthop}"
+        },
+        "compare": {
+          "key_fields": ["目的网段", "VRF ID", "下一跳"],
+          "compare_fields": ["目的网段", "VRF ID", "下一跳"],
+          "web_to_db_field_map": {
+            "目的网段": "network",
+            "VRF ID": "vrfId",
+            "下一跳": "nexthop"
+          }
+        }
+      },
+      "assertions": [
+        { "path": "summary.compared_row_count", "equals": 1 },
+        { "path": "summary.mismatch_row_count", "equals": 0 },
+        { "path": "summary.all_match", "equals": true }
+      ]
+    }
+  ],
+  "teardown": [
+    {
+      "id": "delete_after",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["网络基础配置", "路由配置", "转发路由配置", "删除转发路由配置(DEL UPFFORWARDROUTECONF)"],
+        "params": {
+          "目的网段": "${variables.network}",
+          "VRF ID": "${variables.vrf_id}",
+          "下一跳": "${variables.nexthop}"
+        },
+        "submit": true
+      }
+    }
+  ]
+}

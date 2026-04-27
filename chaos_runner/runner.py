@@ -21,6 +21,7 @@ if PARENT_DIR not in sys.path:
 from chaos_runner import config
 from chaos_runner.workflow_factory.factory import build, build_with_resolved
 from chaos_runner.executor.executor import run_workflow
+from chaos_runner.executor.ems_alarm import format_recent_alarm_log_lines, run_ems_alarm_query
 from chaos_runner.executor.network_verify import verify_network_chaos_before_kill
 from chaos_runner.workflow_factory.postprocess import expand_network_chaos_to_component_pods
 from chaos_runner.tools.k8s import kubectl_apply, kubectl_delete_workflow
@@ -463,7 +464,8 @@ def execute_case_from_args(args, echo_stdout=True):
     if bool(case.get("network_expand_to_component_pods", False)):
         wf_yaml = expand_network_chaos_to_component_pods(wf_yaml, config.NS_TARGET)
 
-    case_ts = datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]
+    case_start_time = datetime.now()
+    case_ts = case_start_time.strftime("%Y%m%d_%H%M%S_%f")[:-3]
     case_log_format_path = _log_path("chaos_case_{}_{}_format.log".format(wf_name, case_ts), getattr(args, "log_dir", ""))
     case_log_json_path = _log_path("chaos_case_{}_{}_json.log".format(wf_name, case_ts), getattr(args, "log_dir", ""))
     case_log_json_fixed_path = _log_path("chaos_case_json.log", getattr(args, "log_dir", ""))
@@ -570,6 +572,7 @@ def execute_case_from_args(args, echo_stdout=True):
     network_execution_result = None
     kill_execution_result = None
     net_cleanup_result = None
+    ems_alarm_result = None
     network_cleanup_allowed = False
 
     try:
@@ -665,6 +668,29 @@ def execute_case_from_args(args, echo_stdout=True):
             common_state=post_common,
             lmt_commands=post_lmt_json_commands,
         )
+        prior_exception_active = sys.exc_info()[0] is not None
+        try:
+            ems_alarm_result = run_ems_alarm_query(wf_name, case_ts, getattr(args, "log_dir", ""), since_time=case_start_time)
+            if ems_alarm_result and not ems_alarm_result.get("skipped"):
+                msg = "[EMS] alarm query target={} output_dir={} counts={}".format(
+                    ems_alarm_result.get("target", ""),
+                    ems_alarm_result.get("output_dir", ""),
+                    ems_alarm_result.get("counts", {}),
+                )
+                case_log_format.log(msg)
+                case_log_json.log(msg)
+                for line in format_recent_alarm_log_lines(ems_alarm_result):
+                    case_log_format.log(line)
+                    case_log_json.log(line)
+            elif ems_alarm_result:
+                case_log_format.log("[EMS] alarm query skipped: {}".format(ems_alarm_result.get("reason", "")))
+                case_log_json.log("[EMS] alarm query skipped: {}".format(ems_alarm_result.get("reason", "")))
+        except Exception as exc:
+            ems_alarm_result = {"enabled": True, "skipped": False, "error": str(exc)}
+            case_log_format.log("[EMS] alarm query failed: {}".format(exc))
+            case_log_json.log("[EMS] alarm query failed: {}".format(exc))
+            if not prior_exception_active:
+                raise
         case_log_format.log("case finished")
         case_log_json.log("case finished")
 
@@ -682,6 +708,7 @@ def execute_case_from_args(args, echo_stdout=True):
         "network_execution_result": network_execution_result,
         "kill_execution_result": kill_execution_result,
         "network_cleanup_result": net_cleanup_result,
+        "ems_alarm_result": ems_alarm_result,
     }
 
 

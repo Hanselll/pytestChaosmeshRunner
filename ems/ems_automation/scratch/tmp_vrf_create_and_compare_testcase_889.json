@@ -1,0 +1,104 @@
+{
+    "name":  "vrf_create_and_compare",
+    "description":  "Create a VRF config from web UI, compare queried web row with database row, then clean up.",
+    "defaults":  {
+                     "network_element":  "10.230.4.248",
+                     "db":  {
+                                "host":  "127.0.0.1",
+                                "port":  55432,
+                                "user":  "postgres",
+                                "password":  "Mecdev_2023",
+                                "database":  "db_upf",
+                                "schema":  "ems_upf",
+                                "psql_path":  "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe",
+                                "source":  "mml_exec_log_show"
+                            }
+                 },
+    "variables":  {
+                      "vrf_id":  "889"
+                  },
+    "setup":  [
+                  {
+                      "id":  "delete_before",
+                      "name":  "Delete existing VRF before create",
+                      "action":  "config-write",
+                      "continue_on_failure":  true,
+                      "task":  {
+                                   "path_by_name":  [
+                                                        "业务开通配置",
+                                                        "VRF配置",
+                                                        "删除VRF配置(DEL UPFVRFCONF)"
+                                                    ],
+                                   "params":  {
+                                                  "VRF ID":  "${variables.vrf_id}"
+                                              },
+                                   "submit":  true
+                               }
+                  }
+              ],
+    "steps":  [
+                  {
+                      "id":  "create_vrf",
+                      "name":  "Create VRF config from web",
+                      "action":  "config-write",
+                      "task":  {
+                                   "path_by_name":  [
+                                                        "业务开通配置",
+                                                        "VRF配置",
+                                                        "增加VRF配置(ADD UPFVRFCONF)"
+                                                    ],
+                                   "params":  {
+                                                  "VRF ID":  "${variables.vrf_id}"
+                                              },
+                                   "submit":  true
+                               },
+                      "assertions":  [
+                                         {
+                                             "path":  "submitted",
+                                             "equals":  true
+                                         }
+                                     ]
+                  },
+                  {
+                      "id":  "compare_vrf",
+                      "name":  "Compare web query row and database row",
+                      "action":  "config-vrf-compare",
+                      "task":  {
+                                   "vrf_id":  "${variables.vrf_id}"
+                               },
+                      "assertions":  [
+                                         {
+                                             "path":  "summary.compared_row_count",
+                                             "equals":  1
+                                         },
+                                         {
+                                             "path":  "summary.mismatch_row_count",
+                                             "equals":  0
+                                         },
+                                         {
+                                             "path":  "summary.all_match",
+                                             "equals":  true
+                                         }
+                                     ]
+                  }
+              ],
+    "teardown":  [
+                     {
+                         "id":  "delete_after",
+                         "name":  "Delete VRF after testcase",
+                         "action":  "config-write",
+                         "continue_on_failure":  true,
+                         "task":  {
+                                      "path_by_name":  [
+                                                           "业务开通配置",
+                                                           "VRF配置",
+                                                           "删除VRF配置(DEL UPFVRFCONF)"
+                                                       ],
+                                      "params":  {
+                                                     "VRF ID":  "${variables.vrf_id}"
+                                                 },
+                                      "submit":  true
+                                  }
+                     }
+                 ]
+}

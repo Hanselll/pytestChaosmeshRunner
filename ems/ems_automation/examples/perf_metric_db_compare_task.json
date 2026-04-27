@@ -1,0 +1,19 @@
+{
+  "network_element_ref": "upf_primary",
+  "source": "timeseries-non-null",
+  "table": "pm_dupf_dnn_min5",
+  "metric_codes": [
+    "G501506051"
+  ],
+  "lookback_hours": 24,
+  "min_point_count": 1,
+  "db": {
+    "host": "127.0.0.1",
+    "port": 55432,
+    "user": "postgres",
+    "password": "Mecdev_2023",
+    "database": "db_upf",
+    "schema": "ems_upf",
+    "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe"
+  }
+}

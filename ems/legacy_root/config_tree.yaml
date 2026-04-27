@@ -1,0 +1,2758 @@
+site: https://127.0.0.1:50443
+entry: https://127.0.0.1:50443/index#/topoOverview
+module: 配置 -> 命令处理
+network_element: 10.230.4.248
+tree:
+- name: 系统信息管理
+  level: 0
+  expanded: true
+  children:
+  - name: 系统基础配置
+    level: 1
+    expanded: true
+    children:
+    - name: 网元身份信息配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加网元身份信息配置(ADD UPFIDINFOCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFIDINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统信息管理
+          - 系统基础配置
+          - 网元身份信息配置
+          - 增加网元身份信息配置(ADD UPFIDINFOCONF)
+        children: []
+      - name: 修改网元身份信息配置(SET UPFIDINFOCONF)
+        level: 3
+        expanded: false
+        command: SET UPFIDINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统信息管理
+          - 系统基础配置
+          - 网元身份信息配置
+          - 修改网元身份信息配置(SET UPFIDINFOCONF)
+        children: []
+      - name: 查询网元身份信息配置(SHOW UPFIDINFOCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFIDINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统信息管理
+          - 系统基础配置
+          - 网元身份信息配置
+          - 查询网元身份信息配置(SHOW UPFIDINFOCONF)
+        children: []
+- name: 网络基础配置
+  level: 0
+  expanded: true
+  children:
+  - name: 网口配置
+    level: 1
+    expanded: true
+    children:
+    - name: 接口IP地址池配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加接口IP地址池配置(ADD UPFINTERFACEIPPOOLCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFINTERFACEIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口IP地址池配置
+          - 增加接口IP地址池配置(ADD UPFINTERFACEIPPOOLCONF)
+        children: []
+      - name: 查询接口IP地址池配置(SHOW UPFINTERFACEIPPOOLCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFINTERFACEIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口IP地址池配置
+          - 查询接口IP地址池配置(SHOW UPFINTERFACEIPPOOLCONF)
+        children: []
+      - name: 删除接口IP地址池配置(DEL UPFINTERFACEIPPOOLCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFINTERFACEIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口IP地址池配置
+          - 删除接口IP地址池配置(DEL UPFINTERFACEIPPOOLCONF)
+        children: []
+    - name: 接口角色IP配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加接口角色IP配置(ADD UPFINTERFACEROLECONF)
+        level: 3
+        expanded: false
+        command: ADD UPFINTERFACEROLECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口角色IP配置
+          - 增加接口角色IP配置(ADD UPFINTERFACEROLECONF)
+        children: []
+      - name: 修改接口角色IP配置(SET UPFINTERFACEROLECONF)
+        level: 3
+        expanded: false
+        command: SET UPFINTERFACEROLECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口角色IP配置
+          - 修改接口角色IP配置(SET UPFINTERFACEROLECONF)
+        children: []
+      - name: 查询接口角色IP配置(SHOW UPFINTERFACEROLECONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFINTERFACEROLECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口角色IP配置
+          - 查询接口角色IP配置(SHOW UPFINTERFACEROLECONF)
+        children: []
+      - name: 删除接口角色IP配置(DEL UPFINTERFACEROLECONF)
+        level: 3
+        expanded: false
+        command: DEL UPFINTERFACEROLECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口角色IP配置
+          - 删除接口角色IP配置(DEL UPFINTERFACEROLECONF)
+        children: []
+  - name: 接口配置
+    level: 1
+    expanded: true
+    children:
+    - name: 绑定接口配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加绑定接口配置(ADD UPFBONDINTERFACECONF)
+        level: 3
+        expanded: false
+        command: ADD UPFBONDINTERFACECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 绑定接口配置
+          - 增加绑定接口配置(ADD UPFBONDINTERFACECONF)
+        children: []
+      - name: 查询绑定接口配置(SHOW UPFBONDINTERFACECONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFBONDINTERFACECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 绑定接口配置
+          - 查询绑定接口配置(SHOW UPFBONDINTERFACECONF)
+        children: []
+      - name: 删除绑定接口配置(DEL UPFBONDINTERFACECONF)
+        level: 3
+        expanded: false
+        command: DEL UPFBONDINTERFACECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 绑定接口配置
+          - 删除绑定接口配置(DEL UPFBONDINTERFACECONF)
+        children: []
+    - name: 绑定接口成员配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加绑定接口成员配置(ADD UPFBONDMEMBERCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFBONDMEMBERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 绑定接口成员配置
+          - 增加绑定接口成员配置(ADD UPFBONDMEMBERCONF)
+        children: []
+      - name: 查询绑定接口成员配置(SHOW UPFBONDMEMBERCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFBONDMEMBERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 绑定接口成员配置
+          - 查询绑定接口成员配置(SHOW UPFBONDMEMBERCONF)
+        children: []
+      - name: 删除绑定接口成员配置(DEL UPFBONDMEMBERCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFBONDMEMBERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 绑定接口成员配置
+          - 删除绑定接口成员配置(DEL UPFBONDMEMBERCONF)
+        children: []
+    - name: 子接口配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加子接口配置(ADD UPFSUBINTERFACECONF)
+        level: 3
+        expanded: false
+        command: ADD UPFSUBINTERFACECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 子接口配置
+          - 增加子接口配置(ADD UPFSUBINTERFACECONF)
+        children: []
+      - name: 查询子接口配置(SHOW UPFSUBINTERFACECONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFSUBINTERFACECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 子接口配置
+          - 查询子接口配置(SHOW UPFSUBINTERFACECONF)
+        children: []
+      - name: 删除子接口配置(DEL UPFSUBINTERFACECONF)
+        level: 3
+        expanded: false
+        command: DEL UPFSUBINTERFACECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 子接口配置
+          - 删除子接口配置(DEL UPFSUBINTERFACECONF)
+        children: []
+    - name: 逻辑接口配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加逻辑接口配置(ADD UPFLOOPBACKCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFLOOPBACKCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 逻辑接口配置
+          - 增加逻辑接口配置(ADD UPFLOOPBACKCONF)
+        children: []
+      - name: 查询逻辑接口配置(SHOW UPFLOOPBACKCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFLOOPBACKCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 逻辑接口配置
+          - 查询逻辑接口配置(SHOW UPFLOOPBACKCONF)
+        children: []
+      - name: 删除逻辑接口配置(DEL UPFLOOPBACKCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFLOOPBACKCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 逻辑接口配置
+          - 删除逻辑接口配置(DEL UPFLOOPBACKCONF)
+        children: []
+  - name: 路由配置
+    level: 1
+    expanded: true
+    children:
+    - name: 转发路由配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加转发路由配置(ADD UPFFORWARDROUTECONF)
+        level: 3
+        expanded: false
+        command: ADD UPFFORWARDROUTECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 路由配置
+          - 转发路由配置
+          - 增加转发路由配置(ADD UPFFORWARDROUTECONF)
+        children: []
+      - name: 查询转发路由配置(SHOW UPFFORWARDROUTECONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFFORWARDROUTECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 路由配置
+          - 转发路由配置
+          - 查询转发路由配置(SHOW UPFFORWARDROUTECONF)
+        children: []
+      - name: 删除转发路由配置(DEL UPFFORWARDROUTECONF)
+        level: 3
+        expanded: false
+        command: DEL UPFFORWARDROUTECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 路由配置
+          - 转发路由配置
+          - 删除转发路由配置(DEL UPFFORWARDROUTECONF)
+        children: []
+    - name: 信令路由配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加信令路由配置(ADD UPFSIGNALROUTECONF)
+        level: 3
+        expanded: false
+        command: ADD UPFSIGNALROUTECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 路由配置
+          - 信令路由配置
+          - 增加信令路由配置(ADD UPFSIGNALROUTECONF)
+        children: []
+      - name: 查询信令路由配置(SHOW UPFSIGNALROUTECONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFSIGNALROUTECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 路由配置
+          - 信令路由配置
+          - 查询信令路由配置(SHOW UPFSIGNALROUTECONF)
+        children: []
+      - name: 删除信令路由配置(DEL UPFSIGNALROUTECONF)
+        level: 3
+        expanded: false
+        command: DEL UPFSIGNALROUTECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 路由配置
+          - 信令路由配置
+          - 删除信令路由配置(DEL UPFSIGNALROUTECONF)
+        children: []
+  - name: PFCP UDP校验开关配置
+    level: 1
+    expanded: true
+    children:
+    - name: 修改PFCP UDP校验开关配置(SET UPFPFCPUDPCHKSUMCONF)
+      level: 2
+      expanded: false
+      command: SET UPFPFCPUDPCHKSUMCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 网络基础配置
+        - PFCP UDP校验开关配置
+        - 修改PFCP UDP校验开关配置(SET UPFPFCPUDPCHKSUMCONF)
+      children: []
+    - name: 查询PFCP UDP校验开关配置(SHOW UPFPFCPUDPCHKSUMCONF)
+      level: 2
+      expanded: false
+      command: SHOW UPFPFCPUDPCHKSUMCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 网络基础配置
+        - PFCP UDP校验开关配置
+        - 查询PFCP UDP校验开关配置(SHOW UPFPFCPUDPCHKSUMCONF)
+      children: []
+  - name: 节点管理
+    level: 1
+    expanded: true
+    children:
+    - name: PFCP偶联配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加PFCP偶联配置(ADD UPFSMFNODECONF)
+        level: 3
+        expanded: false
+        command: ADD UPFSMFNODECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP偶联配置
+          - 增加PFCP偶联配置(ADD UPFSMFNODECONF)
+        children: []
+      - name: 修改PFCP偶联配置(SET UPFSMFNODECONF)
+        level: 3
+        expanded: false
+        command: SET UPFSMFNODECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP偶联配置
+          - 修改PFCP偶联配置(SET UPFSMFNODECONF)
+        children: []
+      - name: 查询PFCP偶联配置(SHOW UPFSMFNODECONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFSMFNODECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP偶联配置
+          - 查询PFCP偶联配置(SHOW UPFSMFNODECONF)
+        children: []
+      - name: 删除PFCP偶联配置(DEL UPFSMFNODECONF)
+        level: 3
+        expanded: false
+        command: DEL UPFSMFNODECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP偶联配置
+          - 删除PFCP偶联配置(DEL UPFSMFNODECONF)
+        children: []
+    - name: PFCP特性配置
+      level: 2
+      expanded: true
+      children:
+      - name: 修改PFCP特性配置(SET UPFPFCPFEATURECONF)
+        level: 3
+        expanded: false
+        command: SET UPFPFCPFEATURECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP特性配置
+          - 修改PFCP特性配置(SET UPFPFCPFEATURECONF)
+        children: []
+      - name: 查询PFCP特性配置(SHOW UPFPFCPFEATURECONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFPFCPFEATURECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP特性配置
+          - 查询PFCP特性配置(SHOW UPFPFCPFEATURECONF)
+        children: []
+    - name: PFCP定时器配置
+      level: 2
+      expanded: true
+      children:
+      - name: 修改PFCP定时器配置(SET UPFPFCPTIMERCONF)
+        level: 3
+        expanded: false
+        command: SET UPFPFCPTIMERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP定时器配置
+          - 修改PFCP定时器配置(SET UPFPFCPTIMERCONF)
+        children: []
+      - name: 查询PFCP定时器配置(SHOW UPFPFCPTIMERCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFPFCPTIMERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP定时器配置
+          - 查询PFCP定时器配置(SHOW UPFPFCPTIMERCONF)
+        children: []
+    - name: 重建节点关联配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加重建节点关联配置(ADD UPFNODEASSOCIATEREESTABLISH)
+        level: 3
+        expanded: false
+        command: ADD UPFNODEASSOCIATEREESTABLISH
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - 重建节点关联配置
+          - 增加重建节点关联配置(ADD UPFNODEASSOCIATEREESTABLISH)
+        children: []
+    - name: 删除会话接口配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加删除会话接口配置(ADD UPFSESSIONLISTDELETE)
+        level: 3
+        expanded: false
+        command: ADD UPFSESSIONLISTDELETE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - 删除会话接口配置
+          - 增加删除会话接口配置(ADD UPFSESSIONLISTDELETE)
+        children: []
+    - name: 优雅释放配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加优雅释放配置(ADD UPFNODEASSOCIATEGRACEFULRELEASE)
+        level: 3
+        expanded: false
+        command: ADD UPFNODEASSOCIATEGRACEFULRELEASE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - 优雅释放配置
+          - 增加优雅释放配置(ADD UPFNODEASSOCIATEGRACEFULRELEASE)
+        children: []
+    - name: 下行包缓存控制
+      level: 2
+      expanded: true
+      children:
+      - name: 修改下行包缓存控制(SET UPFDLBUFFERCONF)
+        level: 3
+        expanded: false
+        command: SET UPFDLBUFFERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - 下行包缓存控制
+          - 修改下行包缓存控制(SET UPFDLBUFFERCONF)
+        children: []
+      - name: 查询下行包缓存控制(SHOW UPFDLBUFFERCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFDLBUFFERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - 下行包缓存控制
+          - 查询下行包缓存控制(SHOW UPFDLBUFFERCONF)
+        children: []
+- name: 业务开通配置
+  level: 0
+  expanded: true
+  children:
+  - name: VRF配置
+    level: 1
+    expanded: true
+    children:
+    - name: 增加VRF配置(ADD UPFVRFCONF)
+      level: 2
+      expanded: false
+      command: ADD UPFVRFCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 业务开通配置
+        - VRF配置
+        - 增加VRF配置(ADD UPFVRFCONF)
+      children: []
+    - name: 查询VRF配置(SHOW UPFVRFCONF)
+      level: 2
+      expanded: false
+      command: SHOW UPFVRFCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 业务开通配置
+        - VRF配置
+        - 查询VRF配置(SHOW UPFVRFCONF)
+      children: []
+    - name: 删除VRF配置(DEL UPFVRFCONF)
+      level: 2
+      expanded: false
+      command: DEL UPFVRFCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 业务开通配置
+        - VRF配置
+        - 删除VRF配置(DEL UPFVRFCONF)
+      children: []
+  - name: DNN配置
+    level: 1
+    expanded: true
+    children:
+    - name: DNN VRF映射配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加DNN VRF映射配置(ADD UPFDNNVRFCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFDNNVRFCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - DNN配置
+          - DNN VRF映射配置
+          - 增加DNN VRF映射配置(ADD UPFDNNVRFCONF)
+        children: []
+      - name: 修改DNN VRF映射配置(SET UPFDNNVRFCONF)
+        level: 3
+        expanded: false
+        command: SET UPFDNNVRFCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - DNN配置
+          - DNN VRF映射配置
+          - 修改DNN VRF映射配置(SET UPFDNNVRFCONF)
+        children: []
+      - name: 查询DNN VRF映射配置(SHOW UPFDNNVRFCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFDNNVRFCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - DNN配置
+          - DNN VRF映射配置
+          - 查询DNN VRF映射配置(SHOW UPFDNNVRFCONF)
+        children: []
+      - name: 删除DNN VRF映射配置(DEL UPFDNNVRFCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFDNNVRFCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - DNN配置
+          - DNN VRF映射配置
+          - 删除DNN VRF映射配置(DEL UPFDNNVRFCONF)
+        children: []
+  - name: IP地址池配置
+    level: 1
+    expanded: true
+    children:
+    - name: UE IP地址池配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加UE IP地址池配置(ADD UPFIPPOOLCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - IP地址池配置
+          - UE IP地址池配置
+          - 增加UE IP地址池配置(ADD UPFIPPOOLCONF)
+        children: []
+      - name: 查询UE IP地址池配置(SHOW UPFIPPOOLCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - IP地址池配置
+          - UE IP地址池配置
+          - 查询UE IP地址池配置(SHOW UPFIPPOOLCONF)
+        children: []
+      - name: 删除UE IP地址池配置(DEL UPFIPPOOLCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - IP地址池配置
+          - UE IP地址池配置
+          - 删除UE IP地址池配置(DEL UPFIPPOOLCONF)
+        children: []
+  - name: BGP配置
+    level: 1
+    expanded: true
+    children:
+    - name: BGP配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加BGP配置(ADD UPFBGPINFOCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFBGPINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP配置
+          - 增加BGP配置(ADD UPFBGPINFOCONF)
+        children: []
+      - name: 修改BGP配置(SET UPFBGPINFOCONF)
+        level: 3
+        expanded: false
+        command: SET UPFBGPINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP配置
+          - 修改BGP配置(SET UPFBGPINFOCONF)
+        children: []
+      - name: 查询BGP配置(SHOW UPFBGPINFOCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFBGPINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP配置
+          - 查询BGP配置(SHOW UPFBGPINFOCONF)
+        children: []
+      - name: 删除BGP配置(DEL UPFBGPINFOCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFBGPINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP配置
+          - 删除BGP配置(DEL UPFBGPINFOCONF)
+        children: []
+    - name: BGP本地IP地址池配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加BGP本地IP地址池配置(ADD UPFBGPLOCALIPPOOLCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFBGPLOCALIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP本地IP地址池配置
+          - 增加BGP本地IP地址池配置(ADD UPFBGPLOCALIPPOOLCONF)
+        children: []
+      - name: 查询BGP本地IP地址池配置(SHOW UPFBGPLOCALIPPOOLCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFBGPLOCALIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP本地IP地址池配置
+          - 查询BGP本地IP地址池配置(SHOW UPFBGPLOCALIPPOOLCONF)
+        children: []
+      - name: 删除BGP本地IP地址池配置(DEL UPFBGPLOCALIPPOOLCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFBGPLOCALIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP本地IP地址池配置
+          - 删除BGP本地IP地址池配置(DEL UPFBGPLOCALIPPOOLCONF)
+        children: []
+    - name: BGP ROUTER ID配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加BGP ROUTER ID配置(ADD UPFBGPROUTERIDCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFBGPROUTERIDCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP ROUTER ID配置
+          - 增加BGP ROUTER ID配置(ADD UPFBGPROUTERIDCONF)
+        children: []
+      - name: 查询BGP ROUTER ID配置(SHOW UPFBGPROUTERIDCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFBGPROUTERIDCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP ROUTER ID配置
+          - 查询BGP ROUTER ID配置(SHOW UPFBGPROUTERIDCONF)
+        children: []
+      - name: 删除BGP ROUTER ID配置(DEL UPFBGPROUTERIDCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFBGPROUTERIDCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP ROUTER ID配置
+          - 删除BGP ROUTER ID配置(DEL UPFBGPROUTERIDCONF)
+        children: []
+- name: 系统功能配置
+  level: 0
+  expanded: true
+  children:
+  - name: 预定义规则配置
+    level: 1
+    expanded: true
+    children:
+    - name: 预定义规则PDR配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加预定义规则PDR配置(ADD UPFPREPDRCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFPREPDRCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则PDR配置
+          - 增加预定义规则PDR配置(ADD UPFPREPDRCONF)
+        children: []
+      - name: 查询预定义规则PDR配置(SHOW UPFPREPDRCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFPREPDRCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则PDR配置
+          - 查询预定义规则PDR配置(SHOW UPFPREPDRCONF)
+        children: []
+      - name: 删除预定义规则PDR配置(DEL UPFPREPDRCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFPREPDRCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则PDR配置
+          - 删除预定义规则PDR配置(DEL UPFPREPDRCONF)
+        children: []
+    - name: 预定义规则FAR配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加预定义规则FAR配置(ADD UPFPREFARCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFPREFARCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则FAR配置
+          - 增加预定义规则FAR配置(ADD UPFPREFARCONF)
+        children: []
+      - name: 查询预定义规则FAR配置(SHOW UPFPREFARCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFPREFARCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则FAR配置
+          - 查询预定义规则FAR配置(SHOW UPFPREFARCONF)
+        children: []
+      - name: 删除预定义规则FAR配置(DEL UPFPREFARCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFPREFARCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则FAR配置
+          - 删除预定义规则FAR配置(DEL UPFPREFARCONF)
+        children: []
+    - name: 预定义规则QER配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加预定义规则QER配置(ADD UPFPREQERCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFPREQERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则QER配置
+          - 增加预定义规则QER配置(ADD UPFPREQERCONF)
+        children: []
+      - name: 查询预定义规则QER配置(SHOW UPFPREQERCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFPREQERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则QER配置
+          - 查询预定义规则QER配置(SHOW UPFPREQERCONF)
+        children: []
+      - name: 删除预定义规则QER配置(DEL UPFPREQERCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFPREQERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则QER配置
+          - 删除预定义规则QER配置(DEL UPFPREQERCONF)
+        children: []
+    - name: 预定义规则URR配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加预定义规则URR配置(ADD UPFPREURRCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFPREURRCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则URR配置
+          - 增加预定义规则URR配置(ADD UPFPREURRCONF)
+        children: []
+      - name: 查询预定义规则URR配置(SHOW UPFPREURRCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFPREURRCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则URR配置
+          - 查询预定义规则URR配置(SHOW UPFPREURRCONF)
+        children: []
+      - name: 删除预定义规则URR配置(DEL UPFPREURRCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFPREURRCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则URR配置
+          - 删除预定义规则URR配置(DEL UPFPREURRCONF)
+        children: []
+  - name: APPID配置
+    level: 1
+    expanded: true
+    children:
+    - name: 增加APPID配置(ADD UPFAPPIDCONF)
+      level: 2
+      expanded: false
+      command: ADD UPFAPPIDCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 系统功能配置
+        - APPID配置
+        - 增加APPID配置(ADD UPFAPPIDCONF)
+      children: []
+    - name: 查询APPID配置(SHOW UPFAPPIDCONF)
+      level: 2
+      expanded: false
+      command: SHOW UPFAPPIDCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 系统功能配置
+        - APPID配置
+        - 查询APPID配置(SHOW UPFAPPIDCONF)
+      children: []
+    - name: 删除APPID配置(DEL UPFAPPIDCONF)
+      level: 2
+      expanded: false
+      command: DEL UPFAPPIDCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 系统功能配置
+        - APPID配置
+        - 删除APPID配置(DEL UPFAPPIDCONF)
+      children: []
+- name: 增强功能配置
+  level: 0
+  expanded: true
+  children:
+  - name: DNS Rewrite配置
+    level: 1
+    expanded: true
+    children:
+    - name: DNS Rewrite开关配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加DNS Rewrite开关配置(ADD UPFDNSREWRITESTATUSCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFDNSREWRITESTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite开关配置
+          - 增加DNS Rewrite开关配置(ADD UPFDNSREWRITESTATUSCONF)
+        children: []
+      - name: 修改DNS Rewrite开关配置(SET UPFDNSREWRITESTATUSCONF)
+        level: 3
+        expanded: false
+        command: SET UPFDNSREWRITESTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite开关配置
+          - 修改DNS Rewrite开关配置(SET UPFDNSREWRITESTATUSCONF)
+        children: []
+      - name: 查询DNS Rewrite开关配置(SHOW UPFDNSREWRITESTATUSCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFDNSREWRITESTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite开关配置
+          - 查询DNS Rewrite开关配置(SHOW UPFDNSREWRITESTATUSCONF)
+        children: []
+    - name: DNS Rewrite url配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加DNS Rewrite url配置(ADD UPFDNSREWRITEURLCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFDNSREWRITEURLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite url配置
+          - 增加DNS Rewrite url配置(ADD UPFDNSREWRITEURLCONF)
+        children: []
+      - name: 修改DNS Rewrite url配置(SET UPFDNSREWRITEURLCONF)
+        level: 3
+        expanded: false
+        command: SET UPFDNSREWRITEURLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite url配置
+          - 修改DNS Rewrite url配置(SET UPFDNSREWRITEURLCONF)
+        children: []
+      - name: 查询DNS Rewrite url配置(SHOW UPFDNSREWRITEURLCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFDNSREWRITEURLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite url配置
+          - 查询DNS Rewrite url配置(SHOW UPFDNSREWRITEURLCONF)
+        children: []
+      - name: 删除DNS Rewrite url配置(DEL UPFDNSREWRITEURLCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFDNSREWRITEURLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite url配置
+          - 删除DNS Rewrite url配置(DEL UPFDNSREWRITEURLCONF)
+        children: []
+    - name: DNS Rewrite DNS配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加DNS Rewrite DNS配置(ADD UPFDNSREWRITEDNSCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFDNSREWRITEDNSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite DNS配置
+          - 增加DNS Rewrite DNS配置(ADD UPFDNSREWRITEDNSCONF)
+        children: []
+      - name: 修改DNS Rewrite DNS配置(SET UPFDNSREWRITEDNSCONF)
+        level: 3
+        expanded: false
+        command: SET UPFDNSREWRITEDNSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite DNS配置
+          - 修改DNS Rewrite DNS配置(SET UPFDNSREWRITEDNSCONF)
+        children: []
+      - name: 查询DNS Rewrite DNS配置(SHOW UPFDNSREWRITEDNSCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFDNSREWRITEDNSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite DNS配置
+          - 查询DNS Rewrite DNS配置(SHOW UPFDNSREWRITEDNSCONF)
+        children: []
+      - name: 删除DNS Rewrite DNS配置(DEL UPFDNSREWRITEDNSCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFDNSREWRITEDNSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite DNS配置
+          - 删除DNS Rewrite DNS配置(DEL UPFDNSREWRITEDNSCONF)
+        children: []
+  - name: DPI识别配置
+    level: 1
+    expanded: true
+    children:
+    - name: DPI重加载特征库开关配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加DPI重加载特征库开关配置(ADD UPFRELOADDPIFEATURECONF)
+        level: 3
+        expanded: false
+        command: ADD UPFRELOADDPIFEATURECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI重加载特征库开关配置
+          - 增加DPI重加载特征库开关配置(ADD UPFRELOADDPIFEATURECONF)
+        children: []
+      - name: 修改DPI重加载特征库开关配置(SET UPFRELOADDPIFEATURECONF)
+        level: 3
+        expanded: false
+        command: SET UPFRELOADDPIFEATURECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI重加载特征库开关配置
+          - 修改DPI重加载特征库开关配置(SET UPFRELOADDPIFEATURECONF)
+        children: []
+      - name: 查询DPI重加载特征库开关配置(SHOW UPFRELOADDPIFEATURECONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFRELOADDPIFEATURECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI重加载特征库开关配置
+          - 查询DPI重加载特征库开关配置(SHOW UPFRELOADDPIFEATURECONF)
+        children: []
+    - name: DPI功能开关配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加DPI功能开关配置(ADD UPFDPISTATUSCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFDPISTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI功能开关配置
+          - 增加DPI功能开关配置(ADD UPFDPISTATUSCONF)
+        children: []
+      - name: 修改DPI功能开关配置(SET UPFDPISTATUSCONF)
+        level: 3
+        expanded: false
+        command: SET UPFDPISTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI功能开关配置
+          - 修改DPI功能开关配置(SET UPFDPISTATUSCONF)
+        children: []
+      - name: 查询DPI功能开关配置(SHOW UPFDPISTATUSCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFDPISTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI功能开关配置
+          - 查询DPI功能开关配置(SHOW UPFDPISTATUSCONF)
+        children: []
+    - name: DPI统计开关配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加DPI统计开关配置(ADD UPFDPICOUNTERSTATUS)
+        level: 3
+        expanded: false
+        command: ADD UPFDPICOUNTERSTATUS
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI统计开关配置
+          - 增加DPI统计开关配置(ADD UPFDPICOUNTERSTATUS)
+        children: []
+      - name: 修改DPI统计开关配置(SET UPFDPICOUNTERSTATUS)
+        level: 3
+        expanded: false
+        command: SET UPFDPICOUNTERSTATUS
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI统计开关配置
+          - 修改DPI统计开关配置(SET UPFDPICOUNTERSTATUS)
+        children: []
+      - name: 查询DPI统计开关配置(SHOW UPFDPICOUNTERSTATUS)
+        level: 3
+        expanded: false
+        command: SHOW UPFDPICOUNTERSTATUS
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI统计开关配置
+          - 查询DPI统计开关配置(SHOW UPFDPICOUNTERSTATUS)
+        children: []
+    - name: DPI HTTP逐包检测开关配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加DPI HTTP逐包检测开关配置(ADD UPFDPIHTTPCONTINUESTATUSCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFDPIHTTPCONTINUESTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI HTTP逐包检测开关配置
+          - 增加DPI HTTP逐包检测开关配置(ADD UPFDPIHTTPCONTINUESTATUSCONF)
+        children: []
+      - name: 修改DPI HTTP逐包检测开关配置(SET UPFDPIHTTPCONTINUESTATUSCONF)
+        level: 3
+        expanded: false
+        command: SET UPFDPIHTTPCONTINUESTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI HTTP逐包检测开关配置
+          - 修改DPI HTTP逐包检测开关配置(SET UPFDPIHTTPCONTINUESTATUSCONF)
+        children: []
+      - name: 查询DPI HTTP逐包检测开关配置(SHOW UPFDPIHTTPCONTINUESTATUSCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFDPIHTTPCONTINUESTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI HTTP逐包检测开关配置
+          - 查询DPI HTTP逐包检测开关配置(SHOW UPFDPIHTTPCONTINUESTATUSCONF)
+        children: []
+    - name: DPI限速配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加DPI限速配置(ADD UPFDPIMETERCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFDPIMETERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI限速配置
+          - 增加DPI限速配置(ADD UPFDPIMETERCONF)
+        children: []
+      - name: 修改DPI限速配置(SET UPFDPIMETERCONF)
+        level: 3
+        expanded: false
+        command: SET UPFDPIMETERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI限速配置
+          - 修改DPI限速配置(SET UPFDPIMETERCONF)
+        children: []
+      - name: 查询DPI限速配置(SHOW UPFDPIMETERCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFDPIMETERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI限速配置
+          - 查询DPI限速配置(SHOW UPFDPIMETERCONF)
+        children: []
+      - name: 删除DPI限速配置(DEL UPFDPIMETERCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFDPIMETERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI限速配置
+          - 删除DPI限速配置(DEL UPFDPIMETERCONF)
+        children: []
+    - name: DPI检测数量配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加DPI检测数量配置(ADD UPFDPIMAXNUMOFINSPECTIONPACKETCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFDPIMAXNUMOFINSPECTIONPACKETCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI检测数量配置
+          - 增加DPI检测数量配置(ADD UPFDPIMAXNUMOFINSPECTIONPACKETCONF)
+        children: []
+      - name: 修改DPI检测数量配置(SET UPFDPIMAXNUMOFINSPECTIONPACKETCONF)
+        level: 3
+        expanded: false
+        command: SET UPFDPIMAXNUMOFINSPECTIONPACKETCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI检测数量配置
+          - 修改DPI检测数量配置(SET UPFDPIMAXNUMOFINSPECTIONPACKETCONF)
+        children: []
+      - name: 查询DPI检测数量配置(SHOW UPFDPIMAXNUMOFINSPECTIONPACKETCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFDPIMAXNUMOFINSPECTIONPACKETCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI检测数量配置
+          - 查询DPI检测数量配置(SHOW UPFDPIMAXNUMOFINSPECTIONPACKETCONF)
+        children: []
+  - name: DSCP与VLAN映射配置
+    level: 1
+    expanded: true
+    children:
+    - name: 增加DSCP与VLAN映射配置(ADD UPFDSCPVLANPRICONF)
+      level: 2
+      expanded: false
+      command: ADD UPFDSCPVLANPRICONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 增强功能配置
+        - DSCP与VLAN映射配置
+        - 增加DSCP与VLAN映射配置(ADD UPFDSCPVLANPRICONF)
+      children: []
+    - name: 修改DSCP与VLAN映射配置(SET UPFDSCPVLANPRICONF)
+      level: 2
+      expanded: false
+      command: SET UPFDSCPVLANPRICONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 增强功能配置
+        - DSCP与VLAN映射配置
+        - 修改DSCP与VLAN映射配置(SET UPFDSCPVLANPRICONF)
+      children: []
+    - name: 查询DSCP与VLAN映射配置(SHOW UPFDSCPVLANPRICONF)
+      level: 2
+      expanded: false
+      command: SHOW UPFDSCPVLANPRICONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 增强功能配置
+        - DSCP与VLAN映射配置
+        - 查询DSCP与VLAN映射配置(SHOW UPFDSCPVLANPRICONF)
+      children: []
+    - name: 删除DSCP与VLAN映射配置(DEL UPFDSCPVLANPRICONF)
+      level: 2
+      expanded: false
+      command: DEL UPFDSCPVLANPRICONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 增强功能配置
+        - DSCP与VLAN映射配置
+        - 删除DSCP与VLAN映射配置(DEL UPFDSCPVLANPRICONF)
+      children: []
+  - name: 路由通告粒度配置
+    level: 1
+    expanded: true
+    children:
+    - name: 修改路由通告粒度配置(SET UPFDEBUGROUTEADVGRANULARITYCONF)
+      level: 2
+      expanded: false
+      command: SET UPFDEBUGROUTEADVGRANULARITYCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 增强功能配置
+        - 路由通告粒度配置
+        - 修改路由通告粒度配置(SET UPFDEBUGROUTEADVGRANULARITYCONF)
+      children: []
+    - name: 查询路由通告粒度配置(SHOW UPFDEBUGROUTEADVGRANULARITYCONF)
+      level: 2
+      expanded: false
+      command: SHOW UPFDEBUGROUTEADVGRANULARITYCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 增强功能配置
+        - 路由通告粒度配置
+        - 查询路由通告粒度配置(SHOW UPFDEBUGROUTEADVGRANULARITYCONF)
+      children: []
+  - name: 后路由RBMS配置
+    level: 1
+    expanded: true
+    children:
+    - name: 后路由开关配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加后路由开关配置(ADD UPFRBMSSTATUSCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFRBMSSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - 后路由RBMS配置
+          - 后路由开关配置
+          - 增加后路由开关配置(ADD UPFRBMSSTATUSCONF)
+        children: []
+      - name: 修改后路由开关配置(SET UPFRBMSSTATUSCONF)
+        level: 3
+        expanded: false
+        command: SET UPFRBMSSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - 后路由RBMS配置
+          - 后路由开关配置
+          - 修改后路由开关配置(SET UPFRBMSSTATUSCONF)
+        children: []
+      - name: 查询后路由开关配置(SHOW UPFRBMSSTATUSCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFRBMSSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - 后路由RBMS配置
+          - 后路由开关配置
+          - 查询后路由开关配置(SHOW UPFRBMSSTATUSCONF)
+        children: []
+- name: 高可靠功能配置
+  level: 0
+  expanded: true
+  children:
+  - name: Error Indication开关配置
+    level: 1
+    expanded: true
+    children:
+    - name: 增加Error Indication开关配置(ADD UPFERRORINDICATESENDSTATUSCONF)
+      level: 2
+      expanded: false
+      command: ADD UPFERRORINDICATESENDSTATUSCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 高可靠功能配置
+        - Error Indication开关配置
+        - 增加Error Indication开关配置(ADD UPFERRORINDICATESENDSTATUSCONF)
+      children: []
+    - name: 修改Error Indication开关配置(SET UPFERRORINDICATESENDSTATUSCONF)
+      level: 2
+      expanded: false
+      command: SET UPFERRORINDICATESENDSTATUSCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 高可靠功能配置
+        - Error Indication开关配置
+        - 修改Error Indication开关配置(SET UPFERRORINDICATESENDSTATUSCONF)
+      children: []
+    - name: 查询Error Indication开关配置(SHOW UPFERRORINDICATESENDSTATUSCONF)
+      level: 2
+      expanded: false
+      command: SHOW UPFERRORINDICATESENDSTATUSCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 高可靠功能配置
+        - Error Indication开关配置
+        - 查询Error Indication开关配置(SHOW UPFERRORINDICATESENDSTATUSCONF)
+      children: []
+  - name: 惯性运行配置
+    level: 1
+    expanded: true
+    children:
+    - name: 惯性运行开关配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加惯性运行开关配置(ADD UPFINERTIARUNNINGSTATUSCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFINERTIARUNNINGSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 高可靠功能配置
+          - 惯性运行配置
+          - 惯性运行开关配置
+          - 增加惯性运行开关配置(ADD UPFINERTIARUNNINGSTATUSCONF)
+        children: []
+      - name: 修改惯性运行开关配置(SET UPFINERTIARUNNINGSTATUSCONF)
+        level: 3
+        expanded: false
+        command: SET UPFINERTIARUNNINGSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 高可靠功能配置
+          - 惯性运行配置
+          - 惯性运行开关配置
+          - 修改惯性运行开关配置(SET UPFINERTIARUNNINGSTATUSCONF)
+        children: []
+      - name: 查询惯性运行开关配置(SHOW UPFINERTIARUNNINGSTATUSCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFINERTIARUNNINGSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 高可靠功能配置
+          - 惯性运行配置
+          - 惯性运行开关配置
+          - 查询惯性运行开关配置(SHOW UPFINERTIARUNNINGSTATUSCONF)
+        children: []
+    - name: 惯性运行配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加惯性运行配置(ADD UPFINERTIARUNNINGCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFINERTIARUNNINGCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 高可靠功能配置
+          - 惯性运行配置
+          - 惯性运行配置
+          - 增加惯性运行配置(ADD UPFINERTIARUNNINGCONF)
+        children: []
+      - name: 修改惯性运行配置(SET UPFINERTIARUNNINGCONF)
+        level: 3
+        expanded: false
+        command: SET UPFINERTIARUNNINGCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 高可靠功能配置
+          - 惯性运行配置
+          - 惯性运行配置
+          - 修改惯性运行配置(SET UPFINERTIARUNNINGCONF)
+        children: []
+      - name: 查询惯性运行配置(SHOW UPFINERTIARUNNINGCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFINERTIARUNNINGCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 高可靠功能配置
+          - 惯性运行配置
+          - 惯性运行配置
+          - 查询惯性运行配置(SHOW UPFINERTIARUNNINGCONF)
+        children: []
+- name: 安全防护功能配置
+  level: 0
+  expanded: true
+  children:
+  - name: SMF偶联白名单配置
+    level: 1
+    expanded: true
+    children:
+    - name: SMF节点白名单开关配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加SMF节点白名单开关配置(ADD UPFSMFNODEWHITELISTSTATUSCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFSMFNODEWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - SMF偶联白名单配置
+          - SMF节点白名单开关配置
+          - 增加SMF节点白名单开关配置(ADD UPFSMFNODEWHITELISTSTATUSCONF)
+        children: []
+      - name: 修改SMF节点白名单开关配置(SET UPFSMFNODEWHITELISTSTATUSCONF)
+        level: 3
+        expanded: false
+        command: SET UPFSMFNODEWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - SMF偶联白名单配置
+          - SMF节点白名单开关配置
+          - 修改SMF节点白名单开关配置(SET UPFSMFNODEWHITELISTSTATUSCONF)
+        children: []
+      - name: 查询SMF节点白名单开关配置(SHOW UPFSMFNODEWHITELISTSTATUSCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFSMFNODEWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - SMF偶联白名单配置
+          - SMF节点白名单开关配置
+          - 查询SMF节点白名单开关配置(SHOW UPFSMFNODEWHITELISTSTATUSCONF)
+        children: []
+  - name: 终端白名单配置
+    level: 1
+    expanded: true
+    children:
+    - name: UE白名单开关配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加UE白名单开关配置(ADD UPFUEWHITELISTSTATUSCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFUEWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - 终端白名单配置
+          - UE白名单开关配置
+          - 增加UE白名单开关配置(ADD UPFUEWHITELISTSTATUSCONF)
+        children: []
+      - name: 修改UE白名单开关配置(SET UPFUEWHITELISTSTATUSCONF)
+        level: 3
+        expanded: false
+        command: SET UPFUEWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - 终端白名单配置
+          - UE白名单开关配置
+          - 修改UE白名单开关配置(SET UPFUEWHITELISTSTATUSCONF)
+        children: []
+      - name: 查询UE白名单开关配置(SHOW UPFUEWHITELISTSTATUSCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFUEWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - 终端白名单配置
+          - UE白名单开关配置
+          - 查询UE白名单开关配置(SHOW UPFUEWHITELISTSTATUSCONF)
+        children: []
+    - name: UE白名单配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加UE白名单配置(ADD UPFUEWHITELISTCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFUEWHITELISTCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - 终端白名单配置
+          - UE白名单配置
+          - 增加UE白名单配置(ADD UPFUEWHITELISTCONF)
+        children: []
+      - name: 查询UE白名单配置(SHOW UPFUEWHITELISTCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFUEWHITELISTCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - 终端白名单配置
+          - UE白名单配置
+          - 查询UE白名单配置(SHOW UPFUEWHITELISTCONF)
+        children: []
+      - name: 删除UE白名单配置(DEL UPFUEWHITELISTCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFUEWHITELISTCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - 终端白名单配置
+          - UE白名单配置
+          - 删除UE白名单配置(DEL UPFUEWHITELISTCONF)
+        children: []
+  - name: DNN白名单配置
+    level: 1
+    expanded: true
+    children:
+    - name: DNN白名单开关配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加DNN白名单开关配置(ADD UPFDNNWHITELISTSTATUSCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFDNNWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - DNN白名单配置
+          - DNN白名单开关配置
+          - 增加DNN白名单开关配置(ADD UPFDNNWHITELISTSTATUSCONF)
+        children: []
+      - name: 修改DNN白名单开关配置(SET UPFDNNWHITELISTSTATUSCONF)
+        level: 3
+        expanded: false
+        command: SET UPFDNNWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - DNN白名单配置
+          - DNN白名单开关配置
+          - 修改DNN白名单开关配置(SET UPFDNNWHITELISTSTATUSCONF)
+        children: []
+      - name: 查询DNN白名单开关配置(SHOW UPFDNNWHITELISTSTATUSCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFDNNWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - DNN白名单配置
+          - DNN白名单开关配置
+          - 查询DNN白名单开关配置(SHOW UPFDNNWHITELISTSTATUSCONF)
+        children: []
+    - name: DNN白名单配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加DNN白名单配置(ADD UPFDNNWHITELISTCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFDNNWHITELISTCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - DNN白名单配置
+          - DNN白名单配置
+          - 增加DNN白名单配置(ADD UPFDNNWHITELISTCONF)
+        children: []
+      - name: 查询DNN白名单配置(SHOW UPFDNNWHITELISTCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFDNNWHITELISTCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - DNN白名单配置
+          - DNN白名单配置
+          - 查询DNN白名单配置(SHOW UPFDNNWHITELISTCONF)
+        children: []
+      - name: 删除DNN白名单配置(DEL UPFDNNWHITELISTCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFDNNWHITELISTCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - DNN白名单配置
+          - DNN白名单配置
+          - 删除DNN白名单配置(DEL UPFDNNWHITELISTCONF)
+        children: []
+  - name: SMF双向认证配置
+    level: 1
+    expanded: true
+    children:
+    - name: SMF节点uuid认证开关配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加SMF节点uuid认证开关配置(ADD UPFSMFNODEUUIDAUTHSTATUSCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFSMFNODEUUIDAUTHSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - SMF双向认证配置
+          - SMF节点uuid认证开关配置
+          - 增加SMF节点uuid认证开关配置(ADD UPFSMFNODEUUIDAUTHSTATUSCONF)
+        children: []
+      - name: 修改SMF节点uuid认证开关配置(SET UPFSMFNODEUUIDAUTHSTATUSCONF)
+        level: 3
+        expanded: false
+        command: SET UPFSMFNODEUUIDAUTHSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - SMF双向认证配置
+          - SMF节点uuid认证开关配置
+          - 修改SMF节点uuid认证开关配置(SET UPFSMFNODEUUIDAUTHSTATUSCONF)
+        children: []
+      - name: 查询SMF节点uuid认证开关配置(SHOW UPFSMFNODEUUIDAUTHSTATUSCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFSMFNODEUUIDAUTHSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - SMF双向认证配置
+          - SMF节点uuid认证开关配置
+          - 查询SMF节点uuid认证开关配置(SHOW UPFSMFNODEUUIDAUTHSTATUSCONF)
+        children: []
+- name: 运维功能配置
+  level: 0
+  expanded: true
+  children:
+  - name: 网络连接检测
+    level: 1
+    expanded: true
+    children:
+    - name: 网路分析配置
+      level: 2
+      expanded: true
+      children:
+      - name: 增加网路分析配置(ADD UPFNETANALYSCONF)
+        level: 3
+        expanded: false
+        command: ADD UPFNETANALYSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 网路分析配置
+          - 增加网路分析配置(ADD UPFNETANALYSCONF)
+        children: []
+      - name: 查询网路分析配置(SHOW UPFNETANALYSCONF)
+        level: 3
+        expanded: false
+        command: SHOW UPFNETANALYSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 网路分析配置
+          - 查询网路分析配置(SHOW UPFNETANALYSCONF)
+        children: []
+      - name: 删除网路分析配置(DEL UPFNETANALYSCONF)
+        level: 3
+        expanded: false
+        command: DEL UPFNETANALYSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 网路分析配置
+          - 删除网路分析配置(DEL UPFNETANALYSCONF)
+        children: []
+    - name: 查询网路分析结果
+      level: 2
+      expanded: true
+      children:
+      - name: 查询网路分析结果(SHOW UPFGETNETDELAY)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETNETDELAY
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 查询网路分析结果
+          - 查询网路分析结果(SHOW UPFGETNETDELAY)
+        children: []
+    - name: 发起网络路径ping探测
+      level: 2
+      expanded: true
+      children:
+      - name: 发起网络路径ping探测(ADD UPFPINGNETWORKPATH)
+        level: 3
+        expanded: false
+        command: ADD UPFPINGNETWORKPATH
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 发起网络路径ping探测
+          - 发起网络路径ping探测(ADD UPFPINGNETWORKPATH)
+        children: []
+    - name: 获取网络路径ping探测结果
+      level: 2
+      expanded: true
+      children:
+      - name: 获取网络路径ping探测结果(SHOW UPFPINGNETWORKPATHRESULT)
+        level: 3
+        expanded: false
+        command: SHOW UPFPINGNETWORKPATHRESULT
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 获取网络路径ping探测结果
+          - 获取网络路径ping探测结果(SHOW UPFPINGNETWORKPATHRESULT)
+        children: []
+    - name: 发起网络路径trace探测
+      level: 2
+      expanded: true
+      children:
+      - name: 发起网络路径trace探测(ADD UPFTRACENETWORKPATH)
+        level: 3
+        expanded: false
+        command: ADD UPFTRACENETWORKPATH
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 发起网络路径trace探测
+          - 发起网络路径trace探测(ADD UPFTRACENETWORKPATH)
+        children: []
+    - name: 获取网络路径trace探测结果
+      level: 2
+      expanded: true
+      children:
+      - name: 获取网络路径trace探测结果(SHOW UPFTRACENETWORKPATHRESULT)
+        level: 3
+        expanded: false
+        command: SHOW UPFTRACENETWORKPATHRESULT
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 获取网络路径trace探测结果
+          - 获取网络路径trace探测结果(SHOW UPFTRACENETWORKPATHRESULT)
+        children: []
+- name: 统计信息管理
+  level: 0
+  expanded: true
+  children:
+  - name: 会话统计管理
+    level: 1
+    expanded: true
+    children:
+    - name: 查询会话流量统计信息
+      level: 2
+      expanded: true
+      children:
+      - name: 查询会话流量统计信息(SHOW UPFGETSESSIONTRAFFIC)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETSESSIONTRAFFIC
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 会话统计管理
+          - 查询会话流量统计信息
+          - 查询会话流量统计信息(SHOW UPFGETSESSIONTRAFFIC)
+        children: []
+    - name: 查询会话总数
+      level: 2
+      expanded: true
+      children:
+      - name: 查询会话总数(SHOW UPFGETSESSIONNUM)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETSESSIONNUM
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 会话统计管理
+          - 查询会话总数
+          - 查询会话总数(SHOW UPFGETSESSIONNUM)
+        children: []
+    - name: 查询会话信息
+      level: 2
+      expanded: true
+      children:
+      - name: 查询会话信息(SHOW UPFGETSESSIONINFO)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETSESSIONINFO
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 会话统计管理
+          - 查询会话信息
+          - 查询会话信息(SHOW UPFGETSESSIONINFO)
+        children: []
+  - name: license使用量
+    level: 1
+    expanded: true
+    children:
+    - name: 查询license使用量
+      level: 2
+      expanded: true
+      children:
+      - name: 查询license使用量(SHOW UPFGETLICENSEUSAGE)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETLICENSEUSAGE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - license使用量
+          - 查询license使用量
+          - 查询license使用量(SHOW UPFGETLICENSEUSAGE)
+        children: []
+  - name: 网元状态
+    level: 1
+    expanded: true
+    children:
+    - name: 查询网元状态
+      level: 2
+      expanded: true
+      children:
+      - name: 查询网元状态(SHOW UPFGETNESTATUS)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETNESTATUS
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 网元状态
+          - 查询网元状态
+          - 查询网元状态(SHOW UPFGETNESTATUS)
+        children: []
+  - name: 节点关联信息
+    level: 1
+    expanded: true
+    children:
+    - name: 查询节点关联信息
+      level: 2
+      expanded: true
+      children:
+      - name: 查询节点关联信息(SHOW UPFGETNODEASSOCIATEINFO)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETNODEASSOCIATEINFO
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 节点关联信息
+          - 查询节点关联信息
+          - 查询节点关联信息(SHOW UPFGETNODEASSOCIATEINFO)
+        children: []
+  - name: 信令指标统计信息
+    level: 1
+    expanded: true
+    children:
+    - name: 查询信令指标统计信息
+      level: 2
+      expanded: true
+      children:
+      - name: 查询信令指标统计信息(SHOW UPFGETPFCPSTATS)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETPFCPSTATS
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 信令指标统计信息
+          - 查询信令指标统计信息
+          - 查询信令指标统计信息(SHOW UPFGETPFCPSTATS)
+        children: []
+  - name: 所有UPC在线会话数
+    level: 1
+    expanded: true
+    children:
+    - name: 查询所有UPC在线会话数
+      level: 2
+      expanded: true
+      children:
+      - name: 查询所有UPC在线会话数(SHOW UPFGETUPCSESSIONNUM)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETUPCSESSIONNUM
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 所有UPC在线会话数
+          - 查询所有UPC在线会话数
+          - 查询所有UPC在线会话数(SHOW UPFGETUPCSESSIONNUM)
+        children: []
+  - name: 所有UPU转发速率
+    level: 1
+    expanded: true
+    children:
+    - name: 查询所有UPU转发速率
+      level: 2
+      expanded: true
+      children:
+      - name: 查询所有UPU转发速率(SHOW UPFGETUPUFORWARDRATE)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETUPUFORWARDRATE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 所有UPU转发速率
+          - 查询所有UPU转发速率
+          - 查询所有UPU转发速率(SHOW UPFGETUPUFORWARDRATE)
+        children: []
+  - name: 整机速率
+    level: 1
+    expanded: true
+    children:
+    - name: 查询整机速率
+      level: 2
+      expanded: true
+      children:
+      - name: 查询整机速率(SHOW UPFGETWHOLEMACHINERATE)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETWHOLEMACHINERATE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 整机速率
+          - 查询整机速率
+          - 查询整机速率(SHOW UPFGETWHOLEMACHINERATE)
+        children: []
+  - name: 角色接口速率
+    level: 1
+    expanded: true
+    children:
+    - name: 查询角色接口速率
+      level: 2
+      expanded: true
+      children:
+      - name: 查询角色接口速率(SHOW UPFGETROLEINTERFACERATE)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETROLEINTERFACERATE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 角色接口速率
+          - 查询角色接口速率
+          - 查询角色接口速率(SHOW UPFGETROLEINTERFACERATE)
+        children: []
+  - name: 归属UPC及UPU实例
+    level: 1
+    expanded: true
+    children:
+    - name: 查询归属UPC及UPU实例
+      level: 2
+      expanded: true
+      children:
+      - name: 查询归属UPC及UPU实例(SHOW UPFGETUPCUPUINSTANCE)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETUPCUPUINSTANCE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 归属UPC及UPU实例
+          - 查询归属UPC及UPU实例
+          - 查询归属UPC及UPU实例(SHOW UPFGETUPCUPUINSTANCE)
+        children: []
+  - name: BGP邻居状态
+    level: 1
+    expanded: true
+    children:
+    - name: 查询BGP邻居状态
+      level: 2
+      expanded: true
+      children:
+      - name: 查询BGP邻居状态(SHOW UPFGETBGPSTATUS)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETBGPSTATUS
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - BGP邻居状态
+          - 查询BGP邻居状态
+          - 查询BGP邻居状态(SHOW UPFGETBGPSTATUS)
+        children: []
+  - name: UPC为组织粒度的UE地址池使用率
+    level: 1
+    expanded: true
+    children:
+    - name: 查询各UPC上的终端地址池使用率
+      level: 2
+      expanded: true
+      children:
+      - name: 查询各UPC上的终端地址池使用率(SHOW UPFGETLOCALUEIPPOOLUSAGEBYUPC)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETLOCALUEIPPOOLUSAGEBYUPC
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - UPC为组织粒度的UE地址池使用率
+          - 查询各UPC上的终端地址池使用率
+          - 查询各UPC上的终端地址池使用率(SHOW UPFGETLOCALUEIPPOOLUSAGEBYUPC)
+        children: []
+  - name: 整体的终端地址池使用率
+    level: 1
+    expanded: true
+    children:
+    - name: 查询整体的终端地址池使用率
+      level: 2
+      expanded: true
+      children:
+      - name: 查询整体的终端地址池使用率(SHOW UPFGETLOCALUEIPPOOLUSAGE)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETLOCALUEIPPOOLUSAGE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 整体的终端地址池使用率
+          - 查询整体的终端地址池使用率
+          - 查询整体的终端地址池使用率(SHOW UPFGETLOCALUEIPPOOLUSAGE)
+        children: []
+  - name: SMF分配的会话ip类型的统计
+    level: 1
+    expanded: true
+    children:
+    - name: 查询SMF分配的会话ip类型的统计
+      level: 2
+      expanded: true
+      children:
+      - name: 查询SMF分配的会话ip类型的统计(SHOW UPFGETSMFASSIGNEDUEIPSESSIONCNT)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETSMFASSIGNEDUEIPSESSIONCNT
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - SMF分配的会话ip类型的统计
+          - 查询SMF分配的会话ip类型的统计
+          - 查询SMF分配的会话ip类型的统计(SHOW UPFGETSMFASSIGNEDUEIPSESSIONCNT)
+        children: []
+  - name: 业务接口属性信息
+    level: 1
+    expanded: true
+    children:
+    - name: 查询业务接口属性信息
+      level: 2
+      expanded: true
+      children:
+      - name: 查询业务接口属性信息(SHOW UPFGETINTERFACEATTRINFO)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETINTERFACEATTRINFO
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 业务接口属性信息
+          - 查询业务接口属性信息
+          - 查询业务接口属性信息(SHOW UPFGETINTERFACEATTRINFO)
+        children: []
+  - name: 惯性运行会话数
+    level: 1
+    expanded: true
+    children:
+    - name: 查询所有UPC惯性运行会话数
+      level: 2
+      expanded: true
+      children:
+      - name: 查询所有UPC惯性运行会话数(SHOW UPFGETUPCINERTIASESSIONINFO)
+        level: 3
+        expanded: false
+        command: SHOW UPFGETUPCINERTIASESSIONINFO
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 惯性运行会话数
+          - 查询所有UPC惯性运行会话数
+          - 查询所有UPC惯性运行会话数(SHOW UPFGETUPCINERTIASESSIONINFO)
+        children: []
+- name: OAM配置
+  level: 0
+  expanded: true
+  children:
+  - name: 网元基本信息
+    level: 1
+    expanded: true
+    children:
+    - name: 修改网元基本信息(SET OAMBASEINFO)
+      level: 2
+      expanded: false
+      command: SET OAMBASEINFO
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - OAM配置
+        - 网元基本信息
+        - 修改网元基本信息(SET OAMBASEINFO)
+      children: []
+    - name: 查询网元基本信息(SHOW OAMBASEINFO)
+      level: 2
+      expanded: false
+      command: SHOW OAMBASEINFO
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - OAM配置
+        - 网元基本信息
+        - 查询网元基本信息(SHOW OAMBASEINFO)
+      children: []
+  - name: 网元版本信息
+    level: 1
+    expanded: true
+    children:
+    - name: 查询网元版本信息(SHOW OAMVERSION)
+      level: 2
+      expanded: false
+      command: SHOW OAMVERSION
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - OAM配置
+        - 网元版本信息
+        - 查询网元版本信息(SHOW OAMVERSION)
+      children: []
+  - name: 当前系统时间
+    level: 1
+    expanded: true
+    children:
+    - name: 查询当前系统时间(SHOW OAMSYSTIME)
+      level: 2
+      expanded: false
+      command: SHOW OAMSYSTIME
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - OAM配置
+        - 当前系统时间
+        - 查询当前系统时间(SHOW OAMSYSTIME)
+      children: []
+  - name: 系统时区
+    level: 1
+    expanded: true
+    children:
+    - name: 查询系统时区(SHOW OAMTIMEZONE)
+      level: 2
+      expanded: false
+      command: SHOW OAMTIMEZONE
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - OAM配置
+        - 系统时区
+        - 查询系统时区(SHOW OAMTIMEZONE)
+      children: []
+  - name: 告警接收器
+    level: 1
+    expanded: true
+    children:
+    - name: 查询告警接收器(SHOW OAMALERTRECEIVER)
+      level: 2
+      expanded: false
+      command: SHOW OAMALERTRECEIVER
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - OAM配置
+        - 告警接收器
+        - 查询告警接收器(SHOW OAMALERTRECEIVER)
+      children: []

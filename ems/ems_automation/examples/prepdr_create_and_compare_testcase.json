@@ -1,0 +1,83 @@
+{
+  "name": "prepdr_create_and_compare",
+  "description": "Create a predefined PDR config from web UI, compare queried web row with database snapshot row, then clean up.",
+  "defaults": {
+    "network_element": "10.230.4.248",
+    "db": {
+      "host": "127.0.0.1",
+      "port": 55432,
+      "user": "postgres",
+      "password": "Mecdev_2023",
+      "database": "db_upf",
+      "schema": "ems_upf",
+      "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe",
+      "source": "config_snapshot",
+      "array_key": "upfPrePdrConf"
+    }
+  },
+  "variables": {
+    "name": "auto_pdr_9101",
+    "rule": "{\"rule_name\":\"auto_pdr_9101\",\"flow_desc\":[\"permit out ip from any to assigned\"]}"
+  },
+  "setup": [
+    {
+      "id": "delete_before",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["系统功能配置", "预定义规则配置", "预定义规则PDR配置", "删除预定义规则PDR配置(DEL UPFPREPDRCONF)"],
+        "params": { "预定义规则pdr名称": "${variables.name}" },
+        "submit": true
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "create_prepdr",
+      "action": "config-write",
+      "task": {
+        "path_by_name": ["系统功能配置", "预定义规则配置", "预定义规则PDR配置", "增加预定义规则PDR配置(ADD UPFPREPDRCONF)"],
+        "params": {
+          "预定义规则pdr名称": "${variables.name}",
+          "pdr规则": "${variables.rule}"
+        },
+        "submit": true
+      },
+      "assertions": [{ "path": "submitted", "equals": true }]
+    },
+    {
+      "id": "compare_prepdr",
+      "action": "config-generic-compare",
+      "retry": { "attempts": 4, "interval_seconds": 5 },
+      "task": {
+        "path_by_name": ["系统功能配置", "预定义规则配置", "预定义规则PDR配置", "查询预定义规则PDR配置(SHOW UPFPREPDRCONF)"],
+        "params": { "预定义规则pdr名称": "${variables.name}" },
+        "compare": {
+          "key_fields": ["预定义规则pdr名称"],
+          "compare_fields": ["预定义规则pdr名称", "pdr规则"],
+          "web_to_db_field_map": {
+            "预定义规则pdr名称": "name",
+            "pdr规则": "rule"
+          }
+        }
+      },
+      "assertions": [
+        { "path": "summary.compared_row_count", "equals": 1 },
+        { "path": "summary.mismatch_row_count", "equals": 0 },
+        { "path": "summary.all_match", "equals": true }
+      ]
+    }
+  ],
+  "teardown": [
+    {
+      "id": "delete_after",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["系统功能配置", "预定义规则配置", "预定义规则PDR配置", "删除预定义规则PDR配置(DEL UPFPREPDRCONF)"],
+        "params": { "预定义规则pdr名称": "${variables.name}" },
+        "submit": true
+      }
+    }
+  ]
+}

@@ -62,6 +62,19 @@ def test_collect_pod_runtime_logs_reuses_pod_items_and_keeps_order(monkeypatch):
     assert calls == [("ns-demo", "pod-b", "node-2"), ("ns-demo", "pod-a", "node-1")]
 
 
+def test_collect_pod_runtime_logs_can_be_disabled(monkeypatch):
+    monkeypatch.setattr(observer.config, "OBSERVER_RUNTIME_LOGS_ENABLED", False)
+    monkeypatch.setattr(
+        observer,
+        "_collect_single_pod_runtime_log",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("should not collect logs")),
+    )
+
+    result = observer._collect_pod_runtime_logs("ns-demo", ["pod-a"])
+
+    assert result == []
+
+
 def test_collect_target_events_rows_uses_supplied_pod_items(monkeypatch):
     calls = []
 

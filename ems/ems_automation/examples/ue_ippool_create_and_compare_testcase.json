@@ -1,0 +1,89 @@
+{
+  "name": "ue_ippool_create_and_compare",
+  "description": "Create a UE ippool config from web UI, compare queried web row with database snapshot row, then clean up.",
+  "defaults": {
+    "network_element": "10.230.4.248",
+    "db": {
+      "host": "127.0.0.1",
+      "port": 55432,
+      "user": "postgres",
+      "password": "Mecdev_2023",
+      "database": "db_upf",
+      "schema": "ems_upf",
+      "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe",
+      "source": "config_snapshot",
+      "array_key": "upfIppoolConf"
+    }
+  },
+  "variables": {
+    "name": "auto_ue_pool_9101",
+    "cidr": "10.250.10.0/24",
+    "n6_vrfid": "1",
+    "priority": "100"
+  },
+  "setup": [
+    {
+      "id": "delete_before",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["业务开通配置", "IP地址池配置", "UE IP地址池配置", "删除UE IP地址池配置(DEL UPFIPPOOLCONF)"],
+        "params": { "地址池名称": "${variables.name}" },
+        "submit": true
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "create_ue_ippool",
+      "action": "config-write",
+      "task": {
+        "path_by_name": ["业务开通配置", "IP地址池配置", "UE IP地址池配置", "增加UE IP地址池配置(ADD UPFIPPOOLCONF)"],
+        "params": {
+          "地址池名称": "${variables.name}",
+          "地址池cidr": "${variables.cidr}",
+          "N6 VRFID": "${variables.n6_vrfid}",
+          "优先级": "${variables.priority}"
+        },
+        "submit": true
+      },
+      "assertions": [{ "path": "submitted", "equals": true }]
+    },
+    {
+      "id": "compare_ue_ippool",
+      "action": "config-generic-compare",
+      "retry": { "attempts": 4, "interval_seconds": 5 },
+      "task": {
+        "path_by_name": ["业务开通配置", "IP地址池配置", "UE IP地址池配置", "查询UE IP地址池配置(SHOW UPFIPPOOLCONF)"],
+        "params": { "地址池名称": "${variables.name}" },
+        "compare": {
+          "key_fields": ["地址池名称"],
+          "compare_fields": ["地址池名称", "地址池cidr", "N6 VRFID", "优先级"],
+          "web_to_db_field_map": {
+            "地址池名称": "name",
+            "地址池cidr": "cidr",
+            "N6 VRFID": "n6VrfId",
+            "优先级": "priority"
+          }
+        }
+      },
+      "assertions": [
+        { "path": "summary.compared_row_count", "equals": 1 },
+        { "path": "summary.mismatch_row_count", "equals": 0 },
+        { "path": "summary.all_match", "equals": true }
+      ]
+    }
+  ],
+  "teardown": [
+    {
+      "id": "delete_after",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["业务开通配置", "IP地址池配置", "UE IP地址池配置", "删除UE IP地址池配置(DEL UPFIPPOOLCONF)"],
+        "params": { "地址池名称": "${variables.name}" },
+        "submit": true
+      }
+    }
+  ]
+}

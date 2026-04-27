@@ -1,0 +1,56 @@
+site: https://127.0.0.1:50443
+entry: https://127.0.0.1:50443/index#/topoOverview
+module: 配置 -> 命令处理
+network_element: 10.230.4.248
+command_path:
+- 业务开通配置
+- DNN配置
+- DNN VRF映射配置
+- 增加DNN VRF映射配置
+fields:
+- index: 0
+  label: DNN名称
+  field_type: input
+  input_type: text
+  placeholder: 字符型，长度范围【1,63】
+  value: ''
+  locator_hint: input/textarea in .el-form-item
+  yaml_value: ''
+- index: 1
+  label: N3 VRFID
+  field_type: input
+  input_type: text
+  placeholder: 整数型，范围【30001,39999】
+  value: ''
+  locator_hint: input/textarea in .el-form-item
+  yaml_value: ''
+- index: 2
+  label: N6 VRFID
+  field_type: input
+  input_type: text
+  placeholder: 整数型，范围【0,4095】
+  value: ''
+  locator_hint: input/textarea in .el-form-item
+  yaml_value: ''
+- index: 3
+  label: N9 VRFID
+  field_type: input
+  input_type: text
+  placeholder: 整数型，范围【50001,59999】
+  value: ''
+  locator_hint: input/textarea in .el-form-item
+  yaml_value: ''
+- index: 4
+  label: S1U VRFID
+  field_type: input
+  input_type: text
+  placeholder: 整数型，范围【40001,49999】
+  value: ''
+  locator_hint: input/textarea in .el-form-item
+  yaml_value: ''
+fill_strategy:
+  preferred: label
+  fallback: index
+example_fill_data:
+  by_label: {}
+  by_index: {}

@@ -1099,6 +1099,9 @@ def _resolve_observer_log_workers(pod_count):
 
 
 def _collect_pod_runtime_logs(namespace, pod_names, since_time=None, pod_items=None):
+    if not bool(getattr(config, "OBSERVER_RUNTIME_LOGS_ENABLED", True)):
+        return []
+
     pod_list = list(pod_names or [])
     if not pod_list:
         return []

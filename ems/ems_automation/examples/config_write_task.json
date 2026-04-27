@@ -1,0 +1,12 @@
+{
+  "network_element": "10.230.4.248",
+  "path_by_name": [
+    "业务开通配置",
+    "VRF配置",
+    "增加VRF配置"
+  ],
+  "params": {
+    "VRF ID": "888"
+  },
+  "submit": true
+}

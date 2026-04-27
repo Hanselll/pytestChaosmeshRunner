@@ -1,0 +1,26 @@
+{
+  "network_element": "10.230.4.248",
+  "path_by_name": ["增强功能配置", "DSCP与VLAN映射配置", "查询DSCP与VLAN映射配置(SHOW UPFDSCPVLANPRICONF)"],
+  "params": {
+    "dscp标识": "16"
+  },
+  "db": {
+    "host": "127.0.0.1",
+    "port": 55432,
+    "user": "postgres",
+    "password": "Mecdev_2023",
+    "database": "db_upf",
+    "schema": "ems_upf",
+    "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe",
+    "source": "config_snapshot",
+    "array_key": "upfDscpVlanpriConf"
+  },
+  "compare": {
+    "key_fields": ["dscp标识"],
+    "compare_fields": ["dscp标识", "vlan优先级"],
+    "web_to_db_field_map": {
+      "dscp标识": "dscp",
+      "vlan优先级": "vlanpri"
+    }
+  }
+}

@@ -12,6 +12,8 @@ REMOTE_APPLY_BASE_DIR: /tmp/chaos-runner
 REMOTE_APPLY_SSH_EXTRA_OPTS: -T
 REMOTE_APPLY_RETRIES: 2
 REMOTE_APPLY_RETRY_DELAY_SECONDS: 2
+REMOTE_COMMAND_TIMEOUT_SECONDS: 60
+WORKFLOW_DELETE_WAIT: false
 
 RC_SVC_NAME: dupf-registry-center
 RC_API_PORT: 8158
@@ -35,7 +37,9 @@ LMT_POD_CONTAINER: ""
 #   - lmt-cli list upfGetTalkerRole --format table
 # LMT_POST_COMMANDS:
 #   - lmt-cli list upfGetTalkerRole --format table
+LMT_REMOTE_TIMEOUT_SECONDS: 900
 OBSERVER_LOG_MAX_WORKERS: 8
+OBSERVER_RUNTIME_LOGS_ENABLED: true
 
 DDB_EXEC_POD: dupf-ddb-shd-0-0
 DDB_POD_PREFIX: dupf-ddb
@@ -68,3 +72,14 @@ NET_VERIFY_REMOTE_SUDO_PASSWORD: "gsta123"
 # Optional: local sudo password when NET_VERIFY_LOCAL_NODE_NAMES routes checks to this machine.
 NET_VERIFY_LOCAL_SUDO_PASSWORD: ""
 NET_VERIFY_LOCAL_NODE_NAMES: []
+
+# Optional: query EMS alarms as the final step of each non-dry-run case.
+# Uses the existing EMS automation CLI under EMS_AUTOMATION_DIR:
+#   python -m ems_automation.cli alarm-read --target <target> --output-dir <dir>
+EMS_ALARM_ENABLED: true
+EMS_ALARM_TARGET: all
+EMS_ALARM_OUTPUT_DIR: ""
+EMS_ALARM_TIMEOUT_SECONDS: 180
+EMS_ALARM_TIMEZONE_OFFSET_HOURS: 0
+EMS_ALARM_PYTHON: ""
+EMS_AUTOMATION_DIR: ems/ems_automation

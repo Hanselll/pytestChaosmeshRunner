@@ -1,0 +1,8 @@
+{
+  "target": "metric-management",
+  "filters": {
+    "网元类型": "dUPF",
+    "搜索词": "G501506051"
+  },
+  "collect_all_pages": true
+}

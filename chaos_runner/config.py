@@ -24,6 +24,8 @@ _SPECS = {
     "REMOTE_APPLY_SSH_EXTRA_OPTS": {"default": "-T"},
     "REMOTE_APPLY_RETRIES": {"default": 2},
     "REMOTE_APPLY_RETRY_DELAY_SECONDS": {"default": 2},
+    "REMOTE_COMMAND_TIMEOUT_SECONDS": {"default": 60},
+    "WORKFLOW_DELETE_WAIT": {"default": False},
     "DEFAULT_WAIT_SECONDS": {"default": 25},
     "DELETE_WORKFLOW_AFTER": {"default": True},
     "OAM_CONTAINER": {"default": "lmt-cli"},
@@ -39,7 +41,9 @@ _SPECS = {
     "LMT_COMMANDS": {"default": []},
     "LMT_PRE_COMMANDS": {"default": []},
     "LMT_POST_COMMANDS": {"default": []},
+    "LMT_REMOTE_TIMEOUT_SECONDS": {"default": 900},
     "OBSERVER_LOG_MAX_WORKERS": {"default": 4},
+    "OBSERVER_RUNTIME_LOGS_ENABLED": {"default": True},
     "UPC_PODNAME_HINT": {"default": "upc"},
     "DDB_EXEC_POD": {"default": "dupf-ddb-shd-0-0"},
     "DDB_POD_PREFIX": {"default": "dupf-ddb"},
@@ -74,6 +78,13 @@ _SPECS = {
     "NET_VERIFY_PING_INTERVAL_SEC": {"default": 0.2},
     "NET_VERIFY_PING_TIMEOUT_SEC": {"default": 1},
     "NET_VERIFY_MAX_WORKERS": {"default": 8},
+    "EMS_ALARM_ENABLED": {"default": False},
+    "EMS_ALARM_TARGET": {"default": "all"},
+    "EMS_ALARM_OUTPUT_DIR": {"default": ""},
+    "EMS_ALARM_TIMEOUT_SECONDS": {"default": 180},
+    "EMS_ALARM_TIMEZONE_OFFSET_HOURS": {"default": 0},
+    "EMS_ALARM_PYTHON": {"default": ""},
+    "EMS_AUTOMATION_DIR": {"default": os.path.join(_PROJECT_ROOT, "ems", "ems_automation")},
 }
 
 

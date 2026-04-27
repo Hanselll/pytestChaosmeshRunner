@@ -1,0 +1,161 @@
+{
+  "name": "dupf_golden_metric_management",
+  "description": "Verify dUPF golden metric management query, pagination, export, metadata and DB timeseries coverage.",
+  "defaults": {
+    "network_element_ref": "upf_primary",
+    "db": {
+      "host": "127.0.0.1",
+      "port": 55432,
+      "user": "postgres",
+      "password": "Mecdev_2023",
+      "database": "db_upf",
+      "schema": "ems_upf",
+      "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe"
+    }
+  },
+  "variables": {
+    "metric_code": "G501506051",
+    "metric_name": "基于DNN/APN的S5/S8接口发送的GTP报文峰值包速率"
+  },
+  "setup": [],
+  "steps": [
+    {
+      "id": "open_dupf_metrics",
+      "name": "Open metric management and filter dUPF",
+      "action": "perf-metric-query",
+      "task": {
+        "target": "metric-management",
+        "filters": {
+          "网元类型": "dUPF"
+        },
+        "collect_all_pages": false
+      },
+      "assertions": [
+        {
+          "path": "matched_table",
+          "equals": true
+        },
+        {
+          "path": "row_count",
+          "gte": 1
+        }
+      ]
+    },
+    {
+      "id": "check_pagination",
+      "name": "Verify metric management pagination",
+      "action": "perf-pagination-check",
+      "task": {
+        "filters": {
+          "网元类型": "dUPF"
+        }
+      },
+      "assertions": [
+        {
+          "path": "next_ok",
+          "equals": true
+        },
+        {
+          "path": "previous_ok",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "search_metric",
+      "name": "Search dUPF golden metric by code",
+      "action": "perf-metric-query",
+      "task": {
+        "target": "metric-management",
+        "filters": {
+          "网元类型": "dUPF",
+          "搜索词": "${variables.metric_code}"
+        },
+        "collect_all_pages": true
+      },
+      "assertions": [
+        {
+          "path": "row_count",
+          "gte": 1
+        },
+        {
+          "path": "metric_codes",
+          "contains": "${variables.metric_code}"
+        }
+      ]
+    },
+    {
+      "id": "compare_metadata",
+      "name": "Compare web metric metadata with pm_metrics",
+      "action": "perf-db-compare",
+      "task": {
+        "source": "pm-metrics-metadata",
+        "metric_codes": "${steps.search_metric.output.metric_codes}",
+        "web_rows": "${steps.search_metric.output.table_row_dicts_all_pages}",
+        "compare_fields": [
+          "指标编码",
+          "指标名称",
+          "单位"
+        ]
+      },
+      "assertions": [
+        {
+          "path": "summary.mismatch_row_count",
+          "equals": 0
+        },
+        {
+          "path": "summary.all_match",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "verify_export",
+      "name": "Verify export matches current query",
+      "action": "perf-export-verify",
+      "task": {
+        "target": "metric-management",
+        "filters": {
+          "网元类型": "dUPF",
+          "搜索词": "${variables.metric_code}"
+        },
+        "collect_all_pages": true,
+        "compare_fields": [
+          "指标编码",
+          "指标名称",
+          "网元类型",
+          "测量对象类型"
+        ]
+      },
+      "assertions": [
+        {
+          "path": "summary.all_match",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "verify_db_timeseries",
+      "name": "Verify recent dUPF metric data exists in DB",
+      "action": "perf-db-compare",
+      "task": {
+        "source": "timeseries-non-null",
+        "table": "pm_dupf_dnn_min5",
+        "metric_codes": "${steps.search_metric.output.metric_codes}",
+        "lookback_hours": 24,
+        "min_point_count": 1
+      },
+      "assertions": [
+        {
+          "path": "summary.all_metrics_have_data",
+          "equals": true
+        },
+        {
+          "path": "point_count",
+          "gte": 1
+        }
+      ]
+    }
+  ],
+  "teardown": []
+}

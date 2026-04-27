@@ -1,0 +1,9 @@
+{
+  "rule_page": "告警过滤规则",
+  "fields": {
+    "规则名称": "demo-rule-from-json",
+    "规则类型": "黑名单过滤",
+    "描述": "created by ems automation"
+  },
+  "submit": false
+}

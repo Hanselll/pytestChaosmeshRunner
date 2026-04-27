@@ -1,0 +1,86 @@
+{
+  "name": "interface_ippool_create_and_compare",
+  "description": "Create an interface ippool config from web UI, compare queried web row with database snapshot row, then clean up.",
+  "defaults": {
+    "network_element": "10.230.4.248",
+    "db": {
+      "host": "127.0.0.1",
+      "port": 55432,
+      "user": "postgres",
+      "password": "Mecdev_2023",
+      "database": "db_upf",
+      "schema": "ems_upf",
+      "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe",
+      "source": "config_snapshot",
+      "array_key": "upfInterfaceIppoolConf"
+    }
+  },
+  "variables": {
+    "ippool_name": "auto_iip_9101",
+    "ipv4_pool": "172.22.101.0/24",
+    "ipv6_pool": "FC04::172:22:101:0/112"
+  },
+  "setup": [
+    {
+      "id": "delete_before",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["网络基础配置", "网口配置", "接口IP地址池配置", "删除接口IP地址池配置(DEL UPFINTERFACEIPPOOLCONF)"],
+        "params": { "地址池名称": "${variables.ippool_name}" },
+        "submit": true
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "create_interface_ippool",
+      "action": "config-write",
+      "task": {
+        "path_by_name": ["网络基础配置", "网口配置", "接口IP地址池配置", "增加接口IP地址池配置(ADD UPFINTERFACEIPPOOLCONF)"],
+        "params": {
+          "地址池名称": "${variables.ippool_name}",
+          "IPv4地址池": "${variables.ipv4_pool}",
+          "IPv6地址池": "${variables.ipv6_pool}"
+        },
+        "submit": true
+      },
+      "assertions": [{ "path": "submitted", "equals": true }]
+    },
+    {
+      "id": "compare_interface_ippool",
+      "action": "config-generic-compare",
+      "retry": { "attempts": 4, "interval_seconds": 5 },
+      "task": {
+        "path_by_name": ["网络基础配置", "网口配置", "接口IP地址池配置", "查询接口IP地址池配置(SHOW UPFINTERFACEIPPOOLCONF)"],
+        "params": { "地址池名称": "${variables.ippool_name}" },
+        "compare": {
+          "key_fields": ["地址池名称"],
+          "compare_fields": ["地址池名称", "IPv4地址池", "IPv6地址池"],
+          "web_to_db_field_map": {
+            "地址池名称": "ippoolName",
+            "IPv4地址池": "ipv4Pool",
+            "IPv6地址池": "ipv6Pool"
+          }
+        }
+      },
+      "assertions": [
+        { "path": "summary.compared_row_count", "equals": 1 },
+        { "path": "summary.mismatch_row_count", "equals": 0 },
+        { "path": "summary.all_match", "equals": true }
+      ]
+    }
+  ],
+  "teardown": [
+    {
+      "id": "delete_after",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["网络基础配置", "网口配置", "接口IP地址池配置", "删除接口IP地址池配置(DEL UPFINTERFACEIPPOOLCONF)"],
+        "params": { "地址池名称": "${variables.ippool_name}" },
+        "submit": true
+      }
+    }
+  ]
+}

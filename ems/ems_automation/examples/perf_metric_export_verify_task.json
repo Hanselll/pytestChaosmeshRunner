@@ -1,0 +1,14 @@
+{
+  "target": "metric-management",
+  "filters": {
+    "网元类型": "dUPF",
+    "搜索词": "G501506051"
+  },
+  "collect_all_pages": true,
+  "compare_fields": [
+    "指标编码",
+    "指标名称",
+    "网元类型",
+    "测量对象类型"
+  ]
+}

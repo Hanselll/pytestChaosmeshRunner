@@ -8,6 +8,8 @@ REMOTE_APPLY_BASE_DIR: /tmp/chaos-runner
 REMOTE_APPLY_SSH_EXTRA_OPTS: -T
 REMOTE_APPLY_RETRIES: 2
 REMOTE_APPLY_RETRY_DELAY_SECONDS: 2
+REMOTE_COMMAND_TIMEOUT_SECONDS: 60
+WORKFLOW_DELETE_WAIT: false
 
 # RC/DDB/SDB prefixes can be auto-derived from NS_TARGET=ns-smf1.
 # Keep explicit values here so the runtime profile is obvious.
@@ -37,7 +39,18 @@ LMT_POST_COMMANDS:
   - lmt-cli list smfGetSessStatistic --format table
   - lmt-cli list smfGetNodeStatus --format table
   - lmt-cli list smfGetAlarmInfo --format table
+LMT_REMOTE_TIMEOUT_SECONDS: 900
+
+# Optional: query EMS alarms as the final step of each non-dry-run case.
+EMS_ALARM_ENABLED: false
+EMS_ALARM_TARGET: all
+EMS_ALARM_OUTPUT_DIR: ""
+EMS_ALARM_TIMEOUT_SECONDS: 180
+EMS_ALARM_TIMEZONE_OFFSET_HOURS: 0
+EMS_ALARM_PYTHON: ""
+EMS_AUTOMATION_DIR: ems/ems_automation
 OBSERVER_LOG_MAX_WORKERS: 8
+OBSERVER_RUNTIME_LOGS_ENABLED: true
 
 DDB_EXEC_POD: smf-ddb-shd-0-0
 DDB_POD_PREFIX: smf-ddb

@@ -1,0 +1,12 @@
+[project]
+name = "ems-automation"
+version = "0.1.0"
+description = "EMS automation toolkit for config and alarm operations"
+requires-python = ">=3.10"
+dependencies = [
+  "playwright>=1.50",
+  "PyYAML>=6.0",
+]
+
+[project.scripts]
+ems-cli = "ems_automation.cli:main"

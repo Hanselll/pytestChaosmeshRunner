@@ -2,6 +2,7 @@
 import json
 import os, time, re, subprocess
 
+from chaos_runner import config
 from chaos_runner.tools.remote import run_remote_command
 
 try:
@@ -224,6 +225,7 @@ def run_lmt_commands_in_container_remote(
     raw_out_path="/tmp/lmt_raw_pty_multi.txt",
     login_mode="explicit",
 ):
+    commands = list(commands or [])
     payload = {
         "namespace": namespace,
         "pod": pod,
@@ -232,7 +234,7 @@ def run_lmt_commands_in_container_remote(
         "login_port": login_port,
         "username": username,
         "password": password,
-        "commands": list(commands or []),
+        "commands": commands,
         "raw_out_path": raw_out_path,
         "login_mode": login_mode,
     }
@@ -359,7 +361,15 @@ except Exception as exc:
     sys.exit(1)
 """.format(payload_json=payload_json)
 
-    result = run_remote_command("python3 -", check=True, input_text=remote_script)
+    configured_timeout = int(getattr(config, "LMT_REMOTE_TIMEOUT_SECONDS", 900) or 0)
+    command_timeout = 60 + (max(1, len(commands)) * 95)
+    timeout_seconds = max(configured_timeout, command_timeout)
+    result = run_remote_command(
+        "python3 -",
+        check=True,
+        input_text=remote_script,
+        timeout_seconds=timeout_seconds,
+    )
     try:
         parsed = json.loads(result.get("stdout", ""))
     except Exception as exc:

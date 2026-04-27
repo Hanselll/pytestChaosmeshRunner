@@ -1,0 +1,96 @@
+{
+  "name": "signal_route_create_and_compare",
+  "description": "Create a signal route config from web UI, compare queried web row with database snapshot row, then clean up.",
+  "defaults": {
+    "network_element": "10.230.4.248",
+    "db": {
+      "host": "127.0.0.1",
+      "port": 55432,
+      "user": "postgres",
+      "password": "Mecdev_2023",
+      "database": "db_upf",
+      "schema": "ems_upf",
+      "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe",
+      "source": "config_snapshot",
+      "array_key": "upfSignalRouteConf"
+    }
+  },
+  "variables": {
+    "network": "2001:db8:100::/64",
+    "nexthop": "FC04::192:168:4:254",
+    "priority": "10",
+    "cost": "10"
+  },
+  "setup": [
+    {
+      "id": "delete_before",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["网络基础配置", "路由配置", "信令路由配置", "删除信令路由配置(DEL UPFSIGNALROUTECONF)"],
+        "params": {
+          "目的网段": "${variables.network}",
+          "下一跳": "${variables.nexthop}"
+        },
+        "submit": true
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "create_signal_route",
+      "action": "config-write",
+      "task": {
+        "path_by_name": ["网络基础配置", "路由配置", "信令路由配置", "增加信令路由配置(ADD UPFSIGNALROUTECONF)"],
+        "params": {
+          "目的网段": "${variables.network}",
+          "下一跳": "${variables.nexthop}",
+          "优先级": "${variables.priority}",
+          "开销": "${variables.cost}"
+        },
+        "submit": true
+      },
+      "assertions": [{ "path": "submitted", "equals": true }]
+    },
+    {
+      "id": "compare_signal_route",
+      "action": "config-generic-compare",
+      "retry": { "attempts": 4, "interval_seconds": 5 },
+      "task": {
+        "path_by_name": ["网络基础配置", "路由配置", "信令路由配置", "查询信令路由配置(SHOW UPFSIGNALROUTECONF)"],
+        "params": {
+          "目的网段": "${variables.network}",
+          "下一跳": "${variables.nexthop}"
+        },
+        "compare": {
+          "key_fields": ["目的网段", "下一跳"],
+          "compare_fields": ["目的网段", "下一跳"],
+          "web_to_db_field_map": {
+            "目的网段": "network",
+            "下一跳": "nexthop"
+          }
+        }
+      },
+      "assertions": [
+        { "path": "summary.compared_row_count", "equals": 1 },
+        { "path": "summary.mismatch_row_count", "equals": 0 },
+        { "path": "summary.all_match", "equals": true }
+      ]
+    }
+  ],
+  "teardown": [
+    {
+      "id": "delete_after",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": ["网络基础配置", "路由配置", "信令路由配置", "删除信令路由配置(DEL UPFSIGNALROUTECONF)"],
+        "params": {
+          "目的网段": "${variables.network}",
+          "下一跳": "${variables.nexthop}"
+        },
+        "submit": true
+      }
+    }
+  ]
+}

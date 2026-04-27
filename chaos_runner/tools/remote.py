@@ -33,16 +33,34 @@ def _ssh_args():
     return args
 
 
-def run_remote_command(remote_cmd, check=True, input_text=None):
-    proc = subprocess.run(
-        _ssh_args() + [remote_cmd],
-        input=input_text,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
+def run_remote_command(remote_cmd, check=True, input_text=None, timeout_seconds=None):
+    timeout_value = timeout_seconds
+    if timeout_value is None:
+        timeout_value = getattr(config, "REMOTE_COMMAND_TIMEOUT_SECONDS", 60)
+    timeout = int(timeout_value or 0)
+    try:
+        proc = subprocess.run(
+            _ssh_args() + [remote_cmd],
+            input=input_text,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=timeout if timeout > 0 else None,
+        )
+    except subprocess.TimeoutExpired:
+        stderr = "Remote command timed out after {}s".format(timeout)
+        if check:
+            raise RuntimeError(
+                "Remote command failed: {}\nrc={}\nstdout:\n{}\nstderr:\n{}\n".format(
+                    remote_cmd,
+                    124,
+                    "",
+                    stderr,
+                )
+            )
+        return {"rc": 124, "stdout": "", "stderr": stderr, "command": remote_cmd}
     stdout = (proc.stdout or "").strip()
     stderr = (proc.stderr or "").strip()
     if check and proc.returncode != 0:
@@ -99,10 +117,12 @@ def kubectl_apply_remote(remote_path):
 
 
 def kubectl_delete_workflow_remote(namespace, name):
+    wait_arg = "" if bool(getattr(config, "WORKFLOW_DELETE_WAIT", False)) else " --wait=false"
     return run_remote_command(
-        "kubectl -n {} delete workflow {} --ignore-not-found".format(
+        "kubectl -n {} delete workflow {} --ignore-not-found{}".format(
             shlex.quote(namespace),
             shlex.quote(name),
+            wait_arg,
         ),
         check=False,
     )

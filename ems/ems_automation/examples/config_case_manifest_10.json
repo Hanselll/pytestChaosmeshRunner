@@ -1,0 +1,14 @@
+{
+  "cases": [
+    "interface_ippool_create_and_compare_testcase.json",
+    "loopback_create_and_compare_testcase.json",
+    "forward_route_create_and_compare_testcase.json",
+    "signal_route_create_and_compare_testcase.json",
+    "ue_ippool_create_and_compare_testcase.json",
+    "bgp_local_ippool_create_and_compare_testcase.json",
+    "bgp_info_create_and_compare_testcase.json",
+    "dscp_vlan_create_and_compare_testcase.json",
+    "prepdr_create_and_compare_testcase.json",
+    "pfcp_timer_set_and_compare_testcase.json"
+  ]
+}

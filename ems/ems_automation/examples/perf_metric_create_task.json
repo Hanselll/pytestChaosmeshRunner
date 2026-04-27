@@ -1,0 +1,13 @@
+{
+  "fields": {
+    "性能指标名称": "demo_custom_metric",
+    "描述": "created by ems automation",
+    "数据类型": "浮点型",
+    "单位": "%",
+    "网元类型": "VIM",
+    "测量对象类型": "pod",
+    "功能子集": "pod测量",
+    "公式": "container_active_num"
+  },
+  "submit": true
+}

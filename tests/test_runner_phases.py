@@ -121,6 +121,7 @@ def test_execute_case_from_args_runs_network_verify_before_kill_wait(tmp_path, m
     monkeypatch.setattr(runner, "verify_network_chaos_before_kill", lambda ns, text, timeout, loggers=None: calls.append(("verify", timeout)) or {"verdict": "PASS"})
     monkeypatch.setattr(runner, "run_workflow", lambda path, wf_ns, wf_name, wait_seconds, cleanup=True, during_wait=None, yaml_text=None: calls.append(("kill", wf_name, wait_seconds, cleanup)) or {"execution_mode": "local", "yaml_path": path, "apply_result": "ok", "delete_result": "ok"})
     monkeypatch.setattr(runner, "_delete_workflow_once", lambda wf_ns, wf_name: calls.append(("cleanup", wf_name)) or "deleted")
+    monkeypatch.setattr(runner, "run_ems_alarm_query", lambda wf_name, case_ts, log_dir="", since_time=None: calls.append(("ems", wf_name)) or {"enabled": True, "skipped": False, "target": "all", "output_dir": str(tmp_path / "ems"), "counts": {"activity": 1, "history": 2}, "recent_alarms": {"since_time": "2026-04-27 10:00:00", "activity": [], "history": []}})
     monkeypatch.setattr(runner.time, "sleep", lambda seconds: calls.append(("sleep", seconds)))
 
     monkeypatch.setattr(observer, "extract_podchaos_target_pods", lambda wf_yaml_text, namespace: ["pod-a"])
@@ -140,9 +141,11 @@ def test_execute_case_from_args_runs_network_verify_before_kill_wait(tmp_path, m
         ("kill", "wf-phased-kill", 7, True),
         ("cleanup", "wf-phased-net"),
     ]
+    assert calls[4] == ("ems", "wf-phased")
     assert "deadline: 23s" in applied_network_yaml["wf-phased-net"]
     assert result["network_execution_result"]["execution_mode"] == "local"
     assert result["kill_execution_result"]["execution_mode"] == "local"
+    assert result["ems_alarm_result"]["counts"] == {"activity": 1, "history": 2}
 
 
 def test_rewrite_network_chaos_deadlines_updates_all_network_templates():

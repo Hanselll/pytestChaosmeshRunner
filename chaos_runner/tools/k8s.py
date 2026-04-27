@@ -4,6 +4,7 @@ import shlex
 import subprocess
 
 from chaos_runner.tools.remote import is_remote_apply_enabled, run_remote_command
+from chaos_runner import config
 
 
 def _run_local(cmd, check=True):
@@ -43,10 +44,12 @@ def kubectl_apply(path):
 
 
 def kubectl_delete_workflow(namespace, name):
+    wait_arg = "" if bool(getattr(config, "WORKFLOW_DELETE_WAIT", False)) else " --wait=false"
     return sh(
-        "kubectl -n {} delete workflow {} --ignore-not-found".format(
+        "kubectl -n {} delete workflow {} --ignore-not-found{}".format(
             shlex.quote(namespace),
             shlex.quote(name),
+            wait_arg,
         ),
         check=False,
     )

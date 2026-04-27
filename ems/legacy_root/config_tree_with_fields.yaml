@@ -1,0 +1,5100 @@
+site: https://127.0.0.1:50443
+entry: https://127.0.0.1:50443/index#/topoOverview
+module: 配置 -> 命令处理
+network_element: 10.230.4.248
+tree:
+- name: 系统信息管理
+  level: 0
+  children:
+  - name: 系统基础配置
+    level: 1
+    children:
+    - name: 网元身份信息配置
+      level: 2
+      children:
+      - name: 增加网元身份信息配置(ADD UPFIDINFOCONF)
+        level: 3
+        children: []
+        command: ADD UPFIDINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统信息管理
+          - 系统基础配置
+          - 网元身份信息配置
+          - 增加网元身份信息配置(ADD UPFIDINFOCONF)
+        fields:
+        - index: 0
+          label: upf id
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,63】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: FQDN
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,255】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: NodeID类型
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: NodeID类型
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+      - name: 修改网元身份信息配置(SET UPFIDINFOCONF)
+        level: 3
+        children: []
+        command: SET UPFIDINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统信息管理
+          - 系统基础配置
+          - 网元身份信息配置
+          - 修改网元身份信息配置(SET UPFIDINFOCONF)
+        fields:
+        - index: 0
+          label: upf id
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,63】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: FQDN
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,255】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: NodeID类型
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: NodeID类型
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+      - name: 查询网元身份信息配置(SHOW UPFIDINFOCONF)
+        level: 3
+        children: []
+        command: SHOW UPFIDINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统信息管理
+          - 系统基础配置
+          - 网元身份信息配置
+          - 查询网元身份信息配置(SHOW UPFIDINFOCONF)
+        fields: []
+- name: 网络基础配置
+  level: 0
+  children:
+  - name: 网口配置
+    level: 1
+    children:
+    - name: 接口IP地址池配置
+      level: 2
+      children:
+      - name: 增加接口IP地址池配置(ADD UPFINTERFACEIPPOOLCONF)
+        level: 3
+        children: []
+        command: ADD UPFINTERFACEIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口IP地址池配置
+          - 增加接口IP地址池配置(ADD UPFINTERFACEIPPOOLCONF)
+        fields:
+        - index: 0
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: IPv4地址池
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4格式
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: IPv6地址池
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv6格式
+          value: ''
+          yaml_value: ''
+      - name: 查询接口IP地址池配置(SHOW UPFINTERFACEIPPOOLCONF)
+        level: 3
+        children: []
+        command: SHOW UPFINTERFACEIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口IP地址池配置
+          - 查询接口IP地址池配置(SHOW UPFINTERFACEIPPOOLCONF)
+        fields:
+        - index: 0
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+      - name: 删除接口IP地址池配置(DEL UPFINTERFACEIPPOOLCONF)
+        level: 3
+        children: []
+        command: DEL UPFINTERFACEIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口IP地址池配置
+          - 删除接口IP地址池配置(DEL UPFINTERFACEIPPOOLCONF)
+        fields:
+        - index: 0
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+    - name: 接口角色IP配置
+      level: 2
+      children:
+      - name: 增加接口角色IP配置(ADD UPFINTERFACEROLECONF)
+        level: 3
+        children: []
+        command: ADD UPFINTERFACEROLECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口角色IP配置
+          - 增加接口角色IP配置(ADD UPFINTERFACEROLECONF)
+        fields:
+        - index: 0
+          label: 接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 角色
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 角色
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: IPv4地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4格式
+          value: ''
+          yaml_value: ''
+        - index: 4
+          label: IPv6地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv6格式
+          value: ''
+          yaml_value: ''
+      - name: 修改接口角色IP配置(SET UPFINTERFACEROLECONF)
+        level: 3
+        children: []
+        command: SET UPFINTERFACEROLECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口角色IP配置
+          - 修改接口角色IP配置(SET UPFINTERFACEROLECONF)
+        fields:
+        - index: 0
+          label: 接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 角色
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 角色
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: IPv4地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4格式
+          value: ''
+          yaml_value: ''
+        - index: 4
+          label: IPv6地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv6格式
+          value: ''
+          yaml_value: ''
+      - name: 查询接口角色IP配置(SHOW UPFINTERFACEROLECONF)
+        level: 3
+        children: []
+        command: SHOW UPFINTERFACEROLECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口角色IP配置
+          - 查询接口角色IP配置(SHOW UPFINTERFACEROLECONF)
+        fields:
+        - index: 0
+          label: 接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 角色
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 角色
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+      - name: 删除接口角色IP配置(DEL UPFINTERFACEROLECONF)
+        level: 3
+        children: []
+        command: DEL UPFINTERFACEROLECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 网口配置
+          - 接口角色IP配置
+          - 删除接口角色IP配置(DEL UPFINTERFACEROLECONF)
+        fields:
+        - index: 0
+          label: 接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 角色
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 角色
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+  - name: 接口配置
+    level: 1
+    children:
+    - name: 绑定接口配置
+      level: 2
+      children:
+      - name: 增加绑定接口配置(ADD UPFBONDINTERFACECONF)
+        level: 3
+        children: []
+        command: ADD UPFBONDINTERFACECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 绑定接口配置
+          - 增加绑定接口配置(ADD UPFBONDINTERFACECONF)
+        fields:
+        - index: 0
+          label: BOND接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: BOND接口标识
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,4094】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: BOND接口模式
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: BOND接口模式
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 4
+          label: 负载模式
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 5
+          label: 负载模式
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 6
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+        - index: 7
+          label: 接口地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+      - name: 查询绑定接口配置(SHOW UPFBONDINTERFACECONF)
+        level: 3
+        children: []
+        command: SHOW UPFBONDINTERFACECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 绑定接口配置
+          - 查询绑定接口配置(SHOW UPFBONDINTERFACECONF)
+        fields:
+        - index: 0
+          label: BOND接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+      - name: 删除绑定接口配置(DEL UPFBONDINTERFACECONF)
+        level: 3
+        children: []
+        command: DEL UPFBONDINTERFACECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 绑定接口配置
+          - 删除绑定接口配置(DEL UPFBONDINTERFACECONF)
+        fields:
+        - index: 0
+          label: BOND接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+    - name: 绑定接口成员配置
+      level: 2
+      children:
+      - name: 增加绑定接口成员配置(ADD UPFBONDMEMBERCONF)
+        level: 3
+        children: []
+        command: ADD UPFBONDMEMBERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 绑定接口成员配置
+          - 增加绑定接口成员配置(ADD UPFBONDMEMBERCONF)
+        fields:
+        - index: 0
+          label: BOND接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: bond成员接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: LACP工作模式
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: LACP工作模式
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 4
+          label: 开启发送报文超时
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 5
+          label: 开启发送报文超时
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+      - name: 查询绑定接口成员配置(SHOW UPFBONDMEMBERCONF)
+        level: 3
+        children: []
+        command: SHOW UPFBONDMEMBERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 绑定接口成员配置
+          - 查询绑定接口成员配置(SHOW UPFBONDMEMBERCONF)
+        fields:
+        - index: 0
+          label: bond成员接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+      - name: 删除绑定接口成员配置(DEL UPFBONDMEMBERCONF)
+        level: 3
+        children: []
+        command: DEL UPFBONDMEMBERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 绑定接口成员配置
+          - 删除绑定接口成员配置(DEL UPFBONDMEMBERCONF)
+        fields:
+        - index: 0
+          label: bond成员接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+    - name: 子接口配置
+      level: 2
+      children:
+      - name: 增加子接口配置(ADD UPFSUBINTERFACECONF)
+        level: 3
+        children: []
+        command: ADD UPFSUBINTERFACECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 子接口配置
+          - 增加子接口配置(ADD UPFSUBINTERFACECONF)
+        fields:
+        - index: 0
+          label: 子接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 主接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 子接口ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,4094】
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: VLAN ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,4094】
+          value: ''
+          yaml_value: ''
+        - index: 4
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+        - index: 5
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+      - name: 查询子接口配置(SHOW UPFSUBINTERFACECONF)
+        level: 3
+        children: []
+        command: SHOW UPFSUBINTERFACECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 子接口配置
+          - 查询子接口配置(SHOW UPFSUBINTERFACECONF)
+        fields:
+        - index: 0
+          label: 子接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+      - name: 删除子接口配置(DEL UPFSUBINTERFACECONF)
+        level: 3
+        children: []
+        command: DEL UPFSUBINTERFACECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 子接口配置
+          - 删除子接口配置(DEL UPFSUBINTERFACECONF)
+        fields:
+        - index: 0
+          label: 子接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+    - name: 逻辑接口配置
+      level: 2
+      children:
+      - name: 增加逻辑接口配置(ADD UPFLOOPBACKCONF)
+        level: 3
+        children: []
+        command: ADD UPFLOOPBACKCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 逻辑接口配置
+          - 增加逻辑接口配置(ADD UPFLOOPBACKCONF)
+        fields:
+        - index: 0
+          label: Loopback接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: Loopback口实例id
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,1023】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+      - name: 查询逻辑接口配置(SHOW UPFLOOPBACKCONF)
+        level: 3
+        children: []
+        command: SHOW UPFLOOPBACKCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 逻辑接口配置
+          - 查询逻辑接口配置(SHOW UPFLOOPBACKCONF)
+        fields:
+        - index: 0
+          label: Loopback接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+      - name: 删除逻辑接口配置(DEL UPFLOOPBACKCONF)
+        level: 3
+        children: []
+        command: DEL UPFLOOPBACKCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 接口配置
+          - 逻辑接口配置
+          - 删除逻辑接口配置(DEL UPFLOOPBACKCONF)
+        fields:
+        - index: 0
+          label: Loopback接口名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+  - name: 路由配置
+    level: 1
+    children:
+    - name: 转发路由配置
+      level: 2
+      children:
+      - name: 增加转发路由配置(ADD UPFFORWARDROUTECONF)
+        level: 3
+        children: []
+        command: ADD UPFFORWARDROUTECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 路由配置
+          - 转发路由配置
+          - 增加转发路由配置(ADD UPFFORWARDROUTECONF)
+        fields:
+        - index: 0
+          label: 目的网段
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 下一跳
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: 0.0.0.0
+          yaml_value: ''
+        - index: 3
+          label: 出接口
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: NA
+          yaml_value: ''
+        - index: 4
+          label: 出接口
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: NA
+          yaml_value: ''
+        - index: 5
+          label: 优先级
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,255】
+          value: ''
+          yaml_value: ''
+        - index: 6
+          label: 开销
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,65535】
+          value: ''
+          yaml_value: ''
+      - name: 查询转发路由配置(SHOW UPFFORWARDROUTECONF)
+        level: 3
+        children: []
+        command: SHOW UPFFORWARDROUTECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 路由配置
+          - 转发路由配置
+          - 查询转发路由配置(SHOW UPFFORWARDROUTECONF)
+        fields:
+        - index: 0
+          label: 目的网段
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 下一跳
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: 0.0.0.0
+          yaml_value: ''
+        - index: 3
+          label: 出接口
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: NA
+          yaml_value: ''
+        - index: 4
+          label: 出接口
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: NA
+          yaml_value: ''
+      - name: 删除转发路由配置(DEL UPFFORWARDROUTECONF)
+        level: 3
+        children: []
+        command: DEL UPFFORWARDROUTECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 路由配置
+          - 转发路由配置
+          - 删除转发路由配置(DEL UPFFORWARDROUTECONF)
+        fields:
+        - index: 0
+          label: 目的网段
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 下一跳
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: 0.0.0.0
+          yaml_value: ''
+        - index: 3
+          label: 出接口
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: NA
+          yaml_value: ''
+        - index: 4
+          label: 出接口
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: NA
+          yaml_value: ''
+    - name: 信令路由配置
+      level: 2
+      children:
+      - name: 增加信令路由配置(ADD UPFSIGNALROUTECONF)
+        level: 3
+        children: []
+        command: ADD UPFSIGNALROUTECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 路由配置
+          - 信令路由配置
+          - 增加信令路由配置(ADD UPFSIGNALROUTECONF)
+        fields:
+        - index: 0
+          label: 目的网段
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 下一跳
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 优先级
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,255】
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: 开销
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,65535】
+          value: ''
+          yaml_value: ''
+      - name: 查询信令路由配置(SHOW UPFSIGNALROUTECONF)
+        level: 3
+        children: []
+        command: SHOW UPFSIGNALROUTECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 路由配置
+          - 信令路由配置
+          - 查询信令路由配置(SHOW UPFSIGNALROUTECONF)
+        fields:
+        - index: 0
+          label: 目的网段
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 下一跳
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+      - name: 删除信令路由配置(DEL UPFSIGNALROUTECONF)
+        level: 3
+        children: []
+        command: DEL UPFSIGNALROUTECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 路由配置
+          - 信令路由配置
+          - 删除信令路由配置(DEL UPFSIGNALROUTECONF)
+        fields:
+        - index: 0
+          label: 目的网段
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 下一跳
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+  - name: PFCP UDP校验开关配置
+    level: 1
+    children:
+    - name: 修改PFCP UDP校验开关配置(SET UPFPFCPUDPCHKSUMCONF)
+      level: 2
+      children: []
+      command: SET UPFPFCPUDPCHKSUMCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 网络基础配置
+        - PFCP UDP校验开关配置
+        - 修改PFCP UDP校验开关配置(SET UPFPFCPUDPCHKSUMCONF)
+      fields:
+      - index: 0
+        label: 使能状态
+        field_type: input
+        input_type: text
+        placeholder: 请选择
+        value: 使能
+        yaml_value: ''
+      - index: 1
+        label: 使能状态
+        field_type: select
+        input_type: ''
+        placeholder: 请选择
+        value: 使能
+        yaml_value: ''
+    - name: 查询PFCP UDP校验开关配置(SHOW UPFPFCPUDPCHKSUMCONF)
+      level: 2
+      children: []
+      command: SHOW UPFPFCPUDPCHKSUMCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 网络基础配置
+        - PFCP UDP校验开关配置
+        - 查询PFCP UDP校验开关配置(SHOW UPFPFCPUDPCHKSUMCONF)
+      fields: []
+  - name: 节点管理
+    level: 1
+    children:
+    - name: PFCP偶联配置
+      level: 2
+      children:
+      - name: 增加PFCP偶联配置(ADD UPFSMFNODECONF)
+        level: 3
+        children: []
+        command: ADD UPFSMFNODECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP偶联配置
+          - 增加PFCP偶联配置(ADD UPFSMFNODECONF)
+        fields:
+        - index: 0
+          label: 对端节点ip地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 对端节点名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,255】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 对端节点uuid
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,36】
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: 对端节点描述
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 修改PFCP偶联配置(SET UPFSMFNODECONF)
+        level: 3
+        children: []
+        command: SET UPFSMFNODECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP偶联配置
+          - 修改PFCP偶联配置(SET UPFSMFNODECONF)
+        fields:
+        - index: 0
+          label: 对端节点ip地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 对端节点名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,255】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 对端节点uuid
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,36】
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: 对端节点描述
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 查询PFCP偶联配置(SHOW UPFSMFNODECONF)
+        level: 3
+        children: []
+        command: SHOW UPFSMFNODECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP偶联配置
+          - 查询PFCP偶联配置(SHOW UPFSMFNODECONF)
+        fields:
+        - index: 0
+          label: 对端节点ip地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+      - name: 删除PFCP偶联配置(DEL UPFSMFNODECONF)
+        level: 3
+        children: []
+        command: DEL UPFSMFNODECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP偶联配置
+          - 删除PFCP偶联配置(DEL UPFSMFNODECONF)
+        fields:
+        - index: 0
+          label: 对端节点ip地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+    - name: PFCP特性配置
+      level: 2
+      children:
+      - name: 修改PFCP特性配置(SET UPFPFCPFEATURECONF)
+        level: 3
+        children: []
+        command: SET UPFPFCPFEATURECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP特性配置
+          - 修改PFCP特性配置(SET UPFPFCPFEATURECONF)
+        fields:
+        - index: 0
+          label: End Marker特性
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 使能
+          yaml_value: ''
+        - index: 1
+          label: End Marker特性
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 使能
+          yaml_value: ''
+        - index: 2
+          label: F-TEID分配能力
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 使能
+          yaml_value: ''
+        - index: 3
+          label: F-TEID分配能力
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 使能
+          yaml_value: ''
+        - index: 4
+          label: UEIP分配能力
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 使能
+          yaml_value: ''
+        - index: 5
+          label: UEIP分配能力
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 使能
+          yaml_value: ''
+        - index: 6
+          label: 5G LAN VN组通信
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 7
+          label: 5G LAN VN组通信
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 8
+          label: HTTP头增强
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 使能
+          yaml_value: ''
+        - index: 9
+          label: HTTP头增强
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 使能
+          yaml_value: ''
+        - index: 10
+          label: 下行数据包缓存
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 使能
+          yaml_value: ''
+        - index: 11
+          label: 下行数据包缓存
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 使能
+          yaml_value: ''
+        - index: 12
+          label: 下行数据包通知延时
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 13
+          label: 下行数据包通知延时
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 14
+          label: bar不上送时间
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 使能
+          yaml_value: ''
+        - index: 15
+          label: bar不上送时间
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 使能
+          yaml_value: ''
+      - name: 查询PFCP特性配置(SHOW UPFPFCPFEATURECONF)
+        level: 3
+        children: []
+        command: SHOW UPFPFCPFEATURECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP特性配置
+          - 查询PFCP特性配置(SHOW UPFPFCPFEATURECONF)
+        fields: []
+    - name: PFCP定时器配置
+      level: 2
+      children:
+      - name: 修改PFCP定时器配置(SET UPFPFCPTIMERCONF)
+        level: 3
+        children: []
+        command: SET UPFPFCPTIMERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP定时器配置
+          - 修改PFCP定时器配置(SET UPFPFCPTIMERCONF)
+        fields:
+        - index: 0
+          label: 心跳请求发送间隔(ms)
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,65535】
+          value: '30000'
+          yaml_value: ''
+        - index: 1
+          label: 心跳发送间隔超时次数
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,255】
+          value: '3'
+          yaml_value: ''
+        - index: 2
+          label: PFCP请求信令超时时间(ms)
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,65535】
+          value: '5000'
+          yaml_value: ''
+        - index: 3
+          label: PFCP请求信令最大重传次数
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,255】
+          value: '3'
+          yaml_value: ''
+      - name: 查询PFCP定时器配置(SHOW UPFPFCPTIMERCONF)
+        level: 3
+        children: []
+        command: SHOW UPFPFCPTIMERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - PFCP定时器配置
+          - 查询PFCP定时器配置(SHOW UPFPFCPTIMERCONF)
+        fields: []
+    - name: 重建节点关联配置
+      level: 2
+      children:
+      - name: 增加重建节点关联配置(ADD UPFNODEASSOCIATEREESTABLISH)
+        level: 3
+        children: []
+        command: ADD UPFNODEASSOCIATEREESTABLISH
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - 重建节点关联配置
+          - 增加重建节点关联配置(ADD UPFNODEASSOCIATEREESTABLISH)
+        fields:
+        - index: 0
+          label: SMF IP地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+    - name: 删除会话接口配置
+      level: 2
+      children:
+      - name: 增加删除会话接口配置(ADD UPFSESSIONLISTDELETE)
+        level: 3
+        children: []
+        command: ADD UPFSESSIONLISTDELETE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - 删除会话接口配置
+          - 增加删除会话接口配置(ADD UPFSESSIONLISTDELETE)
+        fields:
+        - index: 0
+          label: SEID值
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967295】
+          value: ''
+          yaml_value: ''
+    - name: 优雅释放配置
+      level: 2
+      children:
+      - name: 增加优雅释放配置(ADD UPFNODEASSOCIATEGRACEFULRELEASE)
+        level: 3
+        children: []
+        command: ADD UPFNODEASSOCIATEGRACEFULRELEASE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - 优雅释放配置
+          - 增加优雅释放配置(ADD UPFNODEASSOCIATEGRACEFULRELEASE)
+        fields:
+        - index: 0
+          label: SMF IP地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 时间单位
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,7】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 时间数值
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,31】
+          value: ''
+          yaml_value: ''
+    - name: 下行包缓存控制
+      level: 2
+      children:
+      - name: 修改下行包缓存控制(SET UPFDLBUFFERCONF)
+        level: 3
+        children: []
+        command: SET UPFDLBUFFERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - 下行包缓存控制
+          - 修改下行包缓存控制(SET UPFDLBUFFERCONF)
+        fields:
+        - index: 0
+          label: 单个会话的最大缓存数
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,50】
+          value: '16'
+          yaml_value: ''
+      - name: 查询下行包缓存控制(SHOW UPFDLBUFFERCONF)
+        level: 3
+        children: []
+        command: SHOW UPFDLBUFFERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 网络基础配置
+          - 节点管理
+          - 下行包缓存控制
+          - 查询下行包缓存控制(SHOW UPFDLBUFFERCONF)
+        fields: []
+- name: 业务开通配置
+  level: 0
+  children:
+  - name: VRF配置
+    level: 1
+    children:
+    - name: 增加VRF配置(ADD UPFVRFCONF)
+      level: 2
+      children: []
+      command: ADD UPFVRFCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 业务开通配置
+        - VRF配置
+        - 增加VRF配置(ADD UPFVRFCONF)
+      fields:
+      - index: 0
+        label: VRF ID
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【0,65535】
+        value: ''
+        yaml_value: ''
+    - name: 查询VRF配置(SHOW UPFVRFCONF)
+      level: 2
+      children: []
+      command: SHOW UPFVRFCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 业务开通配置
+        - VRF配置
+        - 查询VRF配置(SHOW UPFVRFCONF)
+      fields:
+      - index: 0
+        label: VRF ID
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【0,65535】
+        value: ''
+        yaml_value: ''
+    - name: 删除VRF配置(DEL UPFVRFCONF)
+      level: 2
+      children: []
+      command: DEL UPFVRFCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 业务开通配置
+        - VRF配置
+        - 删除VRF配置(DEL UPFVRFCONF)
+      fields:
+      - index: 0
+        label: VRF ID
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【0,65535】
+        value: ''
+        yaml_value: ''
+  - name: DNN配置
+    level: 1
+    children:
+    - name: DNN VRF映射配置
+      level: 2
+      children:
+      - name: 增加DNN VRF映射配置(ADD UPFDNNVRFCONF)
+        level: 3
+        children: []
+        command: ADD UPFDNNVRFCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - DNN配置
+          - DNN VRF映射配置
+          - 增加DNN VRF映射配置(ADD UPFDNNVRFCONF)
+        fields:
+        - index: 0
+          label: DNN名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: N3 VRFID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【30001,39999】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: N6 VRFID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,4095】
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: N9 VRFID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【50001,59999】
+          value: ''
+          yaml_value: ''
+        - index: 4
+          label: S1U VRFID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【40001,49999】
+          value: ''
+          yaml_value: ''
+      - name: 修改DNN VRF映射配置(SET UPFDNNVRFCONF)
+        level: 3
+        children: []
+        command: SET UPFDNNVRFCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - DNN配置
+          - DNN VRF映射配置
+          - 修改DNN VRF映射配置(SET UPFDNNVRFCONF)
+        fields:
+        - index: 0
+          label: DNN名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: N3 VRFID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【30001,39999】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: N6 VRFID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,4095】
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: N9 VRFID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【50001,59999】
+          value: ''
+          yaml_value: ''
+        - index: 4
+          label: S1U VRFID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【40001,49999】
+          value: ''
+          yaml_value: ''
+      - name: 查询DNN VRF映射配置(SHOW UPFDNNVRFCONF)
+        level: 3
+        children: []
+        command: SHOW UPFDNNVRFCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - DNN配置
+          - DNN VRF映射配置
+          - 查询DNN VRF映射配置(SHOW UPFDNNVRFCONF)
+        fields:
+        - index: 0
+          label: DNN名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 删除DNN VRF映射配置(DEL UPFDNNVRFCONF)
+        level: 3
+        children: []
+        command: DEL UPFDNNVRFCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - DNN配置
+          - DNN VRF映射配置
+          - 删除DNN VRF映射配置(DEL UPFDNNVRFCONF)
+        fields:
+        - index: 0
+          label: DNN名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+  - name: IP地址池配置
+    level: 1
+    children:
+    - name: UE IP地址池配置
+      level: 2
+      children:
+      - name: 增加UE IP地址池配置(ADD UPFIPPOOLCONF)
+        level: 3
+        children: []
+        command: ADD UPFIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - IP地址池配置
+          - UE IP地址池配置
+          - 增加UE IP地址池配置(ADD UPFIPPOOLCONF)
+        fields:
+        - index: 0
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 地址池cidr
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: N6 VRFID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: 优先级
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,255】
+          value: '100'
+          yaml_value: ''
+      - name: 查询UE IP地址池配置(SHOW UPFIPPOOLCONF)
+        level: 3
+        children: []
+        command: SHOW UPFIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - IP地址池配置
+          - UE IP地址池配置
+          - 查询UE IP地址池配置(SHOW UPFIPPOOLCONF)
+        fields:
+        - index: 0
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 删除UE IP地址池配置(DEL UPFIPPOOLCONF)
+        level: 3
+        children: []
+        command: DEL UPFIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - IP地址池配置
+          - UE IP地址池配置
+          - 删除UE IP地址池配置(DEL UPFIPPOOLCONF)
+        fields:
+        - index: 0
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+  - name: BGP配置
+    level: 1
+    children:
+    - name: BGP配置
+      level: 2
+      children:
+      - name: 增加BGP配置(ADD UPFBGPINFOCONF)
+        level: 3
+        children: []
+        command: ADD UPFBGPINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP配置
+          - 增加BGP配置(ADD UPFBGPINFOCONF)
+        fields:
+        - index: 0
+          label: 远端通信IP
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 远端AS号
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,65535】
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+      - name: 修改BGP配置(SET UPFBGPINFOCONF)
+        level: 3
+        children: []
+        command: SET UPFBGPINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP配置
+          - 修改BGP配置(SET UPFBGPINFOCONF)
+        fields:
+        - index: 0
+          label: 远端通信IP
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 远端AS号
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,65535】
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+      - name: 查询BGP配置(SHOW UPFBGPINFOCONF)
+        level: 3
+        children: []
+        command: SHOW UPFBGPINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP配置
+          - 查询BGP配置(SHOW UPFBGPINFOCONF)
+        fields:
+        - index: 0
+          label: 远端通信IP
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+      - name: 删除BGP配置(DEL UPFBGPINFOCONF)
+        level: 3
+        children: []
+        command: DEL UPFBGPINFOCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP配置
+          - 删除BGP配置(DEL UPFBGPINFOCONF)
+        fields:
+        - index: 0
+          label: 远端通信IP
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+    - name: BGP本地IP地址池配置
+      level: 2
+      children:
+      - name: 增加BGP本地IP地址池配置(ADD UPFBGPLOCALIPPOOLCONF)
+        level: 3
+        children: []
+        command: ADD UPFBGPLOCALIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP本地IP地址池配置
+          - 增加BGP本地IP地址池配置(ADD UPFBGPLOCALIPPOOLCONF)
+        fields:
+        - index: 0
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: ipv4地址池
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4格式
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: ipv6地址池
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv6格式
+          value: ''
+          yaml_value: ''
+      - name: 查询BGP本地IP地址池配置(SHOW UPFBGPLOCALIPPOOLCONF)
+        level: 3
+        children: []
+        command: SHOW UPFBGPLOCALIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP本地IP地址池配置
+          - 查询BGP本地IP地址池配置(SHOW UPFBGPLOCALIPPOOLCONF)
+        fields:
+        - index: 0
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+      - name: 删除BGP本地IP地址池配置(DEL UPFBGPLOCALIPPOOLCONF)
+        level: 3
+        children: []
+        command: DEL UPFBGPLOCALIPPOOLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP本地IP地址池配置
+          - 删除BGP本地IP地址池配置(DEL UPFBGPLOCALIPPOOLCONF)
+        fields:
+        - index: 0
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+    - name: BGP ROUTER ID配置
+      level: 2
+      children:
+      - name: 增加BGP ROUTER ID配置(ADD UPFBGPROUTERIDCONF)
+        level: 3
+        children: []
+        command: ADD UPFBGPROUTERIDCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP ROUTER ID配置
+          - 增加BGP ROUTER ID配置(ADD UPFBGPROUTERIDCONF)
+        fields:
+        - index: 0
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+      - name: 查询BGP ROUTER ID配置(SHOW UPFBGPROUTERIDCONF)
+        level: 3
+        children: []
+        command: SHOW UPFBGPROUTERIDCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP ROUTER ID配置
+          - 查询BGP ROUTER ID配置(SHOW UPFBGPROUTERIDCONF)
+        fields:
+        - index: 0
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+      - name: 删除BGP ROUTER ID配置(DEL UPFBGPROUTERIDCONF)
+        level: 3
+        children: []
+        command: DEL UPFBGPROUTERIDCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 业务开通配置
+          - BGP配置
+          - BGP ROUTER ID配置
+          - 删除BGP ROUTER ID配置(DEL UPFBGPROUTERIDCONF)
+        fields:
+        - index: 0
+          label: 地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,49】
+          value: ''
+          yaml_value: ''
+- name: 系统功能配置
+  level: 0
+  children:
+  - name: 预定义规则配置
+    level: 1
+    children:
+    - name: 预定义规则PDR配置
+      level: 2
+      children:
+      - name: 增加预定义规则PDR配置(ADD UPFPREPDRCONF)
+        level: 3
+        children: []
+        command: ADD UPFPREPDRCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则PDR配置
+          - 增加预定义规则PDR配置(ADD UPFPREPDRCONF)
+        fields:
+        - index: 0
+          label: 预定义规则pdr名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: pdr规则
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,4294967295】
+          value: ''
+          yaml_value: ''
+      - name: 查询预定义规则PDR配置(SHOW UPFPREPDRCONF)
+        level: 3
+        children: []
+        command: SHOW UPFPREPDRCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则PDR配置
+          - 查询预定义规则PDR配置(SHOW UPFPREPDRCONF)
+        fields:
+        - index: 0
+          label: 预定义规则pdr名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 删除预定义规则PDR配置(DEL UPFPREPDRCONF)
+        level: 3
+        children: []
+        command: DEL UPFPREPDRCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则PDR配置
+          - 删除预定义规则PDR配置(DEL UPFPREPDRCONF)
+        fields:
+        - index: 0
+          label: 预定义规则pdr名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+    - name: 预定义规则FAR配置
+      level: 2
+      children:
+      - name: 增加预定义规则FAR配置(ADD UPFPREFARCONF)
+        level: 3
+        children: []
+        command: ADD UPFPREFARCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则FAR配置
+          - 增加预定义规则FAR配置(ADD UPFPREFARCONF)
+        fields:
+        - index: 0
+          label: far id
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: far规则
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,4294967295】
+          value: ''
+          yaml_value: ''
+      - name: 查询预定义规则FAR配置(SHOW UPFPREFARCONF)
+        level: 3
+        children: []
+        command: SHOW UPFPREFARCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则FAR配置
+          - 查询预定义规则FAR配置(SHOW UPFPREFARCONF)
+        fields:
+        - index: 0
+          label: far id
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 删除预定义规则FAR配置(DEL UPFPREFARCONF)
+        level: 3
+        children: []
+        command: DEL UPFPREFARCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则FAR配置
+          - 删除预定义规则FAR配置(DEL UPFPREFARCONF)
+        fields:
+        - index: 0
+          label: far id
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+    - name: 预定义规则QER配置
+      level: 2
+      children:
+      - name: 增加预定义规则QER配置(ADD UPFPREQERCONF)
+        level: 3
+        children: []
+        command: ADD UPFPREQERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则QER配置
+          - 增加预定义规则QER配置(ADD UPFPREQERCONF)
+        fields:
+        - index: 0
+          label: qer id
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: qer规则
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,4294967295】
+          value: ''
+          yaml_value: ''
+      - name: 查询预定义规则QER配置(SHOW UPFPREQERCONF)
+        level: 3
+        children: []
+        command: SHOW UPFPREQERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则QER配置
+          - 查询预定义规则QER配置(SHOW UPFPREQERCONF)
+        fields:
+        - index: 0
+          label: qer id
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 删除预定义规则QER配置(DEL UPFPREQERCONF)
+        level: 3
+        children: []
+        command: DEL UPFPREQERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则QER配置
+          - 删除预定义规则QER配置(DEL UPFPREQERCONF)
+        fields:
+        - index: 0
+          label: qer id
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+    - name: 预定义规则URR配置
+      level: 2
+      children:
+      - name: 增加预定义规则URR配置(ADD UPFPREURRCONF)
+        level: 3
+        children: []
+        command: ADD UPFPREURRCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则URR配置
+          - 增加预定义规则URR配置(ADD UPFPREURRCONF)
+        fields:
+        - index: 0
+          label: urr id
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: urr规则
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,4294967295】
+          value: ''
+          yaml_value: ''
+      - name: 查询预定义规则URR配置(SHOW UPFPREURRCONF)
+        level: 3
+        children: []
+        command: SHOW UPFPREURRCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则URR配置
+          - 查询预定义规则URR配置(SHOW UPFPREURRCONF)
+        fields:
+        - index: 0
+          label: urr id
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 删除预定义规则URR配置(DEL UPFPREURRCONF)
+        level: 3
+        children: []
+        command: DEL UPFPREURRCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 系统功能配置
+          - 预定义规则配置
+          - 预定义规则URR配置
+          - 删除预定义规则URR配置(DEL UPFPREURRCONF)
+        fields:
+        - index: 0
+          label: urr id
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+  - name: APPID配置
+    level: 1
+    children:
+    - name: 增加APPID配置(ADD UPFAPPIDCONF)
+      level: 2
+      children: []
+      command: ADD UPFAPPIDCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 系统功能配置
+        - APPID配置
+        - 增加APPID配置(ADD UPFAPPIDCONF)
+      fields:
+      - index: 0
+        label: APPID名称
+        field_type: input
+        input_type: text
+        placeholder: 字符型，长度范围【1,32】
+        value: ''
+        yaml_value: ''
+      - index: 1
+        label: 子规则编号
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【1,65535】
+        value: ''
+        yaml_value: ''
+      - index: 2
+        label: 子规则类型
+        field_type: input
+        input_type: text
+        placeholder: 请选择
+        value: ''
+        yaml_value: ''
+      - index: 3
+        label: 子规则类型
+        field_type: select
+        input_type: ''
+        placeholder: 请选择
+        value: ''
+        yaml_value: ''
+      - index: 4
+        label: 子规则内容
+        field_type: input
+        input_type: text
+        placeholder: 字符型，长度范围【1,256】
+        value: ''
+        yaml_value: ''
+    - name: 查询APPID配置(SHOW UPFAPPIDCONF)
+      level: 2
+      children: []
+      command: SHOW UPFAPPIDCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 系统功能配置
+        - APPID配置
+        - 查询APPID配置(SHOW UPFAPPIDCONF)
+      fields:
+      - index: 0
+        label: APPID名称
+        field_type: input
+        input_type: text
+        placeholder: 字符型，长度范围【1,32】
+        value: ''
+        yaml_value: ''
+      - index: 1
+        label: 子规则编号
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【1,65535】
+        value: ''
+        yaml_value: ''
+    - name: 删除APPID配置(DEL UPFAPPIDCONF)
+      level: 2
+      children: []
+      command: DEL UPFAPPIDCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 系统功能配置
+        - APPID配置
+        - 删除APPID配置(DEL UPFAPPIDCONF)
+      fields:
+      - index: 0
+        label: APPID名称
+        field_type: input
+        input_type: text
+        placeholder: 字符型，长度范围【1,32】
+        value: ''
+        yaml_value: ''
+      - index: 1
+        label: 子规则编号
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【1,65535】
+        value: ''
+        yaml_value: ''
+- name: 增强功能配置
+  level: 0
+  children:
+  - name: DNS Rewrite配置
+    level: 1
+    children:
+    - name: DNS Rewrite开关配置
+      level: 2
+      children:
+      - name: 增加DNS Rewrite开关配置(ADD UPFDNSREWRITESTATUSCONF)
+        level: 3
+        children: []
+        command: ADD UPFDNSREWRITESTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite开关配置
+          - 增加DNS Rewrite开关配置(ADD UPFDNSREWRITESTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 修改DNS Rewrite开关配置(SET UPFDNSREWRITESTATUSCONF)
+        level: 3
+        children: []
+        command: SET UPFDNSREWRITESTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite开关配置
+          - 修改DNS Rewrite开关配置(SET UPFDNSREWRITESTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 查询DNS Rewrite开关配置(SHOW UPFDNSREWRITESTATUSCONF)
+        level: 3
+        children: []
+        command: SHOW UPFDNSREWRITESTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite开关配置
+          - 查询DNS Rewrite开关配置(SHOW UPFDNSREWRITESTATUSCONF)
+        fields: []
+    - name: DNS Rewrite url配置
+      level: 2
+      children:
+      - name: 增加DNS Rewrite url配置(ADD UPFDNSREWRITEURLCONF)
+        level: 3
+        children: []
+        command: ADD UPFDNSREWRITEURLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite url配置
+          - 增加DNS Rewrite url配置(ADD UPFDNSREWRITEURLCONF)
+        fields:
+        - index: 0
+          label: url规则标识
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【300001,301024】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: url地址
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,256】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: dnn名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 修改DNS Rewrite url配置(SET UPFDNSREWRITEURLCONF)
+        level: 3
+        children: []
+        command: SET UPFDNSREWRITEURLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite url配置
+          - 修改DNS Rewrite url配置(SET UPFDNSREWRITEURLCONF)
+        fields:
+        - index: 0
+          label: url规则标识
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【300001,301024】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: url地址
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,256】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: dnn名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 查询DNS Rewrite url配置(SHOW UPFDNSREWRITEURLCONF)
+        level: 3
+        children: []
+        command: SHOW UPFDNSREWRITEURLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite url配置
+          - 查询DNS Rewrite url配置(SHOW UPFDNSREWRITEURLCONF)
+        fields:
+        - index: 0
+          label: url规则标识
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【300001,301024】
+          value: ''
+          yaml_value: ''
+      - name: 删除DNS Rewrite url配置(DEL UPFDNSREWRITEURLCONF)
+        level: 3
+        children: []
+        command: DEL UPFDNSREWRITEURLCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite url配置
+          - 删除DNS Rewrite url配置(DEL UPFDNSREWRITEURLCONF)
+        fields:
+        - index: 0
+          label: url规则标识
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【300001,301024】
+          value: ''
+          yaml_value: ''
+    - name: DNS Rewrite DNS配置
+      level: 2
+      children:
+      - name: 增加DNS Rewrite DNS配置(ADD UPFDNSREWRITEDNSCONF)
+        level: 3
+        children: []
+        command: ADD UPFDNSREWRITEDNSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite DNS配置
+          - 增加DNS Rewrite DNS配置(ADD UPFDNSREWRITEDNSCONF)
+        fields:
+        - index: 0
+          label: dnn名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 主用ip
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 主用端口
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,65535】
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: 备用ip
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 4
+          label: 备用端口
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,65535】
+          value: ''
+          yaml_value: ''
+      - name: 修改DNS Rewrite DNS配置(SET UPFDNSREWRITEDNSCONF)
+        level: 3
+        children: []
+        command: SET UPFDNSREWRITEDNSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite DNS配置
+          - 修改DNS Rewrite DNS配置(SET UPFDNSREWRITEDNSCONF)
+        fields:
+        - index: 0
+          label: dnn名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 主用ip
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 主用端口
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,65535】
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: 备用ip
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 4
+          label: 备用端口
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,65535】
+          value: ''
+          yaml_value: ''
+      - name: 查询DNS Rewrite DNS配置(SHOW UPFDNSREWRITEDNSCONF)
+        level: 3
+        children: []
+        command: SHOW UPFDNSREWRITEDNSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite DNS配置
+          - 查询DNS Rewrite DNS配置(SHOW UPFDNSREWRITEDNSCONF)
+        fields:
+        - index: 0
+          label: dnn名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 删除DNS Rewrite DNS配置(DEL UPFDNSREWRITEDNSCONF)
+        level: 3
+        children: []
+        command: DEL UPFDNSREWRITEDNSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DNS Rewrite配置
+          - DNS Rewrite DNS配置
+          - 删除DNS Rewrite DNS配置(DEL UPFDNSREWRITEDNSCONF)
+        fields:
+        - index: 0
+          label: dnn名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+  - name: DPI识别配置
+    level: 1
+    children:
+    - name: DPI重加载特征库开关配置
+      level: 2
+      children:
+      - name: 增加DPI重加载特征库开关配置(ADD UPFRELOADDPIFEATURECONF)
+        level: 3
+        children: []
+        command: ADD UPFRELOADDPIFEATURECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI重加载特征库开关配置
+          - 增加DPI重加载特征库开关配置(ADD UPFRELOADDPIFEATURECONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 修改DPI重加载特征库开关配置(SET UPFRELOADDPIFEATURECONF)
+        level: 3
+        children: []
+        command: SET UPFRELOADDPIFEATURECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI重加载特征库开关配置
+          - 修改DPI重加载特征库开关配置(SET UPFRELOADDPIFEATURECONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 查询DPI重加载特征库开关配置(SHOW UPFRELOADDPIFEATURECONF)
+        level: 3
+        children: []
+        command: SHOW UPFRELOADDPIFEATURECONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI重加载特征库开关配置
+          - 查询DPI重加载特征库开关配置(SHOW UPFRELOADDPIFEATURECONF)
+        fields: []
+    - name: DPI功能开关配置
+      level: 2
+      children:
+      - name: 增加DPI功能开关配置(ADD UPFDPISTATUSCONF)
+        level: 3
+        children: []
+        command: ADD UPFDPISTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI功能开关配置
+          - 增加DPI功能开关配置(ADD UPFDPISTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 修改DPI功能开关配置(SET UPFDPISTATUSCONF)
+        level: 3
+        children: []
+        command: SET UPFDPISTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI功能开关配置
+          - 修改DPI功能开关配置(SET UPFDPISTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 查询DPI功能开关配置(SHOW UPFDPISTATUSCONF)
+        level: 3
+        children: []
+        command: SHOW UPFDPISTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI功能开关配置
+          - 查询DPI功能开关配置(SHOW UPFDPISTATUSCONF)
+        fields: []
+    - name: DPI统计开关配置
+      level: 2
+      children:
+      - name: 增加DPI统计开关配置(ADD UPFDPICOUNTERSTATUS)
+        level: 3
+        children: []
+        command: ADD UPFDPICOUNTERSTATUS
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI统计开关配置
+          - 增加DPI统计开关配置(ADD UPFDPICOUNTERSTATUS)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 修改DPI统计开关配置(SET UPFDPICOUNTERSTATUS)
+        level: 3
+        children: []
+        command: SET UPFDPICOUNTERSTATUS
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI统计开关配置
+          - 修改DPI统计开关配置(SET UPFDPICOUNTERSTATUS)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 查询DPI统计开关配置(SHOW UPFDPICOUNTERSTATUS)
+        level: 3
+        children: []
+        command: SHOW UPFDPICOUNTERSTATUS
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI统计开关配置
+          - 查询DPI统计开关配置(SHOW UPFDPICOUNTERSTATUS)
+        fields: []
+    - name: DPI HTTP逐包检测开关配置
+      level: 2
+      children:
+      - name: 增加DPI HTTP逐包检测开关配置(ADD UPFDPIHTTPCONTINUESTATUSCONF)
+        level: 3
+        children: []
+        command: ADD UPFDPIHTTPCONTINUESTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI HTTP逐包检测开关配置
+          - 增加DPI HTTP逐包检测开关配置(ADD UPFDPIHTTPCONTINUESTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 修改DPI HTTP逐包检测开关配置(SET UPFDPIHTTPCONTINUESTATUSCONF)
+        level: 3
+        children: []
+        command: SET UPFDPIHTTPCONTINUESTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI HTTP逐包检测开关配置
+          - 修改DPI HTTP逐包检测开关配置(SET UPFDPIHTTPCONTINUESTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 查询DPI HTTP逐包检测开关配置(SHOW UPFDPIHTTPCONTINUESTATUSCONF)
+        level: 3
+        children: []
+        command: SHOW UPFDPIHTTPCONTINUESTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI HTTP逐包检测开关配置
+          - 查询DPI HTTP逐包检测开关配置(SHOW UPFDPIHTTPCONTINUESTATUSCONF)
+        fields: []
+    - name: DPI限速配置
+      level: 2
+      children:
+      - name: 增加DPI限速配置(ADD UPFDPIMETERCONF)
+        level: 3
+        children: []
+        command: ADD UPFDPIMETERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI限速配置
+          - 增加DPI限速配置(ADD UPFDPIMETERCONF)
+        fields:
+        - index: 0
+          label: 应用标识
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,2147483648】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 上行速率
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,2147483648】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 下行速率
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,2147483648】
+          value: ''
+          yaml_value: ''
+      - name: 修改DPI限速配置(SET UPFDPIMETERCONF)
+        level: 3
+        children: []
+        command: SET UPFDPIMETERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI限速配置
+          - 修改DPI限速配置(SET UPFDPIMETERCONF)
+        fields:
+        - index: 0
+          label: 应用标识
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,2147483648】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 上行速率
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,2147483648】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 下行速率
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,2147483648】
+          value: ''
+          yaml_value: ''
+      - name: 查询DPI限速配置(SHOW UPFDPIMETERCONF)
+        level: 3
+        children: []
+        command: SHOW UPFDPIMETERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI限速配置
+          - 查询DPI限速配置(SHOW UPFDPIMETERCONF)
+        fields:
+        - index: 0
+          label: 应用标识
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,2147483648】
+          value: ''
+          yaml_value: ''
+      - name: 删除DPI限速配置(DEL UPFDPIMETERCONF)
+        level: 3
+        children: []
+        command: DEL UPFDPIMETERCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI限速配置
+          - 删除DPI限速配置(DEL UPFDPIMETERCONF)
+        fields:
+        - index: 0
+          label: 应用标识
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,2147483648】
+          value: ''
+          yaml_value: ''
+    - name: DPI检测数量配置
+      level: 2
+      children:
+      - name: 增加DPI检测数量配置(ADD UPFDPIMAXNUMOFINSPECTIONPACKETCONF)
+        level: 3
+        children: []
+        command: ADD UPFDPIMAXNUMOFINSPECTIONPACKETCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI检测数量配置
+          - 增加DPI检测数量配置(ADD UPFDPIMAXNUMOFINSPECTIONPACKETCONF)
+        fields:
+        - index: 0
+          label: 数量
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,100】
+          value: ''
+          yaml_value: ''
+      - name: 修改DPI检测数量配置(SET UPFDPIMAXNUMOFINSPECTIONPACKETCONF)
+        level: 3
+        children: []
+        command: SET UPFDPIMAXNUMOFINSPECTIONPACKETCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI检测数量配置
+          - 修改DPI检测数量配置(SET UPFDPIMAXNUMOFINSPECTIONPACKETCONF)
+        fields:
+        - index: 0
+          label: 数量
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,100】
+          value: ''
+          yaml_value: ''
+      - name: 查询DPI检测数量配置(SHOW UPFDPIMAXNUMOFINSPECTIONPACKETCONF)
+        level: 3
+        children: []
+        command: SHOW UPFDPIMAXNUMOFINSPECTIONPACKETCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - DPI识别配置
+          - DPI检测数量配置
+          - 查询DPI检测数量配置(SHOW UPFDPIMAXNUMOFINSPECTIONPACKETCONF)
+        fields: []
+  - name: DSCP与VLAN映射配置
+    level: 1
+    children:
+    - name: 增加DSCP与VLAN映射配置(ADD UPFDSCPVLANPRICONF)
+      level: 2
+      children: []
+      command: ADD UPFDSCPVLANPRICONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 增强功能配置
+        - DSCP与VLAN映射配置
+        - 增加DSCP与VLAN映射配置(ADD UPFDSCPVLANPRICONF)
+      fields:
+      - index: 0
+        label: dscp标识
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【0,99】
+        value: ''
+        yaml_value: ''
+      - index: 1
+        label: vlan优先级
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【1,1024】
+        value: ''
+        yaml_value: ''
+    - name: 修改DSCP与VLAN映射配置(SET UPFDSCPVLANPRICONF)
+      level: 2
+      children: []
+      command: SET UPFDSCPVLANPRICONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 增强功能配置
+        - DSCP与VLAN映射配置
+        - 修改DSCP与VLAN映射配置(SET UPFDSCPVLANPRICONF)
+      fields:
+      - index: 0
+        label: dscp标识
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【0,99】
+        value: ''
+        yaml_value: ''
+      - index: 1
+        label: vlan优先级
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【1,1024】
+        value: ''
+        yaml_value: ''
+    - name: 查询DSCP与VLAN映射配置(SHOW UPFDSCPVLANPRICONF)
+      level: 2
+      children: []
+      command: SHOW UPFDSCPVLANPRICONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 增强功能配置
+        - DSCP与VLAN映射配置
+        - 查询DSCP与VLAN映射配置(SHOW UPFDSCPVLANPRICONF)
+      fields:
+      - index: 0
+        label: dscp标识
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【0,99】
+        value: ''
+        yaml_value: ''
+    - name: 删除DSCP与VLAN映射配置(DEL UPFDSCPVLANPRICONF)
+      level: 2
+      children: []
+      command: DEL UPFDSCPVLANPRICONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 增强功能配置
+        - DSCP与VLAN映射配置
+        - 删除DSCP与VLAN映射配置(DEL UPFDSCPVLANPRICONF)
+      fields:
+      - index: 0
+        label: dscp标识
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【0,99】
+        value: ''
+        yaml_value: ''
+  - name: 路由通告粒度配置
+    level: 1
+    children:
+    - name: 修改路由通告粒度配置(SET UPFDEBUGROUTEADVGRANULARITYCONF)
+      level: 2
+      children: []
+      command: SET UPFDEBUGROUTEADVGRANULARITYCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 增强功能配置
+        - 路由通告粒度配置
+        - 修改路由通告粒度配置(SET UPFDEBUGROUTEADVGRANULARITYCONF)
+      fields:
+      - index: 0
+        label: 通告粒度
+        field_type: input
+        input_type: text
+        placeholder: 请选择
+        value: '256'
+        yaml_value: ''
+      - index: 1
+        label: 通告粒度
+        field_type: select
+        input_type: ''
+        placeholder: 请选择
+        value: '256'
+        yaml_value: ''
+    - name: 查询路由通告粒度配置(SHOW UPFDEBUGROUTEADVGRANULARITYCONF)
+      level: 2
+      children: []
+      command: SHOW UPFDEBUGROUTEADVGRANULARITYCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 增强功能配置
+        - 路由通告粒度配置
+        - 查询路由通告粒度配置(SHOW UPFDEBUGROUTEADVGRANULARITYCONF)
+      fields: []
+  - name: 后路由RBMS配置
+    level: 1
+    children:
+    - name: 后路由开关配置
+      level: 2
+      children:
+      - name: 增加后路由开关配置(ADD UPFRBMSSTATUSCONF)
+        level: 3
+        children: []
+        command: ADD UPFRBMSSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - 后路由RBMS配置
+          - 后路由开关配置
+          - 增加后路由开关配置(ADD UPFRBMSSTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 修改后路由开关配置(SET UPFRBMSSTATUSCONF)
+        level: 3
+        children: []
+        command: SET UPFRBMSSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - 后路由RBMS配置
+          - 后路由开关配置
+          - 修改后路由开关配置(SET UPFRBMSSTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 查询后路由开关配置(SHOW UPFRBMSSTATUSCONF)
+        level: 3
+        children: []
+        command: SHOW UPFRBMSSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 增强功能配置
+          - 后路由RBMS配置
+          - 后路由开关配置
+          - 查询后路由开关配置(SHOW UPFRBMSSTATUSCONF)
+        fields: []
+- name: 高可靠功能配置
+  level: 0
+  children:
+  - name: Error Indication开关配置
+    level: 1
+    children:
+    - name: 增加Error Indication开关配置(ADD UPFERRORINDICATESENDSTATUSCONF)
+      level: 2
+      children: []
+      command: ADD UPFERRORINDICATESENDSTATUSCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 高可靠功能配置
+        - Error Indication开关配置
+        - 增加Error Indication开关配置(ADD UPFERRORINDICATESENDSTATUSCONF)
+      fields:
+      - index: 0
+        label: 使能状态
+        field_type: input
+        input_type: text
+        placeholder: 请选择
+        value: 不使能
+        yaml_value: ''
+      - index: 1
+        label: 使能状态
+        field_type: select
+        input_type: ''
+        placeholder: 请选择
+        value: 不使能
+        yaml_value: ''
+    - name: 修改Error Indication开关配置(SET UPFERRORINDICATESENDSTATUSCONF)
+      level: 2
+      children: []
+      command: SET UPFERRORINDICATESENDSTATUSCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 高可靠功能配置
+        - Error Indication开关配置
+        - 修改Error Indication开关配置(SET UPFERRORINDICATESENDSTATUSCONF)
+      fields:
+      - index: 0
+        label: 使能状态
+        field_type: input
+        input_type: text
+        placeholder: 请选择
+        value: 不使能
+        yaml_value: ''
+      - index: 1
+        label: 使能状态
+        field_type: select
+        input_type: ''
+        placeholder: 请选择
+        value: 不使能
+        yaml_value: ''
+    - name: 查询Error Indication开关配置(SHOW UPFERRORINDICATESENDSTATUSCONF)
+      level: 2
+      children: []
+      command: SHOW UPFERRORINDICATESENDSTATUSCONF
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - 高可靠功能配置
+        - Error Indication开关配置
+        - 查询Error Indication开关配置(SHOW UPFERRORINDICATESENDSTATUSCONF)
+      fields: []
+  - name: 惯性运行配置
+    level: 1
+    children:
+    - name: 惯性运行开关配置
+      level: 2
+      children:
+      - name: 增加惯性运行开关配置(ADD UPFINERTIARUNNINGSTATUSCONF)
+        level: 3
+        children: []
+        command: ADD UPFINERTIARUNNINGSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 高可靠功能配置
+          - 惯性运行配置
+          - 惯性运行开关配置
+          - 增加惯性运行开关配置(ADD UPFINERTIARUNNINGSTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 修改惯性运行开关配置(SET UPFINERTIARUNNINGSTATUSCONF)
+        level: 3
+        children: []
+        command: SET UPFINERTIARUNNINGSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 高可靠功能配置
+          - 惯性运行配置
+          - 惯性运行开关配置
+          - 修改惯性运行开关配置(SET UPFINERTIARUNNINGSTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 查询惯性运行开关配置(SHOW UPFINERTIARUNNINGSTATUSCONF)
+        level: 3
+        children: []
+        command: SHOW UPFINERTIARUNNINGSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 高可靠功能配置
+          - 惯性运行配置
+          - 惯性运行开关配置
+          - 查询惯性运行开关配置(SHOW UPFINERTIARUNNINGSTATUSCONF)
+        fields: []
+    - name: 惯性运行配置
+      level: 2
+      children:
+      - name: 增加惯性运行配置(ADD UPFINERTIARUNNINGCONF)
+        level: 3
+        children: []
+        command: ADD UPFINERTIARUNNINGCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 高可靠功能配置
+          - 惯性运行配置
+          - 惯性运行配置
+          - 增加惯性运行配置(ADD UPFINERTIARUNNINGCONF)
+        fields:
+        - index: 0
+          label: 惯性运行执行时间(min)
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【5,7200】
+          value: '7200'
+          yaml_value: ''
+        - index: 1
+          label: 惯性运行延迟执行时间(s)
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,300】
+          value: '30'
+          yaml_value: ''
+        - index: 2
+          label: urr上报缓存开关
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 3
+          label: urr上报缓存开关
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 4
+          label: urr上报时间间隔(ms)
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【100,30000】
+          value: '100'
+          yaml_value: ''
+      - name: 修改惯性运行配置(SET UPFINERTIARUNNINGCONF)
+        level: 3
+        children: []
+        command: SET UPFINERTIARUNNINGCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 高可靠功能配置
+          - 惯性运行配置
+          - 惯性运行配置
+          - 修改惯性运行配置(SET UPFINERTIARUNNINGCONF)
+        fields:
+        - index: 0
+          label: 惯性运行执行时间(min)
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【5,7200】
+          value: '7200'
+          yaml_value: ''
+        - index: 1
+          label: 惯性运行延迟执行时间(s)
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,300】
+          value: '30'
+          yaml_value: ''
+        - index: 2
+          label: urr上报缓存开关
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 3
+          label: urr上报缓存开关
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 4
+          label: urr上报时间间隔(ms)
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【100,30000】
+          value: '100'
+          yaml_value: ''
+      - name: 查询惯性运行配置(SHOW UPFINERTIARUNNINGCONF)
+        level: 3
+        children: []
+        command: SHOW UPFINERTIARUNNINGCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 高可靠功能配置
+          - 惯性运行配置
+          - 惯性运行配置
+          - 查询惯性运行配置(SHOW UPFINERTIARUNNINGCONF)
+        fields: []
+- name: 安全防护功能配置
+  level: 0
+  children:
+  - name: SMF偶联白名单配置
+    level: 1
+    children:
+    - name: SMF节点白名单开关配置
+      level: 2
+      children:
+      - name: 增加SMF节点白名单开关配置(ADD UPFSMFNODEWHITELISTSTATUSCONF)
+        level: 3
+        children: []
+        command: ADD UPFSMFNODEWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - SMF偶联白名单配置
+          - SMF节点白名单开关配置
+          - 增加SMF节点白名单开关配置(ADD UPFSMFNODEWHITELISTSTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 修改SMF节点白名单开关配置(SET UPFSMFNODEWHITELISTSTATUSCONF)
+        level: 3
+        children: []
+        command: SET UPFSMFNODEWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - SMF偶联白名单配置
+          - SMF节点白名单开关配置
+          - 修改SMF节点白名单开关配置(SET UPFSMFNODEWHITELISTSTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 查询SMF节点白名单开关配置(SHOW UPFSMFNODEWHITELISTSTATUSCONF)
+        level: 3
+        children: []
+        command: SHOW UPFSMFNODEWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - SMF偶联白名单配置
+          - SMF节点白名单开关配置
+          - 查询SMF节点白名单开关配置(SHOW UPFSMFNODEWHITELISTSTATUSCONF)
+        fields: []
+  - name: 终端白名单配置
+    level: 1
+    children:
+    - name: UE白名单开关配置
+      level: 2
+      children:
+      - name: 增加UE白名单开关配置(ADD UPFUEWHITELISTSTATUSCONF)
+        level: 3
+        children: []
+        command: ADD UPFUEWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - 终端白名单配置
+          - UE白名单开关配置
+          - 增加UE白名单开关配置(ADD UPFUEWHITELISTSTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 修改UE白名单开关配置(SET UPFUEWHITELISTSTATUSCONF)
+        level: 3
+        children: []
+        command: SET UPFUEWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - 终端白名单配置
+          - UE白名单开关配置
+          - 修改UE白名单开关配置(SET UPFUEWHITELISTSTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 查询UE白名单开关配置(SHOW UPFUEWHITELISTSTATUSCONF)
+        level: 3
+        children: []
+        command: SHOW UPFUEWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - 终端白名单配置
+          - UE白名单开关配置
+          - 查询UE白名单开关配置(SHOW UPFUEWHITELISTSTATUSCONF)
+        fields: []
+    - name: UE白名单配置
+      level: 2
+      children:
+      - name: 增加UE白名单配置(ADD UPFUEWHITELISTCONF)
+        level: 3
+        children: []
+        command: ADD UPFUEWHITELISTCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - 终端白名单配置
+          - UE白名单配置
+          - 增加UE白名单配置(ADD UPFUEWHITELISTCONF)
+        fields:
+        - index: 0
+          label: 终端号码
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【14,15】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 终端类型
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 终端类型
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+      - name: 查询UE白名单配置(SHOW UPFUEWHITELISTCONF)
+        level: 3
+        children: []
+        command: SHOW UPFUEWHITELISTCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - 终端白名单配置
+          - UE白名单配置
+          - 查询UE白名单配置(SHOW UPFUEWHITELISTCONF)
+        fields:
+        - index: 0
+          label: 终端号码
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【14,15】
+          value: ''
+          yaml_value: ''
+      - name: 删除UE白名单配置(DEL UPFUEWHITELISTCONF)
+        level: 3
+        children: []
+        command: DEL UPFUEWHITELISTCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - 终端白名单配置
+          - UE白名单配置
+          - 删除UE白名单配置(DEL UPFUEWHITELISTCONF)
+        fields:
+        - index: 0
+          label: 终端号码
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【14,15】
+          value: ''
+          yaml_value: ''
+  - name: DNN白名单配置
+    level: 1
+    children:
+    - name: DNN白名单开关配置
+      level: 2
+      children:
+      - name: 增加DNN白名单开关配置(ADD UPFDNNWHITELISTSTATUSCONF)
+        level: 3
+        children: []
+        command: ADD UPFDNNWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - DNN白名单配置
+          - DNN白名单开关配置
+          - 增加DNN白名单开关配置(ADD UPFDNNWHITELISTSTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 修改DNN白名单开关配置(SET UPFDNNWHITELISTSTATUSCONF)
+        level: 3
+        children: []
+        command: SET UPFDNNWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - DNN白名单配置
+          - DNN白名单开关配置
+          - 修改DNN白名单开关配置(SET UPFDNNWHITELISTSTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 查询DNN白名单开关配置(SHOW UPFDNNWHITELISTSTATUSCONF)
+        level: 3
+        children: []
+        command: SHOW UPFDNNWHITELISTSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - DNN白名单配置
+          - DNN白名单开关配置
+          - 查询DNN白名单开关配置(SHOW UPFDNNWHITELISTSTATUSCONF)
+        fields: []
+    - name: DNN白名单配置
+      level: 2
+      children:
+      - name: 增加DNN白名单配置(ADD UPFDNNWHITELISTCONF)
+        level: 3
+        children: []
+        command: ADD UPFDNNWHITELISTCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - DNN白名单配置
+          - DNN白名单配置
+          - 增加DNN白名单配置(ADD UPFDNNWHITELISTCONF)
+        fields:
+        - index: 0
+          label: DNN名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 查询DNN白名单配置(SHOW UPFDNNWHITELISTCONF)
+        level: 3
+        children: []
+        command: SHOW UPFDNNWHITELISTCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - DNN白名单配置
+          - DNN白名单配置
+          - 查询DNN白名单配置(SHOW UPFDNNWHITELISTCONF)
+        fields:
+        - index: 0
+          label: DNN名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+      - name: 删除DNN白名单配置(DEL UPFDNNWHITELISTCONF)
+        level: 3
+        children: []
+        command: DEL UPFDNNWHITELISTCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - DNN白名单配置
+          - DNN白名单配置
+          - 删除DNN白名单配置(DEL UPFDNNWHITELISTCONF)
+        fields:
+        - index: 0
+          label: DNN名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【1,63】
+          value: ''
+          yaml_value: ''
+  - name: SMF双向认证配置
+    level: 1
+    children:
+    - name: SMF节点uuid认证开关配置
+      level: 2
+      children:
+      - name: 增加SMF节点uuid认证开关配置(ADD UPFSMFNODEUUIDAUTHSTATUSCONF)
+        level: 3
+        children: []
+        command: ADD UPFSMFNODEUUIDAUTHSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - SMF双向认证配置
+          - SMF节点uuid认证开关配置
+          - 增加SMF节点uuid认证开关配置(ADD UPFSMFNODEUUIDAUTHSTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 修改SMF节点uuid认证开关配置(SET UPFSMFNODEUUIDAUTHSTATUSCONF)
+        level: 3
+        children: []
+        command: SET UPFSMFNODEUUIDAUTHSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - SMF双向认证配置
+          - SMF节点uuid认证开关配置
+          - 修改SMF节点uuid认证开关配置(SET UPFSMFNODEUUIDAUTHSTATUSCONF)
+        fields:
+        - index: 0
+          label: 使能状态
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+        - index: 1
+          label: 使能状态
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: 不使能
+          yaml_value: ''
+      - name: 查询SMF节点uuid认证开关配置(SHOW UPFSMFNODEUUIDAUTHSTATUSCONF)
+        level: 3
+        children: []
+        command: SHOW UPFSMFNODEUUIDAUTHSTATUSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 安全防护功能配置
+          - SMF双向认证配置
+          - SMF节点uuid认证开关配置
+          - 查询SMF节点uuid认证开关配置(SHOW UPFSMFNODEUUIDAUTHSTATUSCONF)
+        fields: []
+- name: 运维功能配置
+  level: 0
+  children:
+  - name: 网络连接检测
+    level: 1
+    children:
+    - name: 网路分析配置
+      level: 2
+      children:
+      - name: 增加网路分析配置(ADD UPFNETANALYSCONF)
+        level: 3
+        children: []
+        command: ADD UPFNETANALYSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 网路分析配置
+          - 增加网路分析配置(ADD UPFNETANALYSCONF)
+        fields:
+        - index: 0
+          label: 网路IP地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 分析方式
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: 分析方式
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+      - name: 查询网路分析配置(SHOW UPFNETANALYSCONF)
+        level: 3
+        children: []
+        command: SHOW UPFNETANALYSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 网路分析配置
+          - 查询网路分析配置(SHOW UPFNETANALYSCONF)
+        fields:
+        - index: 0
+          label: 网路IP地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+      - name: 删除网路分析配置(DEL UPFNETANALYSCONF)
+        level: 3
+        children: []
+        command: DEL UPFNETANALYSCONF
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 网路分析配置
+          - 删除网路分析配置(DEL UPFNETANALYSCONF)
+        fields:
+        - index: 0
+          label: 网路IP地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+    - name: 查询网路分析结果
+      level: 2
+      children:
+      - name: 查询网路分析结果(SHOW UPFGETNETDELAY)
+        level: 3
+        children: []
+        command: SHOW UPFGETNETDELAY
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 查询网路分析结果
+          - 查询网路分析结果(SHOW UPFGETNETDELAY)
+        fields:
+        - index: 0
+          label: 网路地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 测量类型
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 测量类型
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+    - name: 发起网络路径ping探测
+      level: 2
+      children:
+      - name: 发起网络路径ping探测(ADD UPFPINGNETWORKPATH)
+        level: 3
+        children: []
+        command: ADD UPFPINGNETWORKPATH
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 发起网络路径ping探测
+          - 发起网络路径ping探测(ADD UPFPINGNETWORKPATH)
+        fields:
+        - index: 0
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 角色类型
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 角色类型
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: 源IP地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 4
+          label: 目的IP地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 5
+          label: 发送探测报文次数
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,32】
+          value: '5'
+          yaml_value: ''
+        - index: 6
+          label: 发送探测报文负载长度
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【20,1400】
+          value: '56'
+          yaml_value: ''
+        - index: 7
+          label: 报文探测间隔（ms）
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,5000】
+          value: '500'
+          yaml_value: ''
+        - index: 8
+          label: 超时时间（ms）
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,5000】
+          value: '1000'
+          yaml_value: ''
+        - index: 9
+          label: 报文跳数
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,64】
+          value: '64'
+          yaml_value: ''
+    - name: 获取网络路径ping探测结果
+      level: 2
+      children:
+      - name: 获取网络路径ping探测结果(SHOW UPFPINGNETWORKPATHRESULT)
+        level: 3
+        children: []
+        command: SHOW UPFPINGNETWORKPATHRESULT
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 获取网络路径ping探测结果
+          - 获取网络路径ping探测结果(SHOW UPFPINGNETWORKPATHRESULT)
+        fields: []
+    - name: 发起网络路径trace探测
+      level: 2
+      children:
+      - name: 发起网络路径trace探测(ADD UPFTRACENETWORKPATH)
+        level: 3
+        children: []
+        command: ADD UPFTRACENETWORKPATH
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 发起网络路径trace探测
+          - 发起网络路径trace探测(ADD UPFTRACENETWORKPATH)
+        fields:
+        - index: 0
+          label: VRF ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,65535】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 角色类型
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 角色类型
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: 源IP地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 4
+          label: 目的IP地址
+          field_type: input
+          input_type: text
+          placeholder: IP地址，IPv4或IPv6格式，不带掩码
+          value: ''
+          yaml_value: ''
+        - index: 5
+          label: 发送探测报文次数
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,10】
+          value: '3'
+          yaml_value: ''
+        - index: 6
+          label: 发送探测报文长度
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【28,1400】
+          value: '60'
+          yaml_value: ''
+        - index: 7
+          label: 报文探测间隔（ms）
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,5000】
+          value: '0'
+          yaml_value: ''
+        - index: 8
+          label: 超时时间（ms）
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,5000】
+          value: '5000'
+          yaml_value: ''
+        - index: 9
+          label: 初始跳数
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,64】
+          value: '1'
+          yaml_value: ''
+        - index: 10
+          label: 最大跳数
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【1,64】
+          value: '30'
+          yaml_value: ''
+    - name: 获取网络路径trace探测结果
+      level: 2
+      children:
+      - name: 获取网络路径trace探测结果(SHOW UPFTRACENETWORKPATHRESULT)
+        level: 3
+        children: []
+        command: SHOW UPFTRACENETWORKPATHRESULT
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 运维功能配置
+          - 网络连接检测
+          - 获取网络路径trace探测结果
+          - 获取网络路径trace探测结果(SHOW UPFTRACENETWORKPATHRESULT)
+        fields: []
+- name: 统计信息管理
+  level: 0
+  children:
+  - name: 会话统计管理
+    level: 1
+    children:
+    - name: 查询会话流量统计信息
+      level: 2
+      children:
+      - name: 查询会话流量统计信息(SHOW UPFGETSESSIONTRAFFIC)
+        level: 3
+        children: []
+        command: SHOW UPFGETSESSIONTRAFFIC
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 会话统计管理
+          - 查询会话流量统计信息
+          - 查询会话流量统计信息(SHOW UPFGETSESSIONTRAFFIC)
+        fields:
+        - index: 0
+          label: 会话SEID值
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967295】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 会话IMSI值
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967295】
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 会话MSISDN值
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967295】
+          value: ''
+          yaml_value: ''
+        - index: 3
+          label: 会话IPv4值
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967295】
+          value: ''
+          yaml_value: ''
+        - index: 4
+          label: 会话IPv6值
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967295】
+          value: ''
+          yaml_value: ''
+        - index: 5
+          label: 会话S-NSSAI
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967295】
+          value: ''
+          yaml_value: ''
+        - index: 6
+          label: 会话DNN名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967295】
+          value: ''
+          yaml_value: ''
+    - name: 查询会话总数
+      level: 2
+      children:
+      - name: 查询会话总数(SHOW UPFGETSESSIONNUM)
+        level: 3
+        children: []
+        command: SHOW UPFGETSESSIONNUM
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 会话统计管理
+          - 查询会话总数
+          - 查询会话总数(SHOW UPFGETSESSIONNUM)
+        fields: []
+    - name: 查询会话信息
+      level: 2
+      children:
+      - name: 查询会话信息(SHOW UPFGETSESSIONINFO)
+        level: 3
+        children: []
+        command: SHOW UPFGETSESSIONINFO
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 会话统计管理
+          - 查询会话信息
+          - 查询会话信息(SHOW UPFGETSESSIONINFO)
+        fields:
+        - index: 0
+          label: 会话SEID值
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967295】
+          value: ''
+          yaml_value: ''
+  - name: license使用量
+    level: 1
+    children:
+    - name: 查询license使用量
+      level: 2
+      children:
+      - name: 查询license使用量(SHOW UPFGETLICENSEUSAGE)
+        level: 3
+        children: []
+        command: SHOW UPFGETLICENSEUSAGE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - license使用量
+          - 查询license使用量
+          - 查询license使用量(SHOW UPFGETLICENSEUSAGE)
+        fields:
+        - index: 0
+          label: license控制项参数
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: license控制项参数
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+  - name: 网元状态
+    level: 1
+    children:
+    - name: 查询网元状态
+      level: 2
+      children:
+      - name: 查询网元状态(SHOW UPFGETNESTATUS)
+        level: 3
+        children: []
+        command: SHOW UPFGETNESTATUS
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 网元状态
+          - 查询网元状态
+          - 查询网元状态(SHOW UPFGETNESTATUS)
+        fields:
+        - index: 0
+          label: 网元类型
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 网元类型
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+  - name: 节点关联信息
+    level: 1
+    children:
+    - name: 查询节点关联信息
+      level: 2
+      children:
+      - name: 查询节点关联信息(SHOW UPFGETNODEASSOCIATEINFO)
+        level: 3
+        children: []
+        command: SHOW UPFGETNODEASSOCIATEINFO
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 节点关联信息
+          - 查询节点关联信息
+          - 查询节点关联信息(SHOW UPFGETNODEASSOCIATEINFO)
+        fields:
+        - index: 0
+          label: 指定请求特定IP的偶连节点信息
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967295】
+          value: ''
+          yaml_value: ''
+  - name: 信令指标统计信息
+    level: 1
+    children:
+    - name: 查询信令指标统计信息
+      level: 2
+      children:
+      - name: 查询信令指标统计信息(SHOW UPFGETPFCPSTATS)
+        level: 3
+        children: []
+        command: SHOW UPFGETPFCPSTATS
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 信令指标统计信息
+          - 查询信令指标统计信息
+          - 查询信令指标统计信息(SHOW UPFGETPFCPSTATS)
+        fields: []
+  - name: 所有UPC在线会话数
+    level: 1
+    children:
+    - name: 查询所有UPC在线会话数
+      level: 2
+      children:
+      - name: 查询所有UPC在线会话数(SHOW UPFGETUPCSESSIONNUM)
+        level: 3
+        children: []
+        command: SHOW UPFGETUPCSESSIONNUM
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 所有UPC在线会话数
+          - 查询所有UPC在线会话数
+          - 查询所有UPC在线会话数(SHOW UPFGETUPCSESSIONNUM)
+        fields: []
+  - name: 所有UPU转发速率
+    level: 1
+    children:
+    - name: 查询所有UPU转发速率
+      level: 2
+      children:
+      - name: 查询所有UPU转发速率(SHOW UPFGETUPUFORWARDRATE)
+        level: 3
+        children: []
+        command: SHOW UPFGETUPUFORWARDRATE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 所有UPU转发速率
+          - 查询所有UPU转发速率
+          - 查询所有UPU转发速率(SHOW UPFGETUPUFORWARDRATE)
+        fields: []
+  - name: 整机速率
+    level: 1
+    children:
+    - name: 查询整机速率
+      level: 2
+      children:
+      - name: 查询整机速率(SHOW UPFGETWHOLEMACHINERATE)
+        level: 3
+        children: []
+        command: SHOW UPFGETWHOLEMACHINERATE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 整机速率
+          - 查询整机速率
+          - 查询整机速率(SHOW UPFGETWHOLEMACHINERATE)
+        fields: []
+  - name: 角色接口速率
+    level: 1
+    children:
+    - name: 查询角色接口速率
+      level: 2
+      children:
+      - name: 查询角色接口速率(SHOW UPFGETROLEINTERFACERATE)
+        level: 3
+        children: []
+        command: SHOW UPFGETROLEINTERFACERATE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 角色接口速率
+          - 查询角色接口速率
+          - 查询角色接口速率(SHOW UPFGETROLEINTERFACERATE)
+        fields: []
+  - name: 归属UPC及UPU实例
+    level: 1
+    children:
+    - name: 查询归属UPC及UPU实例
+      level: 2
+      children:
+      - name: 查询归属UPC及UPU实例(SHOW UPFGETUPCUPUINSTANCE)
+        level: 3
+        children: []
+        command: SHOW UPFGETUPCUPUINSTANCE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 归属UPC及UPU实例
+          - 查询归属UPC及UPU实例
+          - 查询归属UPC及UPU实例(SHOW UPFGETUPCUPUINSTANCE)
+        fields:
+        - index: 0
+          label: 终端类型
+          field_type: input
+          input_type: text
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: 终端类型
+          field_type: select
+          input_type: ''
+          placeholder: 请选择
+          value: ''
+          yaml_value: ''
+        - index: 2
+          label: 终端号码
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967297】
+          value: ''
+          yaml_value: ''
+  - name: BGP邻居状态
+    level: 1
+    children:
+    - name: 查询BGP邻居状态
+      level: 2
+      children:
+      - name: 查询BGP邻居状态(SHOW UPFGETBGPSTATUS)
+        level: 3
+        children: []
+        command: SHOW UPFGETBGPSTATUS
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - BGP邻居状态
+          - 查询BGP邻居状态
+          - 查询BGP邻居状态(SHOW UPFGETBGPSTATUS)
+        fields:
+        - index: 0
+          label: 实例ID
+          field_type: input
+          input_type: text
+          placeholder: 整数型，范围【0,100】
+          value: ''
+          yaml_value: ''
+  - name: UPC为组织粒度的UE地址池使用率
+    level: 1
+    children:
+    - name: 查询各UPC上的终端地址池使用率
+      level: 2
+      children:
+      - name: 查询各UPC上的终端地址池使用率(SHOW UPFGETLOCALUEIPPOOLUSAGEBYUPC)
+        level: 3
+        children: []
+        command: SHOW UPFGETLOCALUEIPPOOLUSAGEBYUPC
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - UPC为组织粒度的UE地址池使用率
+          - 查询各UPC上的终端地址池使用率
+          - 查询各UPC上的终端地址池使用率(SHOW UPFGETLOCALUEIPPOOLUSAGEBYUPC)
+        fields:
+        - index: 0
+          label: upc pod 名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967300】
+          value: ''
+          yaml_value: ''
+  - name: 整体的终端地址池使用率
+    level: 1
+    children:
+    - name: 查询整体的终端地址池使用率
+      level: 2
+      children:
+      - name: 查询整体的终端地址池使用率(SHOW UPFGETLOCALUEIPPOOLUSAGE)
+        level: 3
+        children: []
+        command: SHOW UPFGETLOCALUEIPPOOLUSAGE
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 整体的终端地址池使用率
+          - 查询整体的终端地址池使用率
+          - 查询整体的终端地址池使用率(SHOW UPFGETLOCALUEIPPOOLUSAGE)
+        fields:
+        - index: 0
+          label: 终端地址池名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967295】
+          value: ''
+          yaml_value: ''
+        - index: 1
+          label: vrf id
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967295】
+          value: ''
+          yaml_value: ''
+  - name: SMF分配的会话ip类型的统计
+    level: 1
+    children:
+    - name: 查询SMF分配的会话ip类型的统计
+      level: 2
+      children:
+      - name: 查询SMF分配的会话ip类型的统计(SHOW UPFGETSMFASSIGNEDUEIPSESSIONCNT)
+        level: 3
+        children: []
+        command: SHOW UPFGETSMFASSIGNEDUEIPSESSIONCNT
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - SMF分配的会话ip类型的统计
+          - 查询SMF分配的会话ip类型的统计
+          - 查询SMF分配的会话ip类型的统计(SHOW UPFGETSMFASSIGNEDUEIPSESSIONCNT)
+        fields:
+        - index: 0
+          label: upc pod 名称
+          field_type: input
+          input_type: text
+          placeholder: 字符型，长度范围【0,4294967300】
+          value: ''
+          yaml_value: ''
+  - name: 业务接口属性信息
+    level: 1
+    children:
+    - name: 查询业务接口属性信息
+      level: 2
+      children:
+      - name: 查询业务接口属性信息(SHOW UPFGETINTERFACEATTRINFO)
+        level: 3
+        children: []
+        command: SHOW UPFGETINTERFACEATTRINFO
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 业务接口属性信息
+          - 查询业务接口属性信息
+          - 查询业务接口属性信息(SHOW UPFGETINTERFACEATTRINFO)
+        fields: []
+  - name: 惯性运行会话数
+    level: 1
+    children:
+    - name: 查询所有UPC惯性运行会话数
+      level: 2
+      children:
+      - name: 查询所有UPC惯性运行会话数(SHOW UPFGETUPCINERTIASESSIONINFO)
+        level: 3
+        children: []
+        command: SHOW UPFGETUPCINERTIASESSIONINFO
+        execute_method:
+          type: command_processing
+          network_element: 10.230.4.248
+          path_by_name:
+          - 统计信息管理
+          - 惯性运行会话数
+          - 查询所有UPC惯性运行会话数
+          - 查询所有UPC惯性运行会话数(SHOW UPFGETUPCINERTIASESSIONINFO)
+        fields: []
+- name: OAM配置
+  level: 0
+  children:
+  - name: 网元基本信息
+    level: 1
+    children:
+    - name: 修改网元基本信息(SET OAMBASEINFO)
+      level: 2
+      children: []
+      command: SET OAMBASEINFO
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - OAM配置
+        - 网元基本信息
+        - 修改网元基本信息(SET OAMBASEINFO)
+      fields:
+      - index: 0
+        label: 完整地址
+        field_type: input
+        input_type: text
+        placeholder: 字符型，长度范围【0,1024】
+        value: ''
+        yaml_value: ''
+      - index: 1
+        label: 设备名称
+        field_type: input
+        input_type: text
+        placeholder: 字符型，长度范围【0,1024】
+        value: ''
+        yaml_value: ''
+      - index: 2
+        label: 地址编号
+        field_type: input
+        input_type: text
+        placeholder: 字符型，长度范围【0,1024】
+        value: ''
+        yaml_value: ''
+      - index: 3
+        label: 省份ID
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【11,65】
+        value: ''
+        yaml_value: ''
+    - name: 查询网元基本信息(SHOW OAMBASEINFO)
+      level: 2
+      children: []
+      command: SHOW OAMBASEINFO
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - OAM配置
+        - 网元基本信息
+        - 查询网元基本信息(SHOW OAMBASEINFO)
+      fields: []
+  - name: 网元版本信息
+    level: 1
+    children:
+    - name: 查询网元版本信息(SHOW OAMVERSION)
+      level: 2
+      children: []
+      command: SHOW OAMVERSION
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - OAM配置
+        - 网元版本信息
+        - 查询网元版本信息(SHOW OAMVERSION)
+      fields: []
+  - name: 当前系统时间
+    level: 1
+    children:
+    - name: 查询当前系统时间(SHOW OAMSYSTIME)
+      level: 2
+      children: []
+      command: SHOW OAMSYSTIME
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - OAM配置
+        - 当前系统时间
+        - 查询当前系统时间(SHOW OAMSYSTIME)
+      fields: []
+  - name: 系统时区
+    level: 1
+    children:
+    - name: 查询系统时区(SHOW OAMTIMEZONE)
+      level: 2
+      children: []
+      command: SHOW OAMTIMEZONE
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - OAM配置
+        - 系统时区
+        - 查询系统时区(SHOW OAMTIMEZONE)
+      fields: []
+  - name: 告警接收器
+    level: 1
+    children:
+    - name: 查询告警接收器(SHOW OAMALERTRECEIVER)
+      level: 2
+      children: []
+      command: SHOW OAMALERTRECEIVER
+      execute_method:
+        type: command_processing
+        network_element: 10.230.4.248
+        path_by_name:
+        - OAM配置
+        - 告警接收器
+        - 查询告警接收器(SHOW OAMALERTRECEIVER)
+      fields:
+      - index: 0
+        label: 告警接收器ID
+        field_type: input
+        input_type: text
+        placeholder: 整数型，范围【0,9223372036854776000】
+        value: ''
+        yaml_value: ''

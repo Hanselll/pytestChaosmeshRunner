@@ -1,0 +1,115 @@
+{
+  "name": "dnn_vrf_create_and_compare",
+  "description": "Create a DNN VRF mapping from web UI, compare queried web row with database row, then clean up.",
+  "defaults": {
+    "network_element_ref": "upf_primary",
+    "db": {
+      "host": "127.0.0.1",
+      "port": 55432,
+      "user": "postgres",
+      "password": "Mecdev_2023",
+      "database": "db_upf",
+      "schema": "ems_upf",
+      "psql_path": "C:\\Program Files\\PostgreSQL\\14\\bin\\psql.exe",
+      "source": "mml_exec_log_show"
+    }
+  },
+  "variables": {
+    "dnn_name": "LLLXXXCCC",
+    "n3_vrfid": "30001",
+    "n6_vrfid": "1",
+    "n9_vrfid": "50001",
+    "s1u_vrfid": "40001"
+  },
+  "setup": [
+    {
+      "id": "delete_before",
+      "name": "Delete existing DNN before create",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": [
+          "业务开通配置",
+          "DNN配置",
+          "DNN VRF映射配置",
+          "删除DNN VRF映射配置(DEL UPFDNNVRFCONF)"
+        ],
+        "params": {
+          "DNN名称": "${variables.dnn_name}"
+        },
+        "submit": true
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": "create_dnn",
+      "name": "Create DNN VRF mapping from web",
+      "action": "config-write",
+      "task": {
+        "path_by_name": [
+          "业务开通配置",
+          "DNN配置",
+          "DNN VRF映射配置",
+          "增加DNN VRF映射配置(ADD UPFDNNVRFCONF)"
+        ],
+        "params": {
+          "DNN名称": "${variables.dnn_name}",
+          "N3 VRFID": "${variables.n3_vrfid}",
+          "N6 VRFID": "${variables.n6_vrfid}",
+          "N9 VRFID": "${variables.n9_vrfid}",
+          "S1U VRFID": "${variables.s1u_vrfid}"
+        },
+        "submit": true
+      },
+      "assertions": [
+        {
+          "path": "submitted",
+          "equals": true
+        }
+      ]
+    },
+    {
+      "id": "compare_dnn",
+      "name": "Compare web query row and database row",
+      "action": "config-dnn-compare",
+      "task": {
+        "dnn_name": "${variables.dnn_name}"
+      },
+      "assertions": [
+        {
+          "path": "summary.compared_row_count",
+          "equals": 1
+        },
+        {
+          "path": "summary.mismatch_row_count",
+          "equals": 0
+        },
+        {
+          "path": "summary.all_match",
+          "equals": true
+        }
+      ]
+    }
+  ],
+  "teardown": [
+    {
+      "id": "delete_after",
+      "name": "Delete DNN after testcase",
+      "action": "config-write",
+      "continue_on_failure": true,
+      "task": {
+        "path_by_name": [
+          "业务开通配置",
+          "DNN配置",
+          "DNN VRF映射配置",
+          "删除DNN VRF映射配置(DEL UPFDNNVRFCONF)"
+        ],
+        "params": {
+          "DNN名称": "${variables.dnn_name}"
+        },
+        "submit": true
+      }
+    }
+  ]
+}

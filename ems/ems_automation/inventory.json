@@ -1,0 +1,13 @@
+{
+  "network_elements": {
+    "upf_primary": {
+      "display_name": "10.230.4.249",
+      "ip": "10.230.4.249",
+      "alias": "upf-primary",
+      "match_texts": [
+        "10.230.4.249",
+        "upf-primary"
+      ]
+    }
+  }
+}

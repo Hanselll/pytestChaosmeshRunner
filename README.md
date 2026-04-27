@@ -115,6 +115,27 @@ network_expand_to_component_pods: true
 
 注意：扩展是按 `from`/`to` 各自目标组分别进行，NetworkChaos 仅发生在这两组目标之间，不会扩展为 namespace 内所有 Pod 两两互通故障。
 
+### 1.5 EMS 告警收尾查询（可选）
+
+runner 支持在非 dry-run 用例的最后一步调用项目内 EMS 自动化工具，查询并导出活动告警和历史告警：
+
+```yaml
+EMS_ALARM_ENABLED: true
+EMS_ALARM_TARGET: all
+EMS_ALARM_OUTPUT_DIR: ""
+EMS_ALARM_TIMEOUT_SECONDS: 180
+EMS_ALARM_PYTHON: ""
+EMS_AUTOMATION_DIR: ems/ems_automation
+```
+
+启用后，runner 会执行：
+
+```powershell
+python -m ems_automation.cli alarm-read --target all --output-dir <case-log-dir>\ems_alarm_<workflow>_<timestamp>
+```
+
+输出包含 `alarm_export_summary.json`、`activity_alarm.json`、`history_alarm.json` 及对应 CSV。若 `EMS_ALARM_OUTPUT_DIR` 为空，结果默认写入本次 case log 目录下。
+
 ### 1.3 推荐查看方式
 
 ```bash
