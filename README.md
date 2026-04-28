@@ -1,4 +1,4 @@
-# ChaosMesh Workflow Runner v13
+# ChaosMesh Workflow Runner
 
 `chaosmesh_workflow_runner_v13` 是一套 **基于 Chaos Mesh Workflow 的高阶实验编排工具**，用于在 Kubernetes 环境中自动生成/执行混沌用例（Workflow YAML），覆盖 **网络故障（delay/loss/partition）**、**PodKill**、**ContainerKill**，并支持 **角色感知目标解析（master/leader/talker 等）**。
 
