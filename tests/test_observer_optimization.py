@@ -143,6 +143,51 @@ def test_collect_pod_resource_usage_records_unavailable(monkeypatch):
     }
 
 
+def test_log_resource_usage_includes_post_delta_from_pre_baseline():
+    class CaseLog:
+        def __init__(self):
+            self.lines = []
+
+        def log(self, line):
+            self.lines.append(line)
+
+    case_log = CaseLog()
+
+    observer._log_resource_usage(
+        case_log,
+        "[POST] Pod Resource Usage",
+        {
+            "enabled": True,
+            "rows": [
+                {"pod": "pod-a", "cpu": "150m", "memory": "64Mi"},
+                {"pod": "pod-b", "cpu": "50m", "memory": "30Mi"},
+            ],
+            "error": "",
+        },
+        baseline_usage={
+            "enabled": True,
+            "rows": [
+                {"pod": "pod-a", "cpu": "100m", "memory": "32Mi"},
+                {"pod": "pod-b", "cpu": "100m", "memory": "40Mi"},
+            ],
+            "error": "",
+        },
+    )
+
+    text = "\n".join(case_log.lines)
+    assert "CPU_DELTA" in text
+    assert "MEM_DELTA" in text
+    assert "pod-a" in text
+    assert "+50m" in text
+    assert "+50.0%" in text
+    assert "+32Mi" in text
+    assert "+100.0%" in text
+    assert "-50m" in text
+    assert "-50.0%" in text
+    assert "-10Mi" in text
+    assert "-25.0%" in text
+
+
 def test_dupf_host_log_dirs_expand_upu_related_series():
     dirs = observer._dupf_host_log_dirs_for_pod("dupf-upu-main-0")
 
@@ -168,6 +213,20 @@ def test_dupf_host_log_dirs_include_db_operator_roots():
     assert "/var/ctin/ctc-upf/sdb" in dirs
     assert "/var/ctin/ctc-upf/sdb-sentinel" in dirs
     assert "/var/ctin/ctc-upf/crash" in dirs
+
+
+def test_build_tail_files_command_collects_dev_and_startup_separately():
+    cmd = observer._build_tail_files_command(
+        ["/var/ctin/ctc-upf/var/log/service-logs/upu"],
+        file_count=12,
+        tail_lines=400,
+    )
+
+    assert "for sub in . dev startup" in cmd
+    assert "scope=\"$d/$sub\"" in cmd
+    assert "find \"$scope\" -maxdepth 1 -type f" in cmd
+    assert "head -n 12" in cmd
+    assert "tail -n 400" in cmd
 
 
 def test_build_ddb_host_log_filter_command_uses_local_and_utc_windows(monkeypatch):
@@ -314,6 +373,7 @@ def test_collect_single_pod_runtime_log_uses_dupf_node_logs_with_since_time(monk
                 "2026-04-23 10:20:29.999 ERROR old log",
                 "2026-04-23 10:20:30.000 INFO new host info",
                 "2026-04-23 10:20:31.000 DEBUG new host debug",
+                "WARN host warning without parsed timestamp",
                 "2026-04-23 10:20:32.000 WARN new host warning",
             ]
         )
@@ -329,8 +389,7 @@ def test_collect_single_pod_runtime_log_uses_dupf_node_logs_with_since_time(monk
 
     assert result["source"].startswith("node_fs:")
     assert result["lines"] == [
-        "2026-04-23 10:20:30.000 INFO new host info",
-        "2026-04-23 10:20:31.000 DEBUG new host debug",
+        "WARN host warning without parsed timestamp",
         "2026-04-23 10:20:32.000 WARN new host warning",
     ]
     assert internal_calls == [("ns-dupf", "dupf-upc-0", "node-1")]
@@ -348,6 +407,7 @@ def test_collect_single_pod_runtime_log_always_fetches_dupf_node_logs(monkeypatc
             [
                 "2026-04-23 10:20:31.000 INFO node fs log",
                 "2026-04-23 10:20:32.000 DEBUG node fs detail",
+                "2026-04-23 10:20:33.000 ERROR node fs error",
             ]
         )
 
@@ -362,8 +422,7 @@ def test_collect_single_pod_runtime_log_always_fetches_dupf_node_logs(monkeypatc
 
     assert result["source"].startswith("node_fs:/var/ctin/ctc-upf/")
     assert result["lines"] == [
-        "2026-04-23 10:20:31.000 INFO node fs log",
-        "2026-04-23 10:20:32.000 DEBUG node fs detail",
+        "2026-04-23 10:20:33.000 ERROR node fs error",
     ]
     assert internal_calls == [("ns-dupf", "dupf-upu-solarserver01-2-5986bf4db8-kdm75", "solarserver01")]
 

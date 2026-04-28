@@ -34,6 +34,7 @@ _DUPF_DB_LOG_ROOT = "/var/ctin/ctc-upf"
 _DUPF_DDB_HOST_LOG_DIR = "/var/ctin/ctc-upf/ddb"
 _DUPF_INTERNAL_LOG_FILES = 12
 _DUPF_INTERNAL_LOG_TAIL_LINES = 400
+_DUPF_INTERNAL_LOG_SUBDIRS = ["dev", "startup"]
 _DUPF_MQ_HOST_LOG_DIR = "/var/ctin/ctc-upf/mq-proxy"
 _DUPF_MQ_HOST_LOG_FILES = 4
 _DUPF_MQ_HOST_LOG_TAIL_LINES = 60
@@ -837,7 +838,108 @@ def _collect_pod_resource_usage(namespace):
     return {"enabled": True, "rows": [], "error": (text or "").strip() or "no metrics returned"}
 
 
-def _log_resource_usage(case_log, title, resource_usage):
+def _parse_cpu_millicores(value):
+    s = str(value or "").strip()
+    if not s:
+        return None
+    try:
+        if s.endswith("n"):
+            return float(s[:-1]) / 1000000.0
+        if s.endswith("u"):
+            return float(s[:-1]) / 1000.0
+        if s.endswith("m"):
+            return float(s[:-1])
+        return float(s) * 1000.0
+    except ValueError:
+        return None
+
+
+def _parse_memory_bytes(value):
+    s = str(value or "").strip()
+    if not s:
+        return None
+    units = {
+        "Ki": 1024.0,
+        "Mi": 1024.0 ** 2,
+        "Gi": 1024.0 ** 3,
+        "Ti": 1024.0 ** 4,
+        "Pi": 1024.0 ** 5,
+        "Ei": 1024.0 ** 6,
+        "K": 1000.0,
+        "M": 1000.0 ** 2,
+        "G": 1000.0 ** 3,
+        "T": 1000.0 ** 4,
+        "P": 1000.0 ** 5,
+        "E": 1000.0 ** 6,
+    }
+    for suffix, multiplier in sorted(units.items(), key=lambda item: len(item[0]), reverse=True):
+        if s.endswith(suffix):
+            try:
+                return float(s[: -len(suffix)]) * multiplier
+            except ValueError:
+                return None
+    try:
+        return float(s)
+    except ValueError:
+        return None
+
+
+def _format_signed_number(value, suffix="", decimals=0):
+    if value is None:
+        return "-"
+    if abs(value) < 0.000001:
+        value = 0.0
+    sign = "+" if value > 0 else ""
+    if decimals <= 0:
+        return "{}{:.0f}{}".format(sign, value, suffix)
+    return "{}{:.{}f}{}".format(sign, value, decimals, suffix)
+
+
+def _format_cpu_delta(delta_millicores):
+    return _format_signed_number(delta_millicores, "m", 0)
+
+
+def _format_memory_delta(delta_bytes):
+    if delta_bytes is None:
+        return "-"
+    abs_val = abs(delta_bytes)
+    units = [
+        ("Gi", 1024.0 ** 3),
+        ("Mi", 1024.0 ** 2),
+        ("Ki", 1024.0),
+    ]
+    for suffix, factor in units:
+        if abs_val >= factor:
+            decimals = 1 if abs_val / factor < 10 else 0
+            return _format_signed_number(delta_bytes / factor, suffix, decimals)
+    return _format_signed_number(delta_bytes, "B", 0)
+
+
+def _format_percent_delta(delta, base):
+    if delta is None or base is None:
+        return "-"
+    if abs(base) < 0.000001:
+        return "-" if abs(delta) < 0.000001 else "n/a"
+    return _format_signed_number((delta / base) * 100.0, "%", 1)
+
+
+def _resource_usage_delta(row, baseline_by_pod):
+    base = baseline_by_pod.get(row.get("pod", "")) or {}
+    pre_cpu = _parse_cpu_millicores(base.get("cpu"))
+    post_cpu = _parse_cpu_millicores(row.get("cpu"))
+    pre_mem = _parse_memory_bytes(base.get("memory"))
+    post_mem = _parse_memory_bytes(row.get("memory"))
+    cpu_delta = None if pre_cpu is None or post_cpu is None else post_cpu - pre_cpu
+    mem_delta = None if pre_mem is None or post_mem is None else post_mem - pre_mem
+    return {
+        "cpu_delta": _format_cpu_delta(cpu_delta),
+        "cpu_delta_pct": _format_percent_delta(cpu_delta, pre_cpu),
+        "memory_delta": _format_memory_delta(mem_delta),
+        "memory_delta_pct": _format_percent_delta(mem_delta, pre_mem),
+    }
+
+
+def _log_resource_usage(case_log, title, resource_usage, baseline_usage=None):
     usage = resource_usage or {}
     case_log.log(title)
     if not usage.get("enabled", True):
@@ -849,6 +951,29 @@ def _log_resource_usage(case_log, title, resource_usage):
     rows = usage.get("rows") or []
     if not rows:
         case_log.log("  <empty>")
+        return
+    baseline_rows = (baseline_usage or {}).get("rows") or []
+    baseline_by_pod = {row.get("pod", ""): row for row in baseline_rows if row.get("pod")}
+    if baseline_by_pod:
+        case_log.log(
+            "  {:<48} {:<10} {:<10} {:<12} {:<10} {:<10} {:<12}".format(
+                "POD", "CPU", "CPU_DELTA", "CPU_DELTA%", "MEMORY", "MEM_DELTA", "MEM_DELTA%"
+            )
+        )
+        case_log.log("  {}".format("-" * 124))
+        for row in rows:
+            delta = _resource_usage_delta(row, baseline_by_pod)
+            case_log.log(
+                "  {:<48} {:<10} {:<10} {:<12} {:<10} {:<10} {:<12}".format(
+                    row.get("pod", ""),
+                    row.get("cpu", ""),
+                    delta["cpu_delta"],
+                    delta["cpu_delta_pct"],
+                    row.get("memory", ""),
+                    delta["memory_delta"],
+                    delta["memory_delta_pct"],
+                )
+            )
         return
     case_log.log("  {:<48} {:<12} {}".format("POD", "CPU", "MEMORY"))
     case_log.log("  {}".format("-" * 80))
@@ -951,7 +1076,14 @@ def _is_error_log_line(line):
     return bool(_ERROR_LOG_RE.search(str(line or "")))
 
 
-def _filter_runtime_log_lines(text, max_lines, since_time=None, error_only=False, enforce_line_timestamp=False):
+def _filter_runtime_log_lines(
+    text,
+    max_lines,
+    since_time=None,
+    error_only=False,
+    enforce_line_timestamp=False,
+    keep_unparseable_timestamps=False,
+):
     lines = []
     since_utc = since_time.astimezone(timezone.utc) if since_time is not None else None
     for clean in _sanitize_log_text(text, 0):
@@ -961,7 +1093,10 @@ def _filter_runtime_log_lines(text, max_lines, since_time=None, error_only=False
             continue
         if since_utc is not None and enforce_line_timestamp:
             line_ts = _parse_log_timestamp(clean)
-            if line_ts is None or line_ts < since_utc:
+            if line_ts is None:
+                if not keep_unparseable_timestamps:
+                    continue
+            elif line_ts < since_utc:
                 continue
         lines.append(clean)
     if max_lines and len(lines) > max_lines:
@@ -1191,14 +1326,23 @@ def _build_tail_files_command(dirs, file_count, tail_lines):
         return "exit 0"
     cmd = (
         "for d in {dirs}; do "
-        "[ -d \"$d\" ] && find \"$d\" -type f 2>/dev/null; "
-        "done | xargs -r ls -1t 2>/dev/null | head -n {file_count} | "
+        "[ -d \"$d\" ] || continue; "
+        "for sub in . {subdirs}; do "
+        "if [ \"$sub\" = . ]; then "
+        "scope=\"$d\"; find \"$scope\" -maxdepth 1 -type f 2>/dev/null | xargs -r ls -1t 2>/dev/null | head -n {file_count}; "
+        "else "
+        "scope=\"$d/$sub\"; [ -d \"$scope\" ] && find \"$scope\" -type f 2>/dev/null | xargs -r ls -1t 2>/dev/null | head -n {file_count}; "
+        "fi; "
+        "done; "
+        "done | "
         "while IFS= read -r f; do "
+        "[ -f \"$f\" ] || continue; "
         "echo '>>>FILE:'$f; "
         "tail -n {tail_lines} \"$f\" 2>/dev/null; "
         "done"
     ).format(
         dirs=quoted_dirs,
+        subdirs=" ".join(shlex.quote(s) for s in _DUPF_INTERNAL_LOG_SUBDIRS),
         file_count=int(file_count),
         tail_lines=int(tail_lines),
     )
@@ -1320,19 +1464,22 @@ def _collect_single_pod_runtime_log(namespace, pod, since_time=None, pod_status_
                 internal_text,
                 _POST_LOG_MAX_LINES_PER_POD * 2,
                 since_time=since_time,
-                error_only=False,
+                error_only=True,
                 enforce_line_timestamp=True,
+                keep_unparseable_timestamps=True,
             )
             if internal_lines:
                 text = internal_text
                 source = "node_fs:{}".format(",".join(_dupf_host_log_dirs_for_pod(pod)))
     enforce_final_ts = source.startswith("node_fs:") or source.startswith("pod_internal:")
+    keep_unparseable_ts = source.startswith("node_fs:") and _uses_dupf_internal_logs(namespace, pod)
     lines = _filter_runtime_log_lines(
         text,
         _POST_LOG_MAX_LINES_PER_POD,
         since_time=since_time,
-        error_only=not source.startswith("node_fs:"),
+        error_only=not source.startswith("node_fs:") or _uses_dupf_internal_logs(namespace, pod),
         enforce_line_timestamp=enforce_final_ts,
+        keep_unparseable_timestamps=keep_unparseable_ts,
     )
     return {
         "pod": pod,
@@ -1688,7 +1835,12 @@ def collect_post_case_state(namespace, pre_state, case_log, lmt_mode="table", co
     lmt_state = _collect_lmt(namespace, lmt_mode=lmt_mode, commands=lmt_commands, pod_items=common.get("pod_items"))
 
     _log_pod_table(case_log, "[POST] Pod Status", common.get("post_display_map") or {})
-    _log_resource_usage(case_log, "[POST] Pod Resource Usage", common.get("resource_usage") or {})
+    _log_resource_usage(
+        case_log,
+        "[POST] Pod Resource Usage",
+        common.get("resource_usage") or {},
+        baseline_usage=pre_state.get("resource_usage") or {},
+    )
     _log_replacements(case_log, common.get("replacements") or {})
 
     case_log.log("[COMPARE] Pod PRE -> POST")

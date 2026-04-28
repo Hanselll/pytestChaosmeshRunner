@@ -1,11 +1,4 @@
-嗯… 无法访问此页面
-
-10.230.246.195 响应时间太长
-
-请尝试：
-
-检查连接
-检查代理和防火墙
-ERR_CONNECTION_TIMED_OUT
-刷新
-Microsoft Edge
+OOPS!
+The webmaster said that you can not enter this page...
+Please check that the URL you entered is correct, or click the button below to return to the homepage.
+返回首页
